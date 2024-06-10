@@ -1,24 +1,41 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Stripe } from "stripe";
+import { userSchema } from "../schemas/user.schema";
 
-const stripe = process.env.STRIPE_SECRET_KEY_TEST
-  ? new Stripe(process.env.STRIPE_SECRET_KEY_TEST)
-  : undefined;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_TEST ?? "");
 
 const userClient = new PrismaClient().user;
 
+const userRegisterSchema = userSchema.pick({
+  firstName: true,
+  lastName: true,
+  email: true,
+  password: true,
+});
+
+const userLoginSchema = userSchema.pick({
+  email: true,
+  password: true,
+});
+
 // Register a new user
-export const register = async (req: Request, res: Response) => {
-  const { firstName, lastName, email, password } = req.body;
+export const register = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { firstName, lastName, email, password } = userRegisterSchema.parse(
+    req.body,
+  );
   // Hash the password
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword: string = await bcrypt.hash(password, 10);
   // Create stripe customer
-  const customer = await stripe?.customers.create({
+  const customer: Stripe.Customer = await stripe.customers.create({
     email,
   });
-  const user = await userClient.create({
+  const user: User | null = await userClient.create({
     data: {
       firstName,
       lastName,
@@ -31,17 +48,24 @@ export const register = async (req: Request, res: Response) => {
 };
 
 // Login a user
-export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const user = await userClient.findUnique({
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { email, password } = userLoginSchema.parse(req.body);
+  const user: User | null = await userClient.findUniqueOrThrow({
     where: { email },
   });
   if (!user) {
-    res.status(400).json({ message: "Invalid email or password" });
+    throw new Error("Invalid email or password");
   }
-  const passwordMatch = await bcrypt.compare(password, user?.password ?? "");
+  const passwordMatch: boolean = await bcrypt.compare(
+    password,
+    user?.password ?? "",
+  );
   if (!passwordMatch) {
-    res.status(400).json({ message: "Invalid email or password" });
+    throw new Error("Invalid email or password");
   }
   res.status(200).json(user);
 };
