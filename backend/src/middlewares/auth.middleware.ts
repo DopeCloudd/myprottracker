@@ -14,7 +14,7 @@ export const checkEmail = async (
     where: { email },
   });
   if (user) {
-    res.status(400).json({ emailExists: true });
+    throw new Error("Email is already in use");
   }
   next();
 };
