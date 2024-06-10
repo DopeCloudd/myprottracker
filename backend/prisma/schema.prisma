@@ -57,7 +57,7 @@ model Product {
   quantity String
   brand String
   category Category? @relation(fields: [categoryId], references: [id])
-  categoryId Int?
+  categoryId Int
   url String
 
   createdAt DateTime @default(now())
