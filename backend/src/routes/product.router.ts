@@ -5,11 +5,12 @@ import {
   getProductById,
   getProducts,
 } from "../controllers/product.controller";
+import { tryCatch } from "../utils/tryCatch";
 
 const productRouter = Router();
 
-productRouter.get("/products", getProducts);
-productRouter.get("/products/:id", getProductById);
-productRouter.get("/products/category/:id", getProductByCategoryId);
+productRouter.get("/products", tryCatch(getProducts));
+productRouter.get("/products/:id", tryCatch(getProductById));
+productRouter.get("/products/category/:id", tryCatch(getProductByCategoryId));
 
 export default productRouter;
