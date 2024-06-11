@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { NextFunction, Request, Response } from "express";
 import { Stripe } from "stripe";
 import { userSchema } from "../schemas/user.schema";
+import { generateToken } from "../services/token";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_TEST ?? "");
 
@@ -44,7 +45,12 @@ export const register = async (
       stripeCustomerId: customer?.id,
     },
   });
-  res.status(200).json(user);
+
+  if (!user) {
+    throw new Error("User registration failed");
+  }
+
+  res.status(200).json({ success: true });
 };
 
 // Login a user
@@ -67,5 +73,16 @@ export const login = async (
   if (!passwordMatch) {
     throw new Error("Invalid email or password");
   }
-  res.status(200).json(user);
+
+  const token = generateToken(user.id);
+
+  res.status(200).json({
+    accessToken: token,
+    user: {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    },
+  });
 };
