@@ -48,7 +48,7 @@ export default function AvatarDropdown({
           <Avatar
             sx={{ width: { xs: 30, md: 40 }, height: { xs: 30, md: 40 } }}
           >
-            {textAvatar}
+            {textAvatar?.charAt(0)}
           </Avatar>
           <KeyboardArrowDownIcon />
         </Button>
