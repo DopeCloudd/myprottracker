@@ -1,11 +1,15 @@
-import { Typography } from "@mui/material";
+import { SxProps, Theme, Typography } from "@mui/material";
+import DOMPurify from "dompurify";
 
 type TitleObliqueProps = {
-  fontSize?: string;
+  sx?: SxProps<Theme>;
+  text: string;
   onClick?: () => void;
 };
 
 export default function TitleOblique(props: TitleObliqueProps) {
+  const sanitizedText = DOMPurify.sanitize(props.text);
+
   return (
     <Typography
       component="h1"
@@ -13,7 +17,7 @@ export default function TitleOblique(props: TitleObliqueProps) {
       sx={{
         fontFamily: "Integral Oblique, sans-serif",
         textTransform: "uppercase",
-        fontSize: props.fontSize ?? "2rem",
+        ...props.sx,
         "& span": {
           color: "#00A656",
           fontFamily: "Integral Oblique, sans-serif",
@@ -21,8 +25,7 @@ export default function TitleOblique(props: TitleObliqueProps) {
         },
       }}
       onClick={props.onClick}
-    >
-      MY<span>PROT</span>TRACKER
-    </Typography>
+      dangerouslySetInnerHTML={{ __html: sanitizedText }}
+    />
   );
 }
