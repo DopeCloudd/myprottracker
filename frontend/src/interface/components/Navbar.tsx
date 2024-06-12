@@ -1,11 +1,13 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import PersonIcon from "@mui/icons-material/Person";
-import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import TitleOblique from "./TitleOblique";
+import FlexBetween from "./global/FlexBetween";
+import FlexCenter from "./global/FlexCenter";
 import AuthButton from "./navbar/AuthButton";
 import AvatarDropdown from "./navbar/AvatarDropdown";
+import Logo from "./navbar/Logo";
 import SwitchLangage from "./navbar/SwitchLangage";
 
 function Navbar() {
@@ -45,63 +47,26 @@ function Navbar() {
   };
 
   return (
-    <Box
+    <FlexBetween
       sx={{
-        minHeight: "100px",
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        color: "#EAEDED",
-        fontWeight: "bold",
-        fontSize: "18px",
-        padding: "0 5%",
-        "& img": {
-          height: "100px",
-          width: "100px",
-          cursor: "pointer",
-        },
+        height: "100px",
+        px: 6,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          sx={{
-            height: { xs: "30px", sm: "40px" },
-            width: { xs: "30px", sm: "40px" },
-          }}
-        >
-          <img
-            style={{
-              height: "100%",
-              width: "100%",
-            }}
-            src="/icon.png"
-            alt="logo"
-            onClick={handleButtonClick}
-          />
-        </Box>
+      <FlexCenter>
+        <Logo imageUrl="/icon.png" handleClick={handleButtonClick} />
         <TitleOblique
-          fontSize="clamp(1rem, 0.4375rem + 1.5vw, 1.75rem)"
+          text="MY<span>PROT</span>TRACKER"
+          sx={{ ml: 2, fontSize: "clamp(1rem, 0.4375rem + 1.5vw, 1.75rem)" }}
           onClick={handleButtonClick}
         />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      </FlexCenter>
+      <FlexCenter>
         <SwitchLangage />
         <AvatarDropdown textAvatar="Valentin" items={LinkItem} />
         <AuthButton user={null} onClick={handleLogin} />
-      </Box>
-    </Box>
+      </FlexCenter>
+    </FlexBetween>
   );
 }
 
