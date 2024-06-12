@@ -1,8 +1,8 @@
-import { Theme, createTheme } from "@mui/material";
+import { ThemeOptions } from "@mui/material";
 import Integral from "./fonts/Fontspring-DEMO-integralcf-regular.otf";
 import IntegralOblique from "./fonts/Fontspring-DEMO-integralcf-regularoblique.otf";
 
-export const darkTheme: Theme = createTheme({
+export const themeSettings: ThemeOptions = {
   palette: {
     mode: "dark",
     primary: {
@@ -42,4 +42,47 @@ export const darkTheme: Theme = createTheme({
       },
     },
   },
-});
+  typography: {
+    fontFamily: ["Integral", "sans-serif"].join(","),
+    h1: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "2.5rem",
+      fontWeight: 700,
+    },
+    h2: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "2rem",
+      fontWeight: 700,
+    },
+    h3: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "1.5rem",
+      fontWeight: 700,
+    },
+    h4: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "1.25rem",
+      fontWeight: 700,
+    },
+    h5: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "1rem",
+      fontWeight: 700,
+    },
+    h6: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "0.875rem",
+      fontWeight: 700,
+    },
+    body1: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "1rem",
+      fontWeight: 400,
+    },
+    body2: {
+      fontFamily: ["Integral", "sans-serif"].join(","),
+      fontSize: "0.875rem",
+      fontWeight: 400,
+    },
+  },
+};
