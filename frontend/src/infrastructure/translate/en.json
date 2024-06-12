@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "login": "Sign in",
+    "register": "Sign up",
+    "logout": "Logout",
+    "profile": "Profile",
+    "filtres": "Filtres"
+  },
+  "home": {
+    "main-text": "COMPARE THE <span>QUALITY</span> OF YOUR NUTRITION AND FIND IT AT THE BEST <span>PRICE</span>",
+    "first-text": "We're your nutrition assistant, comparing and analyzing what you need!",
+    "second-text": "We help you choose the supplements that best suit you and we analyze each product for you using our score.",
+    "questions": "How do we rate products?",
+    "third-text": "We analyze the composition of the ingredients and macronutrients in each product to offer you quality products for your body and your needs.",
+    "button": "START COMPARING"
+  },
+  "copyright": {
+    "rights": "All rights reserved.",
+    "terms": "Terms of use."
+  },
+  "filtres": {
+    "titre": "Choose your product",
+    "whey": "Protein intake for your diet.",
+    "creatine": "Increase your performance and muscle gain.",
+    "preworkout": "Energy and endurance booster for your most intense sessions.",
+    "vitamines": "Boost your defenses and your muscles with good vitamins.",
+    "translated-text": "This is english"
+  },
+  "main": {
+    "back": "Back"
+  },
+  "product": {
+    "button": "BUY"
+  },
+  "Whey": {
+    "title": "Whey",
+    "description": "La grande indétrônable de tout sportif est bien sur la Whey pour vos meilleurs shakers protéinés."
+  },
+  "Clear Whey": {
+    "title": "Clear Whey",
+    "description": "Shakers not your thing? Clear whey is the right compromise: with its lighter consistency, you'll have no more excuses for getting your protein."
+  },
+  "Gainer": {
+    "title": "Gainer",
+    "description": "Putting on weight? Gainers are your best allies in your goal, combining protein and carbohydrates for your caloric intake."
+  },
+  "Creatine": {
+    "title": "Creatine",
+    "description": "Increase both your muscle mass and power. Optimize your muscular energy gain for your sessions."
+  },
+  "Pre-workout": {
+    "title": "Pre workout",
+    "description": "Need a boost? The pre-workout is there to provide the energy you're looking for throughout your most intensive sessions."
+  },
+  "Vitamines": {
+    "title": "Vitamines",
+    "description": "Boost your immune system and defenses. Give your body the minerals and vitamins it needs for good health."
+  },
+  "login": {
+    "title": "Sign in",
+    "email": "Email Address",
+    "password": "Password",
+    "button": "Sign in",
+    "register": "Don't have an account? Register",
+    "forgotten": "Forgot your password?"
+  },
+  "register": {
+    "title": "Sign up",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email Address",
+    "password": "Password",
+    "confirm": "Confirm password",
+    "terms": "I accept the terms of use",
+    "button": "Sign up",
+    "account": "Already have an account? Login"
+  }
+}
