@@ -1,9 +1,10 @@
+import Navbar from "@/interface/components/Navbar";
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
 
-interface LayoutProps {
+type LayoutProps = {
   children: ReactNode;
-}
+};
 
 export default function Layout({ children }: LayoutProps) {
   return (
@@ -12,10 +13,18 @@ export default function Layout({ children }: LayoutProps) {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        px: 4,
+        px: 6,
       }}
     >
-      {children}
+      <Navbar />
+      <Box
+        sx={{
+          flex: "1 0 auto",
+          minHeight: "calc(100vh - 100px)",
+        }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 }
