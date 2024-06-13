@@ -5,9 +5,10 @@ import { I18nextProvider } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import i18n from "./infrastructure/translate/i18n";
-import Navbar from "./interface/components/Navbar";
+import Layout from "./interface/layout";
 import Landing from "./interface/pages/Landing";
 import Login from "./interface/pages/Login";
+import Register from "./interface/pages/Register";
 import { themeSettings } from "./interface/ui/theme";
 
 const queryClient = new QueryClient();
@@ -21,10 +22,17 @@ export default function App() {
           <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <Box>
-              <Navbar />
               <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route path="/" element={<Landing />} />
+                <Route path="/register" element={<Register />} />
+                <Route
+                  path="/"
+                  element={
+                    <Layout>
+                      <Landing />
+                    </Layout>
+                  }
+                />
               </Routes>
             </Box>
           </ThemeProvider>
