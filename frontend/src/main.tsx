@@ -1,9 +1,13 @@
-import React from "react";
+import App from "@/App";
+import { store } from "@/infrastructure/store/store";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import { Provider } from "react-redux";
+
+setupListeners(store.dispatch);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>
+  </Provider>
 );
