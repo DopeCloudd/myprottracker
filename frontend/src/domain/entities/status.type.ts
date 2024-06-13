@@ -1,6 +1,6 @@
 export enum Status {
   IDLE = "IDLE",
-  PENDING = "PENDING",
+  LOADING = "LOADING",
   FULFILLED = "FULFILLED",
   REJECTED = "REJECTED",
 }
