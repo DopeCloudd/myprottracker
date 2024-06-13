@@ -1,12 +1,12 @@
+import { UserBasicInfo } from "@/domain/entities/user.type";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../domain/entities/user.type";
 
 type AuthButtonProps = {
-  user: User | null;
+  user?: UserBasicInfo;
   onClick: () => void;
 };
 
@@ -19,7 +19,7 @@ export default function AuthButton(props: AuthButtonProps) {
   };
 
   const handleLogout = () => {
-    console.log("Logout");
+    console.log("Logging out");
   };
 
   return (
