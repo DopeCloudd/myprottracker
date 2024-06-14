@@ -53,6 +53,10 @@ export const register = async (
   res.status(200).json({ success: true });
 };
 
+type UserLoginData = {
+  id: string;
+  password: string;
+};
 // Login a user
 export const login = async (
   req: Request,
@@ -60,16 +64,14 @@ export const login = async (
   next: NextFunction,
 ) => {
   const { email, password } = userLoginSchema.parse(req.body);
-  const user: User | null = await userClient.findUniqueOrThrow({
+  const user: UserLoginData | null = await userClient.findUnique({
     where: { email },
+    select: { id: true, password: true },
   });
   if (!user) {
     throw new Error("Invalid email or password");
   }
-  const passwordMatch: boolean = await bcrypt.compare(
-    password,
-    user?.password ?? "",
-  );
+  const passwordMatch: boolean = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
     throw new Error("Invalid email or password");
   }
@@ -77,12 +79,6 @@ export const login = async (
   const token = generateToken(user.id);
 
   res.status(200).json({
-    accessToken: token,
-    user: {
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-    },
+    token: token,
   });
 };
