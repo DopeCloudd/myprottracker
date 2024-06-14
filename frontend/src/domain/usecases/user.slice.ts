@@ -1,37 +1,71 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Status } from "@/domain/entities/status.type";
+import { FetchUser, User } from "@/domain/entities/user.type";
+import fetchClient from "@/infrastructure/api/fetch.instance";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type UserState = {
-  id: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  email: string | null;
+  user: User | null;
+  status: Status;
+  error: string | null;
 };
 
 const initialState: UserState = {
-  id: null,
-  firstName: null,
-  lastName: null,
-  email: null,
+  user: null,
+  status: Status.IDLE,
+  error: null,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserState>) => {
-      state.id = action.payload.id;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.email = action.payload.email;
-    },
     clearUser: (state) => {
-      state.id = null;
-      state.firstName = null;
-      state.lastName = null;
-      state.email = null;
+      state.user = null;
+      state.status = Status.IDLE;
+      state.error = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUser.pending, (state) => {
+        state.status = Status.LOADING;
+        state.error = null;
+      })
+      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
+        state.user = action.payload;
+        state.status = Status.FULFILLED;
+      })
+      .addCase(
+        fetchUser.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.status = Status.REJECTED;
+          state.error = action.payload ?? "Failed to fetch user data";
+        }
+      );
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const fetchUser = createAsyncThunk<
+  User,
+  FetchUser,
+  { rejectValue: string }
+>("user/fetchUser", async (token, { rejectWithValue }) => {
+  try {
+    const response = await fetchClient<User>({
+      method: "GET",
+      endpoint: `/user`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
 export default userSlice.reducer;
