@@ -4,17 +4,29 @@ type FetchOptions = {
   method: "GET" | "POST";
   endpoint: string;
   body?: Record<string, string>;
+  headers?: Record<string, string>;
 };
 
-const fetchClient = async ({ body, method, endpoint }: FetchOptions) => {
+type FetchResponse<T> = {
+  data: T;
+  error?: string;
+};
+
+const fetchClient = async <T>({
+  body,
+  method,
+  headers,
+  endpoint,
+}: FetchOptions): Promise<FetchResponse<T>> => {
   const config: RequestInit = {
     method: method,
     headers: {
       "Content-Type": "application/json",
+      ...headers,
     },
   };
 
-  if (method === "POST") {
+  if (method === "POST" && body) {
     config.body = JSON.stringify(body);
   }
 
@@ -22,11 +34,14 @@ const fetchClient = async ({ body, method, endpoint }: FetchOptions) => {
     const response = await fetch(`${API_URL}${endpoint}`, config);
     if (!response.ok) {
       const errorData = await response.json();
-      return Promise.reject(errorData);
+      return Promise.reject({ error: errorData });
     }
-    return await response.json();
+    const data = await response.json();
+    return { data };
   } catch (error) {
-    return Promise.reject(error);
+    return Promise.reject({
+      error: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
