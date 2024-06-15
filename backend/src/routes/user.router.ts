@@ -6,6 +6,6 @@ import { tryCatch } from "../utils/tryCatch";
 
 const userRouter = Router();
 
-userRouter.get("/user", verifyToken, tryCatch(getUserById));
+userRouter.get("/user", tryCatch(verifyToken), tryCatch(getUserById));
 
 export default userRouter;
