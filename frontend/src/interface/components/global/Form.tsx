@@ -1,6 +1,7 @@
-import { NewUser } from "@/domain/entities/user.type";
+import { RegisterUser } from "@/domain/entities/user.type";
 import { login, register } from "@/domain/usecases/auth.slice";
-import { RootState } from "@/infrastructure/store/store";
+import { fetchUser } from "@/domain/usecases/user.slice";
+import { AppDispatch, RootState } from "@/infrastructure/store/store";
 import { Copyright } from "@/interface/components/Copyright";
 import Loading from "@/interface/components/global/Loading";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -13,11 +14,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { UnknownAction } from "@reduxjs/toolkit";
 import { Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { ThunkDispatch } from "redux-thunk";
 import * as yup from "yup";
 
 const registerSchema = yup.object().shape({
@@ -51,15 +50,17 @@ export const Form = (props: FormProps) => {
   const isLogin = type === "login";
   const isRegister = type === "register";
 
-  const dispatch =
-    useDispatch<ThunkDispatch<RootState, unknown, UnknownAction>>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmit = (values: NewUser) => {
+  const onSubmit = async (values: RegisterUser) => {
     console.log(values);
     const { firstName, lastName, email, password } = values;
     if (isLogin) {
       try {
-        dispatch(login({ email, password }));
+        const action = await dispatch(login({ email, password }));
+        if (login.fulfilled.match(action)) {
+          dispatch(fetchUser());
+        }
       } catch (error) {
         console.log(error);
       }
