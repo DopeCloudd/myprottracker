@@ -16,7 +16,6 @@ export type LoginUserResponse = {
 
 export type RegisterUser = Omit<User, "id" | "createdAt"> & {
   password: string;
-  confirmPassword: string;
 };
 
 export type RegisterUserResponse = {
