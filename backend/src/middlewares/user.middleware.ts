@@ -20,6 +20,8 @@ export const verifyToken = async (
     token = token.slice(7, token.length).trimStart();
   }
 
+  console.log(token);
+
   const verified = jwt.verify(token, process.env.JWT_SECRET);
 
   if (!verified) {
