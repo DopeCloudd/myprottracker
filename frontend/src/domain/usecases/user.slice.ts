@@ -1,6 +1,7 @@
 import { Status } from "@/domain/entities/status.type";
-import { FetchUser, User } from "@/domain/entities/user.type";
+import { User } from "@/domain/entities/user.type";
 import fetchClient from "@/infrastructure/api/fetch.instance";
+import { RootState } from "@/infrastructure/store/store";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type UserState = {
@@ -47,9 +48,12 @@ const userSlice = createSlice({
 
 export const fetchUser = createAsyncThunk<
   User,
-  FetchUser,
-  { rejectValue: string }
->("user/fetchUser", async (token, { rejectWithValue }) => {
+  void,
+  { state: RootState; rejectValue: string }
+>("user/fetchUser", async (_, { getState, rejectWithValue }) => {
+  const state = getState();
+  const token = state.auth.token;
+  if (!token) return rejectWithValue("No token found");
   try {
     const response = await fetchClient<User>({
       method: "GET",
