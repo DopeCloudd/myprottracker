@@ -1,5 +1,6 @@
 import { Status } from "@/domain/entities/status.type";
 import {
+  FetchUser,
   LoginUser,
   LoginUserResponse,
   RegisterUser,
@@ -16,7 +17,7 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  token: localStorage.getItem("token"),
+  token: localStorage.getItem("token") || null,
   isAuthenticated: !!localStorage.getItem("token"),
   loading: Status.IDLE,
   error: null,
@@ -105,4 +106,33 @@ export const register = createAsyncThunk<
   }
 });
 
+export const refreshToken = createAsyncThunk<
+  LoginUserResponse,
+  FetchUser,
+  { rejectValue: string }
+>("auth/refreshToken", async (token, { rejectWithValue }) => {
+  try {
+    const response = await fetch("/auth/refresh", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to refresh token");
+    }
+
+    const result: LoginUserResponse = await response.json();
+    return result;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message);
+    } else {
+      return rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
