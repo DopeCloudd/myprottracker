@@ -1,3 +1,6 @@
+import { Language } from "@/application/translate/Language";
+import France from "@/interface/assets/flags/fr.svg";
+import England from "@/interface/assets/flags/gb.svg";
 import { Box, ListItemIcon } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -5,9 +8,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import France from "../../../assets/flags/fr.svg";
-import England from "../../../assets/flags/gb.svg";
-import { Language } from "../../../infrastructure/translate/Language";
 
 // Object mapping language codes to flag images
 const flags: { [key: string]: string } = {
