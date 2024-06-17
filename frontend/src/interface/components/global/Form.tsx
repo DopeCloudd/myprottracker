@@ -1,7 +1,6 @@
+import { login, register } from "@/application/redux/slices/auth.slice";
+import { RootState, useAppDispatch } from "@/application/redux/store";
 import { RegisterUser } from "@/domain/entities/user.type";
-import { login, register } from "@/domain/usecases/auth.slice";
-import { fetchUser } from "@/domain/usecases/user.slice";
-import { AppDispatch, RootState } from "@/infrastructure/store/store";
 import { Copyright } from "@/interface/components/Copyright";
 import Loading from "@/interface/components/global/Loading";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -15,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Formik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as yup from "yup";
 
@@ -50,17 +49,13 @@ export const Form = (props: FormProps) => {
   const isLogin = type === "login";
   const isRegister = type === "register";
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async (values: RegisterUser) => {
-    console.log(values);
     const { firstName, lastName, email, password } = values;
     if (isLogin) {
       try {
-        const action = await dispatch(login({ email, password }));
-        if (login.fulfilled.match(action)) {
-          dispatch(fetchUser());
-        }
+        dispatch(login({ email, password }));
       } catch (error) {
         console.log(error);
       }
