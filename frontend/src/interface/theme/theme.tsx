@@ -1,6 +1,6 @@
+import Integral from "@/interface/theme/fonts/Fontspring-DEMO-integralcf-regular.otf";
+import IntegralOblique from "@/interface/theme/fonts/Fontspring-DEMO-integralcf-regularoblique.otf";
 import { ThemeOptions } from "@mui/material";
-import Integral from "./fonts/Fontspring-DEMO-integralcf-regular.otf";
-import IntegralOblique from "./fonts/Fontspring-DEMO-integralcf-regularoblique.otf";
 
 export const themeSettings: ThemeOptions = {
   palette: {
