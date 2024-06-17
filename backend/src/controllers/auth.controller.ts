@@ -1,6 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { Stripe } from "stripe";
 import { userSchema } from "../schemas/user.schema";
 import { generateToken } from "../services/token";
@@ -21,12 +21,20 @@ const userLoginSchema = userSchema.pick({
   password: true,
 });
 
+const userIdSchema = userSchema.pick({ id: true });
+
+type UserResponse = Pick<
+  User,
+  "id" | "email" | "firstName" | "lastName" | "createdAt"
+>;
+
+type UserLoginData = Pick<
+  User,
+  "id" | "email" | "firstName" | "lastName" | "password" | "createdAt"
+>;
+
 // Register a new user
-export const register = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const register = async (req: Request, res: Response) => {
   const { firstName, lastName, email, password } = userRegisterSchema.parse(
     req.body,
   );
@@ -53,20 +61,19 @@ export const register = async (
   res.status(200).json({ success: true });
 };
 
-type UserLoginData = {
-  id: string;
-  password: string;
-};
 // Login a user
-export const login = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const login = async (req: Request, res: Response) => {
   const { email, password } = userLoginSchema.parse(req.body);
   const user: UserLoginData | null = await userClient.findUnique({
     where: { email },
-    select: { id: true, password: true },
+    select: {
+      id: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      password: true,
+      createdAt: true,
+    },
   });
   if (!user) {
     throw new Error("Invalid email or password");
@@ -80,5 +87,29 @@ export const login = async (
 
   res.status(200).json({
     token: token,
+    user: {
+      id: user.id,
+      email: user.email,
+    },
   });
+};
+
+// Refresh token
+export const refreshToken = async (req: Request, res: Response) => {
+  const { id } = userIdSchema.parse(req.body.token);
+  const user: UserResponse | null = await userClient.findUnique({
+    where: { id: id },
+    select: {
+      id: true,
+      email: true,
+      firstName: true,
+      lastName: true,
+      createdAt: true,
+    },
+  });
+  if (!user) {
+    throw new Error("User not found");
+  }
+  const newToken = generateToken(user.id);
+  res.status(200).json({ token: newToken, user });
 };
