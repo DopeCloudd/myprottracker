@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/infrastructure/store/hooks";
+import { RootState, useTypedSelector } from "@/application/redux/store";
 import TitleOblique from "@/interface/components/TitleOblique";
 import FlexBetween from "@/interface/components/mui/FlexBetween";
 import FlexCenter from "@/interface/components/mui/FlexCenter";
@@ -12,7 +12,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const user = useAppSelector((state) => state.auth.basicUserInfo);
+  const { user } = useTypedSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
 
   const LinkItem = [
@@ -52,6 +52,7 @@ function Navbar() {
     <FlexBetween
       sx={{
         height: "100px",
+        px: 6,
       }}
     >
       <FlexCenter gap={2}>
