@@ -11,6 +11,7 @@ export type LoginUser = Pick<User, "email"> & {
 };
 
 export type LoginUserResponse = {
+  user: User;
   token: string;
 };
 
@@ -24,22 +25,4 @@ export type RegisterUserResponse = {
 
 export type FetchUser = {
   token: string;
-};
-
-export type NewUser = User & {
-  firstName: string;
-  lastName: string;
-};
-
-export type UserBasicInfo = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-};
-
-export type UserProfileData = {
-  firstName: string;
-  lastName: string;
-  email: string;
 };
