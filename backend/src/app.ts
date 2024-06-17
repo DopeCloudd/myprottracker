@@ -6,6 +6,7 @@ import express, { Application } from "express";
 import helmet from "helmet";
 import { errorHandler } from "./middlewares/error.middleware";
 import authRouter from "./routes/auth.router";
+import categoryRouter from "./routes/category.router";
 import productRouter from "./routes/product.router";
 
 const app: Application = express();
@@ -22,6 +23,7 @@ app.use(compression());
 app.use(cookieParser());
 // Routes
 app.use(authRouter);
+app.use(categoryRouter);
 app.use(productRouter);
 // Error handler
 app.use(errorHandler);
