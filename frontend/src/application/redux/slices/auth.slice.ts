@@ -1,15 +1,16 @@
 import { Status } from "@/domain/entities/status.type";
 import {
-  FetchUser,
   LoginUser,
   LoginUserResponse,
   RegisterUser,
   RegisterUserResponse,
+  User,
 } from "@/domain/entities/user.type";
 import fetchClient from "@/infrastructure/api/fetch.instance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type AuthState = {
+  user: User | null;
   token: string | null;
   isAuthenticated: boolean;
   loading: Status;
@@ -17,6 +18,7 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
+  user: null,
   token: localStorage.getItem("token") || null,
   isAuthenticated: !!localStorage.getItem("token"),
   loading: Status.IDLE,
@@ -28,8 +30,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      state.user = null;
       state.token = null;
       state.isAuthenticated = false;
+      state.loading = Status.IDLE;
+      state.error = null;
       localStorage.removeItem("token");
     },
   },
@@ -39,15 +44,16 @@ export const authSlice = createSlice({
         state.loading = Status.LOADING;
         state.error = null;
       })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = Status.REJECTED;
+        state.error = action.payload || "Failed to login";
+      })
       .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
         state.token = action.payload.token;
         localStorage.setItem("token", action.payload.token);
         state.isAuthenticated = true;
         state.loading = Status.FULFILLED;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.loading = Status.REJECTED;
-        state.error = action.payload || "Failed to login";
       });
     builder
       .addCase(register.pending, (state) => {
@@ -59,6 +65,22 @@ export const authSlice = createSlice({
         state.error = action.payload || "Failed to register";
       })
       .addCase(register.fulfilled, (state) => {
+        state.loading = Status.FULFILLED;
+      });
+    builder
+      .addCase(refreshToken.pending, (state) => {
+        state.loading = Status.LOADING;
+        state.error = null;
+      })
+      .addCase(refreshToken.rejected, (state, action) => {
+        state.loading = Status.REJECTED;
+        state.error = action.payload || "Failed to register";
+      })
+      .addCase(refreshToken.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        localStorage.setItem("token", action.payload.token);
+        state.isAuthenticated = true;
         state.loading = Status.FULFILLED;
       });
   },
@@ -108,23 +130,19 @@ export const register = createAsyncThunk<
 
 export const refreshToken = createAsyncThunk<
   LoginUserResponse,
-  FetchUser,
+  string,
   { rejectValue: string }
 >("auth/refreshToken", async (token, { rejectWithValue }) => {
   try {
-    const response = await fetch("/auth/refresh", {
+    const response = await fetchClient<LoginUserResponse>({
       method: "GET",
+      endpoint: "/auth/refresh",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to refresh token");
-    }
-
-    const result: LoginUserResponse = await response.json();
-    return result;
+    console.log(response.data);
+    return response.data;
   } catch (error) {
     if (error instanceof Error) {
       return rejectWithValue(error.message);

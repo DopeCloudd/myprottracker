@@ -1,17 +1,17 @@
+import { RootState } from "@/application/redux/store";
 import { Status } from "@/domain/entities/status.type";
 import { User } from "@/domain/entities/user.type";
 import fetchClient from "@/infrastructure/api/fetch.instance";
-import { RootState } from "@/infrastructure/store/store";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type UserState = {
-  user: User | null;
+  data: User | null;
   status: Status;
   error: string | null;
 };
 
-const initialState: UserState = {
-  user: null,
+export const initialState: UserState = {
+  data: null,
   status: Status.IDLE,
   error: null,
 };
@@ -21,7 +21,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     clearUser: (state) => {
-      state.user = null;
+      state.data = null;
       state.status = Status.IDLE;
       state.error = null;
     },
@@ -33,7 +33,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
-        state.user = action.payload;
+        state.data = action.payload;
         state.status = Status.FULFILLED;
       })
       .addCase(
@@ -72,4 +72,5 @@ export const fetchUser = createAsyncThunk<
   }
 });
 
+export const { clearUser } = userSlice.actions;
 export default userSlice.reducer;

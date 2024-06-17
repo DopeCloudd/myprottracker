@@ -1,12 +1,10 @@
-import { logout } from "@/domain/usecases/auth.slice";
-import { fetchUser } from "@/domain/usecases/user.slice";
-import { AppDispatch } from "@/infrastructure/store/store";
+import { logout, refreshToken } from "@/application/redux/slices/auth.slice";
+import { useAppDispatch } from "@/application/redux/store";
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 const useToken = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -15,7 +13,7 @@ const useToken = () => {
       const currentTime = Date.now() / 1000;
 
       if (decodedToken.exp > currentTime) {
-        dispatch(fetchUser());
+        dispatch(refreshToken(token));
       } else {
         dispatch(logout());
       }
