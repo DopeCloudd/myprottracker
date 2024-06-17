@@ -1,3 +1,4 @@
+import { Copyright } from "@/interface/components/Copyright";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -7,7 +8,6 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Copyright } from "./Copyright";
 
 export default function Footer() {
   const location = useLocation();
@@ -34,6 +34,7 @@ export default function Footer() {
       <Divider />
       <Container
         sx={{
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
