@@ -1,10 +1,13 @@
-import useToken from "@/infrastructure/hooks/useToken";
-import i18n from "@/infrastructure/translate/i18n";
+import useToken from "@/application/hooks/useToken";
+import i18n from "@/application/translate/i18n";
 import Layout from "@/interface/layout";
-import Landing from "@/interface/pages/Landing";
-import Login from "@/interface/pages/Login";
-import Register from "@/interface/pages/Register";
-import { themeSettings } from "@/interface/ui/theme";
+import Categories from "@/interface/pages/categories.page";
+import Landing from "@/interface/pages/landing.page";
+import Login from "@/interface/pages/login.page";
+import ProductList from "@/interface/pages/product.list.page";
+import Product from "@/interface/pages/product.page";
+import Register from "@/interface/pages/register.page";
+import { themeSettings } from "@/interface/theme/theme";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
@@ -33,6 +36,30 @@ export default function App() {
                   element={
                     <Layout>
                       <Landing />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/categories"
+                  element={
+                    <Layout>
+                      <Categories />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/catgories/:id/products/"
+                  element={
+                    <Layout>
+                      <ProductList />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/product/:id"
+                  element={
+                    <Layout>
+                      <Product />
                     </Layout>
                   }
                 />

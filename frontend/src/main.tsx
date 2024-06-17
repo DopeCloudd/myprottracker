@@ -1,5 +1,5 @@
 import App from "@/App";
-import { store } from "@/infrastructure/store/store";
+import { store } from "@/application/redux/store";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
