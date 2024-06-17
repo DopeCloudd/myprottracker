@@ -1,3 +1,4 @@
+import Footer from "@/interface/components/Footer";
 import Navbar from "@/interface/components/Navbar";
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
@@ -13,7 +14,6 @@ export default function Layout({ children }: LayoutProps) {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        px: 6,
       }}
     >
       <Navbar />
@@ -25,6 +25,7 @@ export default function Layout({ children }: LayoutProps) {
       >
         {children}
       </Box>
+      <Footer />
     </Box>
   );
 }
