@@ -1,7 +1,7 @@
 import { RootState, useTypedSelector } from "@/application/redux/store";
 import TitleOblique from "@/interface/components/TitleOblique";
-import FlexBetween from "@/interface/components/mui/FlexBetween";
-import FlexCenter from "@/interface/components/mui/FlexCenter";
+import FlexBetween from "@/interface/components/box/flex-between.component";
+import FlexCenter from "@/interface/components/box/flex-center.component";
 import AuthButton from "@/interface/components/navbar/AuthButton";
 import AvatarDropdown from "@/interface/components/navbar/AvatarDropdown";
 import Logo from "@/interface/components/navbar/Logo";
@@ -55,7 +55,7 @@ function Navbar() {
         px: 6,
       }}
     >
-      <FlexCenter gap={2}>
+      <FlexCenter gap={2} sx={{ cursor: "pointer" }}>
         <Logo imageUrl="/icon.png" handleClick={handleButtonClick} />
         <TitleOblique
           text="MY<span>PROT</span>TRACKER"
