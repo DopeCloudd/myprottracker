@@ -44,7 +44,7 @@ export default function App() {
                 }
               />
               <Route
-                path="/catgories/:id/products/"
+                path="/categories/:id/products/"
                 element={
                   <Layout>
                     <ProductList />
