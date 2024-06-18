@@ -1,24 +1,51 @@
 import { useGetCategoriesQuery } from "@/infrastructure/api/category.api";
+import Card from "@/interface/components/card/card.component";
+import TextTitle from "@/interface/components/text/text-title.component";
+import { Box } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Categories() {
-  const { data, isFetching, isLoading } = useGetCategoriesQuery();
+const Categories: React.FC = () => {
+  const { data, isLoading } = useGetCategoriesQuery();
+  const navigate = useNavigate();
 
-  if (isFetching) {
-    return <div>Fetching...</div>;
-  }
+  const handleCategoryClick = (id: number) => {
+    navigate(`/categories/${id}/products`);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      {data?.map((category) => (
-        <div key={category.id}>
-          <h1>{category.name}</h1>
-          <p>{category.description}</p>
-        </div>
-      ))}
-    </div>
+    <Box
+      sx={{
+        px: 6,
+      }}
+    >
+      <TextTitle content="CHOISISSEZ UNE <span>CATEGORIES</span>" />
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+          },
+          gap: "20px",
+        }}
+      >
+        {data?.map((category) => (
+          <Card
+            key={category.id}
+            title={category.name}
+            description={category.description}
+            onClick={() => handleCategoryClick(category.id)}
+          />
+        ))}
+      </Box>
+    </Box>
   );
-}
+};
+
+export default Categories;
