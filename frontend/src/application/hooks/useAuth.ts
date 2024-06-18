@@ -1,14 +1,9 @@
 import { RootState } from "@/application/redux/store";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
-const useAuth = () => {
-  const userSlice = useSelector((state: RootState) => state.user);
-  const authSlice = useSelector((state: RootState) => state.auth);
+export const useAuth = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
 
-  return {
-    user: userSlice,
-    auth: authSlice,
-  };
+  return useMemo(() => ({ user }), [user]);
 };
-
-export default useAuth;
