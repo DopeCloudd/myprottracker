@@ -3,6 +3,7 @@ import { RootState, useAppDispatch } from "@/application/redux/store";
 import { RegisterUser } from "@/domain/entities/user.type";
 import { Copyright } from "@/interface/components/Copyright";
 import Loading from "@/interface/components/global/Loading";
+import PasswordInput from "@/interface/components/input/password-input.component";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
@@ -172,6 +173,7 @@ export const Form = (props: FormProps) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <PasswordInput name="Password" onChange={handleChange} />
                   <TextField
                     fullWidth
                     label="Password"
