@@ -1,3 +1,4 @@
+import { RootState } from "@/application/redux/store";
 import { Status } from "@/domain/entities/status.type";
 import {
   LoginUser,
@@ -153,3 +154,4 @@ export const refreshToken = createAsyncThunk<
 
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;
+export const selectCurrentUser = (state: RootState) => state.auth.user;
