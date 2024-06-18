@@ -1,13 +1,11 @@
 import { PrismaClient, Product } from "@prisma/client";
 import { Request, Response } from "express";
-import { categorySchema } from "../schemas/category.schema";
 import { productSchema } from "../schemas/product.schema";
 
 const productClient = new PrismaClient().product;
 
 // Schema for getting a product by id or by category id
 const productIdSchema = productSchema.pick({ id: true });
-const categoryIdSchema = categorySchema.pick({ id: true });
 
 // Get all products
 export const getProducts = async (req: Request, res: Response) => {
@@ -26,7 +24,7 @@ export const getProductById = async (req: Request, res: Response) => {
 
 // Get product by category id
 export const getProductByCategoryId = async (req: Request, res: Response) => {
-  const { id } = categoryIdSchema.parse(req.params);
+  const id = parseInt(req.params.id);
   const products = await productClient.findMany({
     where: { categoryId: id },
   });
