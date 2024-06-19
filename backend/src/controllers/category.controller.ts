@@ -1,6 +1,6 @@
 import { Category, PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { categoryIdSchema } from "../schemas/category.schema";
+import { categoryNameSchema } from "../schemas/category.schema";
 
 const categoryClient = new PrismaClient().category;
 
@@ -12,9 +12,21 @@ export const getCategories = async (req: Request, res: Response) => {
 
 // Get category by id
 export const getCategoryById = async (req: Request, res: Response) => {
-  const { id } = categoryIdSchema.parse(req.params);
+  const id = parseInt(req.params.id);
   const category = await categoryClient.findUnique({
     where: { id: id },
+  });
+  if (!category) {
+    throw new Error("Category not found");
+  }
+  res.status(200).json(category);
+};
+
+// Get category by name
+export const getCategoryByName = async (req: Request, res: Response) => {
+  const { name } = categoryNameSchema.parse(req.params);
+  const category = await categoryClient.findFirst({
+    where: { name: name },
   });
   if (!category) {
     throw new Error("Category not found");
