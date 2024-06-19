@@ -6,8 +6,11 @@ export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASEURL }),
   endpoints: (builder) => ({
-    getCategoryById: builder.query<Category, string>({
-      query: (categoryId) => `category/${categoryId}`,
+    getCategoryById: builder.query<Category, number>({
+      query: (categoryId) => `category/id/${categoryId}`,
+    }),
+    getCategoryByName: builder.query<Category, string>({
+      query: (categoryName) => `category/name/${categoryName}`,
     }),
     getCategories: builder.query<Category[], void>({
       query: () => "categories",
@@ -15,4 +18,8 @@ export const categoryApi = createApi({
   }),
 });
 
-export const { useGetCategoryByIdQuery, useGetCategoriesQuery } = categoryApi;
+export const {
+  useGetCategoryByIdQuery,
+  useGetCategoryByNameQuery,
+  useGetCategoriesQuery,
+} = categoryApi;
