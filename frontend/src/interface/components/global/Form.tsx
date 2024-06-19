@@ -173,15 +173,11 @@ export const Form = (props: FormProps) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <PasswordInput name="Password" onChange={handleChange} />
-                  <TextField
-                    fullWidth
-                    label="Password"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="password"
-                    name="password"
+                  <PasswordInput
+                    name="Password"
                     value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     error={
                       Boolean(touched.password) && Boolean(errors.password)
                     }
