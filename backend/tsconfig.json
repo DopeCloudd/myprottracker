@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "ES2020",
     "allowSyntheticDefaultImports": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -9,7 +10,9 @@
     "noImplicitAny": true,
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./node_modules/@types"]
   },
-  "include": ["src/**/*", "jest.config.js"]
+  "include": ["src/**/*", "jest.config.js", "prisma/**/*.ts"]
 }
