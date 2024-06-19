@@ -5,6 +5,6 @@ const FlexColumnCenter = styled(Box)({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-});
+}) as typeof Box;
 
 export default FlexColumnCenter;
