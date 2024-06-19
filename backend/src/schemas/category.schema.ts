@@ -7,3 +7,5 @@ export const categorySchema = z.object({
 });
 
 export const categoryIdSchema = categorySchema.pick({ id: true });
+
+export const categoryNameSchema = categorySchema.pick({ name: true });
