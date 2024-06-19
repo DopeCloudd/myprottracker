@@ -1,4 +1,5 @@
 import { useGetCategoriesQuery } from "@/infrastructure/api/category.api";
+import CardSkeleton from "@/interface/components/card/card-skeleton.component";
 import Card from "@/interface/components/card/card.component";
 import TextTitle from "@/interface/components/text/text-title.component";
 import { Box } from "@mui/material";
@@ -12,10 +13,6 @@ const Categories: React.FC = () => {
   const handleCategoryClick = (id: number) => {
     navigate(`/categories/${id}/products`);
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Box
@@ -35,14 +32,18 @@ const Categories: React.FC = () => {
           gap: "20px",
         }}
       >
-        {data?.map((category) => (
-          <Card
-            key={category.id}
-            title={category.name}
-            description={category.description}
-            onClick={() => handleCategoryClick(category.id)}
-          />
-        ))}
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <CardSkeleton key={index} image={false} />
+            ))
+          : data?.map((category) => (
+              <Card
+                key={category.id}
+                title={category.name}
+                description={category.description}
+                onClick={() => handleCategoryClick(category.id)}
+              />
+            ))}
       </Box>
     </Box>
   );
