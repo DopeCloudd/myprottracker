@@ -1,8 +1,8 @@
-import { RootState, useTypedSelector } from "@/application/redux/store";
+import { useAuth } from "@/application/hooks/useAuth";
 import TitleOblique from "@/interface/components/TitleOblique";
 import FlexBetween from "@/interface/components/box/flex-between.component";
 import FlexCenter from "@/interface/components/box/flex-center.component";
-import AuthButton from "@/interface/components/navbar/AuthButton";
+import { AuthButton } from "@/interface/components/navbar/AuthButton";
 import AvatarDropdown from "@/interface/components/navbar/AvatarDropdown";
 import Logo from "@/interface/components/navbar/Logo";
 import SwitchLangage from "@/interface/components/navbar/SwitchLangage";
@@ -12,7 +12,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const { user } = useTypedSelector((state: RootState) => state.auth);
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const LinkItem = [
@@ -44,10 +44,6 @@ function Navbar() {
     navigate("/");
   };
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
   return (
     <FlexBetween
       sx={{
@@ -55,18 +51,21 @@ function Navbar() {
         px: 6,
       }}
     >
-      <FlexCenter gap={2} sx={{ cursor: "pointer" }}>
-        <Logo imageUrl="/icon.png" handleClick={handleButtonClick} />
+      <FlexCenter
+        gap={2}
+        sx={{ cursor: "pointer" }}
+        onClick={handleButtonClick}
+      >
+        <Logo imageUrl="/icon.png" />
         <TitleOblique
           text="MY<span>PROT</span>TRACKER"
           sx={{ fontSize: "clamp(1rem, 0.4375rem + 1.5vw, 1.75rem)" }}
-          onClick={handleButtonClick}
         />
       </FlexCenter>
       <FlexCenter>
         <SwitchLangage />
         <AvatarDropdown textAvatar={user?.firstName} items={LinkItem} />
-        <AuthButton user={user} onClick={handleLogin} />
+        <AuthButton />
       </FlexCenter>
     </FlexBetween>
   );
