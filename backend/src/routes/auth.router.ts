@@ -8,6 +8,10 @@ const authRouter: Router = Router();
 
 authRouter.post("/auth/register", tryCatch(checkEmail), tryCatch(register));
 authRouter.post("/auth/login", tryCatch(login));
-authRouter.get("/auth/refresh", tryCatch(verifyToken), tryCatch(refreshToken));
+authRouter.post(
+  "/auth/refresh-token",
+  tryCatch(verifyToken),
+  tryCatch(refreshToken),
+);
 
 export default authRouter;
