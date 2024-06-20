@@ -1,13 +1,9 @@
 import Footer from "@/interface/components/Footer";
 import Navbar from "@/interface/components/Navbar";
 import { Box } from "@mui/material";
-import { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 
-type LayoutProps = {
-  children: ReactNode;
-};
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout() {
   return (
     <Box
       sx={{
@@ -23,7 +19,7 @@ export default function Layout({ children }: LayoutProps) {
           minHeight: "calc(100vh - 100px)",
         }}
       >
-        {children}
+        <Outlet />
       </Box>
       <Footer />
     </Box>
