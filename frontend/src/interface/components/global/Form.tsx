@@ -1,6 +1,10 @@
-import { login, register } from "@/application/redux/slices/auth.slice";
-import { RootState, useAppDispatch } from "@/application/redux/store";
-import { RegisterUser } from "@/domain/entities/user.type";
+import { setCredentials } from "@/application/redux/slices/auth.slice";
+import { useAppDispatch } from "@/application/redux/store";
+import { RegisterRequest } from "@/domain/entities/user.type";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "@/infrastructure/api/auth.api";
 import { Copyright } from "@/interface/components/Copyright";
 import Loading from "@/interface/components/global/Loading";
 import PasswordInput from "@/interface/components/input/password-input.component";
@@ -15,8 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Formik } from "formik";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 const registerSchema = yup.object().shape({
@@ -44,25 +47,29 @@ type FormProps = {
   type: "register" | "login";
 };
 
-export const Form = (props: FormProps) => {
-  const loading = useSelector((state: RootState) => state.auth.loading);
-  const { type } = props;
+export const Form: React.FC<FormProps> = ({ type }) => {
+  const [login, { isLoading: isLoadingLogin }] = useLoginMutation();
+  const [register, { isLoading: isLoadingRegister }] = useRegisterMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isLogin = type === "login";
   const isRegister = type === "register";
 
-  const dispatch = useAppDispatch();
-
-  const onSubmit = async (values: RegisterUser) => {
+  const onSubmit = async (values: RegisterRequest) => {
     const { firstName, lastName, email, password } = values;
     if (isLogin) {
       try {
-        dispatch(login({ email, password }));
+        const user = await login({ email, password }).unwrap();
+        dispatch(setCredentials(user));
+        localStorage.setItem("token", user.token);
+        navigate("/");
       } catch (error) {
         console.log(error);
       }
     } else if (isRegister) {
       try {
-        dispatch(register({ firstName, lastName, email, password }));
+        await register({ firstName, lastName, email, password });
+        navigate("/login");
       } catch (error) {
         console.log(error);
       }
@@ -91,6 +98,17 @@ export const Form = (props: FormProps) => {
           alignItems: "center",
         }}
       >
+        <Button
+          variant="outlined"
+          sx={{
+            position: "absolute",
+            top: 40,
+            right: 50,
+          }}
+          onClick={() => navigate("/")}
+        >
+          Home
+        </Button>
         <Avatar
           sx={{
             m: 1,
@@ -185,7 +203,7 @@ export const Form = (props: FormProps) => {
                   />
                 </Grid>
               </Grid>
-              <Loading loading={loading}>
+              <Loading loading={isLogin ? isLoadingLogin : isLoadingRegister}>
                 <Button
                   fullWidth
                   type="submit"
