@@ -6,20 +6,20 @@ export type User = {
   createdAt: Date;
 };
 
-export type LoginUser = Pick<User, "email"> & {
+export type LoginRequest = Pick<User, "email"> & {
   password: string;
 };
 
-export type LoginUserResponse = {
+export type LoginResponse = {
   user: User;
   token: string;
 };
 
-export type RegisterUser = Omit<User, "id" | "createdAt"> & {
+export type RegisterRequest = Omit<User, "id" | "createdAt"> & {
   password: string;
 };
 
-export type RegisterUserResponse = {
+export type RegisterResponse = {
   success: boolean;
 };
 
