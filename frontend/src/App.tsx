@@ -1,6 +1,7 @@
 import useToken from "@/application/hooks/useToken";
 import i18n from "@/application/translate/i18n";
-import Layout from "@/interface/layout";
+import { PrivateOutlet } from "@/interface/components/route/private-outlet.component";
+import Layout from "@/interface/layout/index.tsx";
 import Categories from "@/interface/pages/categories.page";
 import Landing from "@/interface/pages/landing.page";
 import Login from "@/interface/pages/login.page";
@@ -27,38 +28,18 @@ export default function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route
-                path="/"
-                element={
-                  <Layout>
-                    <Landing />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/categories"
-                element={
-                  <Layout>
-                    <Categories />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/categories/:id/products/"
-                element={
-                  <Layout>
-                    <ProductList />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/product/:id"
-                element={
-                  <Layout>
-                    <Product />
-                  </Layout>
-                }
-              />
+              <Route element={<Layout />}>
+                <Route path="/" element={<Landing />} />
+                <Route path="categories" element={<Categories />} />
+                <Route
+                  path="categories/:id/products/"
+                  element={<ProductList />}
+                />
+                <Route path="product/:id" element={<Product />} />
+                <Route element={<PrivateOutlet />}>
+                  <Route path="profile" element={<div>Porfile</div>} />
+                </Route>
+              </Route>
             </Routes>
           </Box>
         </ThemeProvider>
