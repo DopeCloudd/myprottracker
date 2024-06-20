@@ -1,14 +1,12 @@
-import { Status } from "@/domain/entities/status.type";
 import { Box, CircularProgress } from "@mui/material";
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 
-type Props = {
-  loading: Status;
-  children: ReactNode;
-};
+type Props = PropsWithChildren<{
+  loading: boolean;
+}>;
 
 export default function Loading({ loading, children }: Props) {
-  if (loading === Status.LOADING) {
+  if (loading) {
     return (
       <Box
         sx={{
