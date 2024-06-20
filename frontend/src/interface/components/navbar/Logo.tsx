@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 
 type LogoProps = {
   imageUrl: string;
-  handleClick: () => void;
 };
 
 export default function Logo(props: LogoProps) {
@@ -20,7 +19,6 @@ export default function Logo(props: LogoProps) {
         }}
         src={props.imageUrl}
         alt="MyProtTracker Logo"
-        onClick={props.handleClick}
       />
     </Box>
   );
