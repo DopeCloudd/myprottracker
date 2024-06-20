@@ -19,10 +19,10 @@ type Item = {
   onClick: () => void;
 };
 
-interface AvatarDropdownProps {
+type AvatarDropdownProps = {
   textAvatar?: string;
   items?: Item[];
-}
+};
 
 export default function AvatarDropdown({
   textAvatar,
