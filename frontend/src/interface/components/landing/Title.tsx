@@ -24,15 +24,11 @@ export default function Title() {
         dangerouslySetInnerHTML={{ __html: t("home.main-text") }}
         sx={{
           width: { sm: "60%", lg: "80%" },
-          fontFamily: "Integral, sans-serif",
+          fontFamily: "Integral Oblique, sans-serif",
           textTransform: "uppercase",
           fontSize: "clamp(1.625rem, -0.4063rem + 6.5vw, 3.25rem)",
-
           "& span": {
             color: "#00a656",
-            fontFamily: "Integral Oblique, sans-serif",
-            textTransform: "uppercase",
-            fontSize: "clamp(1.625rem, -0.4063rem + 6.5vw, 3.25rem)",
           },
         }}
       />
