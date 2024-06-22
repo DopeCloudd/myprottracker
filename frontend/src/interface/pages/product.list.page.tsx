@@ -1,11 +1,12 @@
 import { useGetCategoryByIdQuery } from "@/infrastructure/api/category.api";
 import { useGetProductsByCategoryIdQuery } from "@/infrastructure/api/product.api";
 import CardSkeleton from "@/interface/components/card/card-skeleton.component";
+import Card from "@/interface/components/card/card.component";
 import TextTitle from "@/interface/components/text/text-title.component";
 import { Box } from "@mui/material";
+import { Buffer } from "buffer";
 import React from "react";
-import { Navigate, useParams } from "react-router-dom";
-import Card from "../components/card/card.component";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const ProductList: React.FC = () => {
   const { id } = useParams();
@@ -22,6 +23,12 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
 }) => {
   const products = useGetProductsByCategoryIdQuery(categoryId);
   const category = useGetCategoryByIdQuery(categoryId);
+  const navigate = useNavigate();
+
+  const bufferToImageSrc = (buffer: number[]) => {
+    const base64String = Buffer.from(buffer).toString("base64");
+    return `data:image/png;base64,${base64String}`;
+  };
 
   return (
     <Box
@@ -54,8 +61,11 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
               price={product.price}
               quantity={product.quantity}
               rating={product.rating}
-              image={product.image}
+              image={bufferToImageSrc(product.image.data)}
               description={product.description}
+              onClick={() => {
+                navigate(`/product/${product.id}`);
+              }}
             />
           ))
         )}
