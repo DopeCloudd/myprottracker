@@ -3,22 +3,20 @@ import React from "react";
 
 type Props = {
   content: string;
-  type: "product" | "card";
   onClick?: () => void;
 };
 
-const ButtonBuy: React.FC<Props> = ({ content, type, onClick }) => {
+const ButtonBuy: React.FC<Props> = ({ content, onClick }) => {
   return (
     <Button
       onClick={onClick}
       variant="outlined"
       sx={{
-        width: type === "product" ? "100%" : "40%",
+        width: "100%",
         borderRadius: "6px",
         fontWeight: "bold",
-        mt: type === "product" ? 2 : 0,
-        mb: type === "product" ? 2 : 0,
-        mr: type === "product" ? 0 : 2,
+        mt: 2,
+        mb: 2,
       }}
     >
       {content}
