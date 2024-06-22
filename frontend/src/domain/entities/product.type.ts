@@ -4,7 +4,15 @@ export type Product = {
   description: string;
   rating: number;
   price: number;
+  lowestPrice: number;
+  highestPrice: number;
   quantity: string;
   brand: string;
-  image: string;
+  image: ProductImage;
+  url: string;
+};
+
+type ProductImage = {
+  type: string;
+  data: number[];
 };
