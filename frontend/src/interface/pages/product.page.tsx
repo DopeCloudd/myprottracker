@@ -5,9 +5,10 @@ import GridProduct from "@/interface/components/box/grid-product.component";
 import { ButtonAlert } from "@/interface/components/button/button-alert.component";
 import ButtonBuy from "@/interface/components/button/button-buy.component";
 import { ButtonLike } from "@/interface/components/button/button-like.component";
+import { SkeletonProduct } from "@/interface/components/skeleton/skeleton-product.component";
 import TextPrice from "@/interface/components/text/text-price.component";
 import TextProductSection from "@/interface/components/text/text-product-section.component";
-import { Box, Rating, Typography } from "@mui/material";
+import { Box, Button, Rating, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -22,7 +23,7 @@ const Product: React.FC = () => {
 };
 
 const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
-  const { data: product } = useGetProductByIdQuery(productId);
+  const { data: product, isLoading } = useGetProductByIdQuery(productId);
 
   return (
     <GridProduct
@@ -31,8 +32,42 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
         px: 6,
       }}
     >
-      {!product ? (
-        <div>No product found.</div>
+      {isLoading ? (
+        <SkeletonProduct />
+      ) : !product ? (
+        <Box
+          sx={{
+            gridColumn: "span 2",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            mt: 4,
+          }}
+        >
+          <Typography
+            variant="h1"
+            component="h1"
+            sx={{
+              fontSize: "2rem",
+            }}
+          >
+            Oops, il semblerait que ce produit n'existe pas.
+          </Typography>
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{
+              mt: 2,
+            }}
+            onClick={() => {
+              window.history.back();
+            }}
+          >
+            Retour
+          </Button>
+        </Box>
       ) : (
         <>
           <Box
