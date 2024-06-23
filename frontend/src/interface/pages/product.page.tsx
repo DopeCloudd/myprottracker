@@ -69,7 +69,12 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
             >
               {removeAccents(product.title)}
             </Typography>
-            <Rating name="read-only" value={4.5} precision={0.5} readOnly />
+            <Rating
+              name="read-only"
+              value={product.rating}
+              precision={0.1}
+              readOnly
+            />
             <Box
               sx={{
                 display: "flex",
