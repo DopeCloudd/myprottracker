@@ -6,7 +6,10 @@ export const favoriteApi = createApi({
   reducerPath: "favoriteApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASEURL }),
   endpoints: (builder) => ({
-    addFavorite: builder.mutation<void, { userId: string; productId: string }>({
+    addFavorite: builder.mutation<
+      Product,
+      { userId: string; productId: number }
+    >({
       query: ({ userId, productId }) => ({
         url: `/favorites`,
         method: "POST",
@@ -14,8 +17,8 @@ export const favoriteApi = createApi({
       }),
     }),
     removeFavorite: builder.mutation<
-      void,
-      { userId: string; productId: string }
+      Product[],
+      { userId: string; productId: number }
     >({
       query: ({ userId, productId }) => ({
         url: `/favorites`,
@@ -23,7 +26,7 @@ export const favoriteApi = createApi({
         body: { userId, productId },
       }),
     }),
-    getFavorites: builder.query<{ products: Product[] }, string>({
+    getFavorites: builder.query<Product[], string>({
       query: (userId) => `/favorites/${userId}`,
     }),
   }),
