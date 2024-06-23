@@ -3,23 +3,23 @@ import {
   addFavorite,
   removeFavorite,
 } from "@/application/redux/slices/favorites.slice";
+import { useAppDispatch } from "@/application/redux/store";
 import {
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
 } from "@/infrastructure/api/favorite.api";
 import { useSnackbar } from "notistack";
-import { useDispatch } from "react-redux";
 
 const useFavorite = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [addFavoriteMutation] = useAddFavoriteMutation();
   const [removeFavoriteMutation] = useRemoveFavoriteMutation();
 
-  const handleAddFavorite = async (userId: string, productId: string) => {
+  const handleAddFavorite = async (userId: string, productId: number) => {
     try {
-      await addFavoriteMutation({ userId, productId }).unwrap();
-      dispatch(addFavorite(productId));
+      const product = await addFavoriteMutation({ userId, productId }).unwrap();
+      dispatch(addFavorite(product));
       enqueueSnackbar("Produit ajouté aux favoris", { variant: "success" });
     } catch (error) {
       enqueueSnackbar("Erreur lors de l'ajout aux favoris", {
@@ -28,10 +28,13 @@ const useFavorite = () => {
     }
   };
 
-  const handleRemoveFavorite = async (userId: string, productId: string) => {
+  const handleRemoveFavorite = async (userId: string, productId: number) => {
     try {
-      await removeFavoriteMutation({ userId, productId }).unwrap();
-      dispatch(removeFavorite(productId));
+      const product = await removeFavoriteMutation({
+        userId,
+        productId,
+      }).unwrap();
+      dispatch(removeFavorite(product));
       enqueueSnackbar("Produit retiré des favoris", { variant: "success" });
     } catch (error) {
       enqueueSnackbar("Erreur lors du retrait des favoris", {
