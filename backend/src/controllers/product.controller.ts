@@ -12,9 +12,12 @@ export const getProducts = async (req: Request, res: Response) => {
 // Get product by id
 export const getProductById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  const product = await productClient.findUniqueOrThrow({
+  const product = await productClient.findUnique({
     where: { id: id },
   });
+  if (!product) {
+    throw new Error("Product not found.");
+  }
   res.status(200).json(product);
 };
 
