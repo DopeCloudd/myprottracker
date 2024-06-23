@@ -32,9 +32,9 @@ function Navbar() {
     },
     {
       icon: <NotificationsIcon />,
-      text: "Mes notifications",
+      text: "Mes alertes",
       onClick: () => {
-        navigate("/notifications");
+        navigate("/alerts");
       },
     },
   ];
