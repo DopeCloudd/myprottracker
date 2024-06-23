@@ -1,5 +1,6 @@
 import { useAuth } from "@/application/hooks/useAuth";
 import useFavorite from "@/application/hooks/useFavorite";
+import useFetchUserFavorites from "@/application/hooks/useFetchUserFavorites";
 import { selectFavorites } from "@/application/redux/slices/favorites.slice";
 import { useTypedSelector } from "@/application/redux/store";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -7,12 +8,13 @@ import React from "react";
 
 export const ButtonLike: React.FC<{ productId: number }> = ({ productId }) => {
   const { user } = useAuth();
+  useFetchUserFavorites(user?.id || null);
 
   const { handleAddFavorite, handleRemoveFavorite } = useFavorite();
 
-  const favorites = useTypedSelector((state) => selectFavorites(state));
+  const favorites = useTypedSelector((state) => selectFavorites(state)) || [];
 
-  const isFavorite = favorites.includes(String(productId));
+  const isFavorite = favorites.some((product) => product.id === productId);
 
   if (!user) return null;
 
@@ -20,8 +22,8 @@ export const ButtonLike: React.FC<{ productId: number }> = ({ productId }) => {
     <FavoriteIcon
       onClick={
         isFavorite
-          ? () => handleRemoveFavorite(user?.id, String(productId))
-          : () => handleAddFavorite(user?.id, String(productId))
+          ? () => handleRemoveFavorite(user?.id, productId)
+          : () => handleAddFavorite(user?.id, productId)
       }
       sx={{
         marginRight: "8px",
@@ -33,8 +35,9 @@ export const ButtonLike: React.FC<{ productId: number }> = ({ productId }) => {
         cursor: "pointer",
         fontSize: "40px",
         fill: isFavorite ? "red" : "white",
+        transition: "fill 0.3s",
         "&:hover": {
-          fill: "gold",
+          fill: "red",
         },
       }}
     />
