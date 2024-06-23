@@ -5,8 +5,10 @@ import cors from "cors";
 import express, { Application } from "express";
 import helmet from "helmet";
 import { errorHandler } from "./middlewares/error.middleware";
+import alertRouter from "./routes/alert.router";
 import authRouter from "./routes/auth.router";
 import categoryRouter from "./routes/category.router";
+import favoriteRouter from "./routes/favorite.router";
 import productRouter from "./routes/product.router";
 
 const app: Application = express();
@@ -25,6 +27,8 @@ app.use(cookieParser());
 app.use(authRouter);
 app.use(categoryRouter);
 app.use(productRouter);
+app.use(favoriteRouter);
+app.use(alertRouter);
 // Error handler
 app.use(errorHandler);
 
