@@ -17,17 +17,27 @@ export const addFavorite = async (req: Request, res: Response) => {
       userId: userId,
       productId: productId,
     },
+    include: { product: true },
   });
-  res.status(201).json(favorite);
+  res.status(201).json(favorite.product);
 };
 
 // Remove a favorite for a user
 export const removeFavorite = async (req: Request, res: Response) => {
   const { userId, productId } = favoriteSchema.parse(req.body);
-  const favorite = await favoriteClient.deleteMany({
+  await favoriteClient.deleteMany({
     where: { userId: userId, productId: productId },
   });
-  res.status(200).json(favorite);
+  const favorites = await favoriteClient.findMany({
+    where: { userId: userId },
+    include: {
+      product: true,
+    },
+  });
+
+  const products = favorites.map((favorite) => favorite.product);
+
+  res.status(200).json(products);
 };
 
 // Get all favorites for a user
@@ -35,6 +45,8 @@ export const getFavorites = async (req: Request, res: Response) => {
   const { userId } = userIdSchema.parse(req.params);
   const favorites = await favoriteClient.findMany({
     where: { userId: userId },
+    include: { product: true },
   });
-  res.status(200).json(favorites);
+  const products = favorites.map((favorite) => favorite.product);
+  res.status(200).json(products);
 };
