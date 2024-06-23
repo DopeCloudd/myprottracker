@@ -6,21 +6,24 @@ export const alertApi = createApi({
   reducerPath: "alertApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASEURL }),
   endpoints: (builder) => ({
-    addAlert: builder.mutation<void, { userId: string; productId: string }>({
+    addAlert: builder.mutation<Product, { userId: string; productId: number }>({
       query: ({ userId, productId }) => ({
         url: `/alerts`,
         method: "POST",
         body: { userId, productId },
       }),
     }),
-    removeAlert: builder.mutation<void, { userId: string; productId: string }>({
+    removeAlert: builder.mutation<
+      Product[],
+      { userId: string; productId: number }
+    >({
       query: ({ userId, productId }) => ({
         url: `/alerts`,
         method: "DELETE",
         body: { userId, productId },
       }),
     }),
-    getAlerts: builder.query<{ products: Product[] }, string>({
+    getAlerts: builder.query<Product[], string>({
       query: (userId) => `/alerts/${userId}`,
     }),
   }),
