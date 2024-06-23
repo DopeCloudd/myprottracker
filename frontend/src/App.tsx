@@ -2,9 +2,13 @@ import useToken from "@/application/hooks/useToken";
 import i18n from "@/application/translate/i18n";
 import { PrivateOutlet } from "@/interface/components/route/private-outlet.component";
 import Layout from "@/interface/layout/index.tsx";
+import Alerts from "@/interface/pages/alerts.page";
 import Categories from "@/interface/pages/categories.page";
+import { Conditions } from "@/interface/pages/conditions.page";
+import Favorites from "@/interface/pages/favorites.page";
 import Landing from "@/interface/pages/landing.page";
 import Login from "@/interface/pages/login.page";
+import { Privacy } from "@/interface/pages/privacy.page";
 import ProductList from "@/interface/pages/product.list.page";
 import Product from "@/interface/pages/product.page";
 import Register from "@/interface/pages/register.page";
@@ -38,8 +42,12 @@ export default function App() {
                     element={<ProductList />}
                   />
                   <Route path="product/:id" element={<Product />} />
+                  <Route path="privacy" element={<Privacy />} />
+                  <Route path="conditions" element={<Conditions />} />
                   <Route element={<PrivateOutlet />}>
                     <Route path="profile" element={<div>Porfile</div>} />
+                    <Route path="favorites" element={<Favorites />} />
+                    <Route path="alerts" element={<Alerts />} />
                   </Route>
                 </Route>
               </Routes>
