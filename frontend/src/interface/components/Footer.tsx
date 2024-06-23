@@ -1,11 +1,9 @@
 import { Copyright } from "@/interface/components/Copyright";
+import FormNewsletter from "@/interface/components/form/form-newsletter.component";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -85,28 +83,7 @@ export default function Footer() {
                 Abonnez-vous à notre newsletter pour recevoir des mises à jour
                 hebdomadaires et des promotions.
               </Typography>
-              <Stack direction="row" spacing={1} useFlexGap>
-                <TextField
-                  id="outlined-basic"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  fullWidth
-                  aria-label="Entrer votre adresse email"
-                  placeholder="Votre adresse email"
-                  inputProps={{
-                    autoComplete: "off",
-                    "aria-label": "Entrer votre adresse email",
-                  }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ flexShrink: 0 }}
-                >
-                  S'abonner
-                </Button>
-              </Stack>
+              <FormNewsletter />
             </Box>
           </Box>
           <Box
@@ -165,7 +142,7 @@ export default function Footer() {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
             pt: { xs: 4, sm: 8 },
             width: "100%",
             borderTop: "1px solid",
