@@ -1,8 +1,9 @@
 import { RootState } from "@/application/redux/store";
+import { Product } from "@/domain/entities/product.type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AlertsState {
-  products: string[];
+  products: Product[];
 }
 
 const initialState: AlertsState = {
@@ -13,13 +14,13 @@ const alertsSlice = createSlice({
   name: "alerts",
   initialState,
   reducers: {
-    addAlert: (state, action: PayloadAction<string>) => {
+    addAlert: (state, action: PayloadAction<Product>) => {
       state.products.push(action.payload);
     },
-    removeAlert: (state, action: PayloadAction<string>) => {
-      state.products = state.products.filter((id) => id !== action.payload);
+    removeAlert: (state, action: PayloadAction<Product[]>) => {
+      state.products = action.payload;
     },
-    setAlerts: (state, action: PayloadAction<string[]>) => {
+    setAlerts: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
     },
   },
