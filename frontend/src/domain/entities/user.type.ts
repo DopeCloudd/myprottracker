@@ -3,6 +3,7 @@ export type User = {
   email: string;
   firstName: string;
   lastName: string;
+  role: "USER" | "ADMIN";
   createdAt: Date;
 };
 
@@ -15,7 +16,7 @@ export type LoginResponse = {
   token: string;
 };
 
-export type RegisterRequest = Omit<User, "id" | "createdAt"> & {
+export type RegisterRequest = Omit<User, "id" | "role" | "createdAt"> & {
   password: string;
 };
 
