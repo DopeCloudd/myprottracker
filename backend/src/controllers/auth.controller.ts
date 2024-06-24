@@ -25,12 +25,12 @@ const userIdSchema = userSchema.pick({ id: true });
 
 type UserResponse = Pick<
   User,
-  "id" | "email" | "firstName" | "lastName" | "createdAt"
+  "id" | "email" | "firstName" | "lastName" | "role" | "createdAt"
 >;
 
 type UserLoginData = Pick<
   User,
-  "id" | "email" | "firstName" | "lastName" | "password" | "createdAt"
+  "id" | "email" | "firstName" | "lastName" | "password" | "role" | "createdAt"
 >;
 
 // Register a new user
@@ -72,6 +72,7 @@ export const login = async (req: Request, res: Response) => {
       firstName: true,
       lastName: true,
       password: true,
+      role: true,
       createdAt: true,
     },
   });
@@ -92,6 +93,7 @@ export const login = async (req: Request, res: Response) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      role: user.role,
       createdAt: user.createdAt,
     },
   });
@@ -107,6 +109,7 @@ export const refreshToken = async (req: Request, res: Response) => {
       email: true,
       firstName: true,
       lastName: true,
+      role: true,
       createdAt: true,
     },
   });
