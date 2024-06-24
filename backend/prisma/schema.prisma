@@ -21,6 +21,7 @@ model User {
   emailToken String @unique @default(cuid())
   emailVerified DateTime? 
   password String
+  role Role @default(USER)
 
   plan Plan @default(FREE)
   stripeCustomerId String?
@@ -38,6 +39,11 @@ enum Plan {
   FREE
   BASIC
   PREMIUM
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Category {
