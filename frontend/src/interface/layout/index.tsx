@@ -1,5 +1,5 @@
-import Footer from "@/interface/components/Footer";
-import Navbar from "@/interface/components/Navbar";
+import Footer from "@/interface/components/footer/footer.component";
+import Navbar from "@/interface/components/nav/navbar.component";
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
