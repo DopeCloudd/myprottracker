@@ -7,7 +7,7 @@ type TitleObliqueProps = {
   onClick?: () => void;
 };
 
-export default function TitleOblique(props: TitleObliqueProps) {
+export default function TextTitleOblique(props: TitleObliqueProps) {
   const sanitizedText = DOMPurify.sanitize(props.text);
 
   return (
