@@ -28,7 +28,7 @@ export default function Footer() {
   };
 
   return (
-    <>
+    <Box component="footer">
       <Divider />
       <Container
         sx={{
@@ -163,6 +163,6 @@ export default function Footer() {
           </div>
         </Box>
       </Container>
-    </>
+    </Box>
   );
 }
