@@ -5,11 +5,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 type AuthState = {
   user: User | null;
   token: string | null;
+  loading: boolean;
 };
 
 const initialState: AuthState = {
   user: null,
   token: localStorage.getItem("token") || null,
+  loading: true,
 };
 
 export const authSlice = createSlice({
@@ -22,14 +24,20 @@ export const authSlice = createSlice({
     ) => {
       state.user = user;
       state.token = token;
+      state.loading = false;
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
+      state.loading = false;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
     },
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout, setLoading } = authSlice.actions;
 export default authSlice.reducer;
 export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const loadingCurrentUser = (state: RootState) => state.auth.loading;
