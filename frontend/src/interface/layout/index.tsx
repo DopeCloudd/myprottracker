@@ -17,6 +17,8 @@ export default function Layout() {
         sx={{
           flex: "1 0 auto",
           minHeight: "calc(100vh - 100px)",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <Outlet />
