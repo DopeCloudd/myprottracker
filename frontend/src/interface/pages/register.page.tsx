@@ -1,5 +1,5 @@
-import TitleOblique from "@/interface/components/TitleOblique";
 import { Form } from "@/interface/components/global/Form";
+import TextTitleOblique from "@/interface/components/text/text-title-oblique.component";
 import { Box, Grid, Typography } from "@mui/material";
 
 export default function Register() {
@@ -23,16 +23,12 @@ export default function Register() {
             height: "100%",
           }}
         >
-          <TitleOblique
+          <TextTitleOblique
             text="MY<span>PROT</span>TRACKER"
             sx={{ fontSize: "3rem" }}
           />
-          <Typography
-            component="h2"
-            variant="body1"
-            sx={{ fontFamily: "Integral, sans-serif" }}
-          >
-            Your personal fitness tracker
+          <Typography component="h2" variant="body1">
+            Votre coach nutrition personnel
           </Typography>
         </Box>
       </Grid>
