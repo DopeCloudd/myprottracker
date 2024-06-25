@@ -3,22 +3,33 @@ import useFetchUserAlerts from "@/application/hooks/useFetchUserAlerts";
 import { selectAlerts } from "@/application/redux/slices/alerts.slice";
 import { useTypedSelector } from "@/application/redux/store";
 import { bufferToImageSrc } from "@/infrastructure/helpers/buffer-to-image-src.helper";
+import FlexCenter from "@/interface/components/box/flex-center.component";
 import CardSkeleton from "@/interface/components/card/card-skeleton.component";
 import Card from "@/interface/components/card/card.component";
 import TextTitle from "@/interface/components/text/text-title.component";
-import { Box } from "@mui/system";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Alerts: React.FC = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { alertLoading } = useFetchUserAlerts(user?.id || null);
 
   const alerts = useTypedSelector((state) => selectAlerts(state)) || [];
 
   const navigate = useNavigate();
 
-  if (!user) return null;
+  if (loading) {
+    return (
+      <FlexCenter flex={1}>
+        <CircularProgress />
+      </FlexCenter>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <Box
@@ -42,7 +53,27 @@ const Alerts: React.FC = () => {
             <CardSkeleton key={index} image={true} />
           ))
         ) : !alerts || alerts.length === 0 ? (
-          <div>No products found.</div>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gridColumn: "span 2",
+            }}
+          >
+            <Typography variant="h6" gutterBottom>
+              Vous n'avez pas encore d'alertes pour l'instant.
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                navigate("/categories");
+              }}
+            >
+              Comparer des produits
+            </Button>
+          </Box>
         ) : (
           alerts.map((product) => (
             <Card
