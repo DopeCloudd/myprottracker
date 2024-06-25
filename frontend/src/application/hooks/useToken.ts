@@ -1,4 +1,8 @@
-import { logout, setCredentials } from "@/application/redux/slices/auth.slice";
+import {
+  logout,
+  setCredentials,
+  setLoading,
+} from "@/application/redux/slices/auth.slice";
 import { useAppDispatch } from "@/application/redux/store";
 import { useRefreshTokenMutation } from "@/infrastructure/api/auth.api";
 import { jwtDecode } from "jwt-decode";
@@ -10,6 +14,7 @@ const useToken = () => {
 
   useEffect(() => {
     const verifyToken = async () => {
+      dispatch(setLoading(true));
       const token = localStorage.getItem("token");
       if (token) {
         const decodedToken: { exp: number } = jwtDecode(token);
@@ -22,6 +27,7 @@ const useToken = () => {
           dispatch(logout());
         }
       }
+      dispatch(setLoading(false));
     };
 
     verifyToken();
