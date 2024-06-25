@@ -5,7 +5,7 @@ interface CopyrightProps {
   sx?: SxProps<Theme>;
 }
 
-export const Copyright: React.FC<CopyrightProps> = ({ sx }) => {
+export const TextCopyright: React.FC<CopyrightProps> = ({ sx }) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" sx={sx}>
       {"Copyright © "}
