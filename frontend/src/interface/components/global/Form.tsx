@@ -5,9 +5,9 @@ import {
   useLoginMutation,
   useRegisterMutation,
 } from "@/infrastructure/api/auth.api";
-import { Copyright } from "@/interface/components/Copyright";
 import Loading from "@/interface/components/global/Loading";
 import PasswordInput from "@/interface/components/input/password-input.component";
+import { TextCopyright } from "@/interface/components/text/text-copyright.component";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
@@ -235,7 +235,7 @@ export const Form: React.FC<FormProps> = ({ type }) => {
                   </Grid>
                 </Grid>
               )}
-              <Copyright sx={{ mt: 5 }} />
+              <TextCopyright sx={{ mt: 5 }} />
             </Box>
           )}
         </Formik>
