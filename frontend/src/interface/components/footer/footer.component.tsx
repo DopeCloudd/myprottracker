@@ -1,5 +1,5 @@
-import { Copyright } from "@/interface/components/Copyright";
 import FormNewsletter from "@/interface/components/form/form-newsletter.component";
+import { TextCopyright } from "@/interface/components/text/text-copyright.component";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
@@ -159,7 +159,7 @@ export default function Footer() {
             <Link color="text.secondary" href="/conditions">
               Conditions d'utilisation
             </Link>
-            <Copyright />
+            <TextCopyright />
           </div>
         </Box>
       </Container>
