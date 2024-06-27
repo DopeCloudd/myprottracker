@@ -55,14 +55,14 @@ model Category {
 
 model Product {
   id      Int      @id @default(autoincrement())
-  title String
-  description String
+  title String?
+  description String?
   image Bytes @db.LongBlob
   rating Float?
-  price Float
-  lowestPrice Float
-  highestPrice Float
-  quantity String
+  price Float?
+  lowestPrice Float?
+  highestPrice Float?
+  quantity String?
   brand String
   category Category? @relation(fields: [categoryId], references: [id])
   categoryId Int
