@@ -23,10 +23,10 @@ export async function Eafit(
       config,
       selectors,
       extractText_content,
-      extractDescription,
       extractPrice_content,
       extractQuantity_match,
       extractImageUrl_content,
+      extractDescription,
     );
     await page.close();
     return data;
