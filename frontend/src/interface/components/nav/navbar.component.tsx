@@ -39,6 +39,16 @@ function Navbar() {
     },
   ];
 
+  if (user?.role === "ADMIN") {
+    LinkItem.push({
+      icon: <PersonIcon />,
+      text: "Admin",
+      onClick: () => {
+        navigate("/admin");
+      },
+    });
+  }
+
   // Event handlers for navigation button clicks
   const handleButtonClick = () => {
     navigate("/");
