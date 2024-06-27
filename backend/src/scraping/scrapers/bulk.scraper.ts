@@ -13,7 +13,7 @@ export async function Bulk(
   browser: Browser,
   config: Config,
   urls: string[],
-): Promise<Record<string, string | number>[]> {
+): Promise<Record<string, string | number | false>[]> {
   const promises = urls.map(async (url: string) => {
     const page = await browser.newPage();
     const data = await fetchAndExtract(
@@ -21,7 +21,6 @@ export async function Bulk(
       url,
       config,
       selectors,
-      extractText_html,
       extractText_html,
       extractPrice_text,
       extractQuantity,
