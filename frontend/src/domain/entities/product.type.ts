@@ -1,3 +1,5 @@
+import { Category } from "@/domain/entities/category.types";
+
 export type Product = {
   id: number;
   title: string;
@@ -10,6 +12,7 @@ export type Product = {
   brand: string;
   image: ProductImage;
   url: string;
+  category: Category;
 };
 
 type ProductImage = {
