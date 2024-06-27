@@ -8,16 +8,16 @@ export async function fetchAndExtract(
   config: Config,
   selectors: Selector,
   extractText: (selector: string, $: cheerio.CheerioAPI) => string,
-  extractDescription: (
-    selector: string | string[],
-    $: cheerio.CheerioAPI,
-  ) => string,
   extractPrice: (selector: string, $: cheerio.CheerioAPI) => number | false,
   extractQuantity: (
     selector: string | string[],
     $: cheerio.CheerioAPI,
   ) => string,
   extractImageUrl: (selector: string, $: cheerio.CheerioAPI) => string,
+  extractDescription?: (
+    selector: string | string[],
+    $: cheerio.CheerioAPI,
+  ) => string,
 ) {
   // Enable request interception
   await page.setRequestInterception(true);
@@ -28,6 +28,10 @@ export async function fetchAndExtract(
       req.continue();
     }
   });
+
+  await page.setUserAgent(
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+  );
 
   // Navigate to the URL
   await page.goto(url, { waitUntil: "networkidle2" });
@@ -57,7 +61,7 @@ export async function fetchAndExtract(
   }
 
   // Extract the description
-  if (config.description) {
+  if (config.description && extractDescription) {
     result.description = extractDescription(selectors.description, $);
   }
 
