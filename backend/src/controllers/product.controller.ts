@@ -5,7 +5,9 @@ const productClient = new PrismaClient().product;
 
 // Get all products
 export const getProducts = async (req: Request, res: Response) => {
-  const products: Product[] = await productClient.findMany();
+  const products: Product[] = await productClient.findMany({
+    include: { category: true },
+  });
   res.status(200).json(products);
 };
 
@@ -28,4 +30,22 @@ export const getProductByCategoryId = async (req: Request, res: Response) => {
     where: { categoryId: id },
   });
   res.status(200).json(products);
+};
+
+// Create a new product
+export const createProduct = async (req: Request, res: Response) => {
+  const product = req.body;
+  const url = String(product.url);
+  const categoryId = parseInt(product.categoryId);
+  const brand = String(product.brand);
+  const image = req.file?.buffer;
+
+  if (!url || !categoryId || !brand || !image) {
+    throw new Error("Missing required fields.");
+  }
+
+  const newProduct = await productClient.create({
+    data: { url, categoryId, brand, image },
+  });
+  res.status(201).json(newProduct);
 };
