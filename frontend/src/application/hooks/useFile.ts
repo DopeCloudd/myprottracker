@@ -1,28 +1,36 @@
-import { useState } from "react";
+import {
+  previewFile,
+  removeFile,
+  selectedFile,
+  setFile,
+} from "@/application/redux/slices/file.slice";
+import { useAppDispatch } from "@/application/redux/store";
+import { useSelector } from "react-redux";
 
 const useFile = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const file = useSelector(selectedFile);
+  const preview = useSelector(previewFile);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
+    const fileUpload = event.target.files?.[0];
+    if (fileUpload) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result as string);
+        dispatch(
+          setFile({ file: fileUpload, preview: reader.result as string })
+        );
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(fileUpload);
     }
   };
 
   const handleRemoveFile = () => {
-    setSelectedFile(null);
-    setPreview(null);
+    dispatch(removeFile());
   };
 
   return {
-    selectedFile,
+    file,
     preview,
     handleFileChange,
     handleRemoveFile,
