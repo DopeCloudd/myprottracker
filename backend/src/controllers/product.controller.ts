@@ -34,10 +34,7 @@ export const getProductByCategoryId = async (req: Request, res: Response) => {
 
 // Create a new product
 export const createProduct = async (req: Request, res: Response) => {
-  const product = req.body;
-  const url = String(product.url);
-  const categoryId = parseInt(product.categoryId);
-  const brand = String(product.brand);
+  const { url, brand, categoryId } = req.body;
   const image = req.file?.buffer;
 
   if (!url || !categoryId || !brand || !image) {
@@ -45,7 +42,17 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 
   const newProduct = await productClient.create({
-    data: { url, categoryId, brand, image },
+    data: {
+      url: String(url),
+      categoryId: parseInt(categoryId),
+      brand: String(brand),
+      image,
+    },
   });
+
+  if (!newProduct) {
+    throw new Error("Failed to create product.");
+  }
+
   res.status(201).json(newProduct);
 };
