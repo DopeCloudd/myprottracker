@@ -1,9 +1,21 @@
+import { NextFunction, Request, Response } from "express";
 import multer from "multer";
 
-// Configuration de multer pour stocker le fichier en mémoire
-const storage = multer.memoryStorage();
+export const uploadMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const storage = multer.memoryStorage();
+  const upload = multer({ storage }).single("image");
 
-// Middleware multer pour gérer un seul fichier avec le champ "image"
-const uploadMiddleware = multer({ storage: storage }).single("image");
+  upload(req, res, (err: any) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ message: err.message });
+    } else if (err) {
+      return res.status(500).json({ message: err.message });
+    }
 
-export default uploadMiddleware;
+    next();
+  });
+};
