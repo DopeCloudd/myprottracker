@@ -35,7 +35,7 @@ export const getProductByCategoryId = async (req: Request, res: Response) => {
 // Create a new product
 export const createProduct = async (req: Request, res: Response) => {
   const { url, brand, categoryId } = req.body;
-  const image = req.file?.buffer;
+  const image = req.file;
 
   if (!url || !categoryId || !brand || !image) {
     throw new Error("Missing required fields.");
@@ -46,7 +46,7 @@ export const createProduct = async (req: Request, res: Response) => {
       url: String(url),
       categoryId: parseInt(categoryId),
       brand: String(brand),
-      image,
+      image: image.buffer,
     },
   });
 
