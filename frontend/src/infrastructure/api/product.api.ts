@@ -15,14 +15,11 @@ export const productApi = createApi({
     getProdcuts: builder.query<Product[], void>({
       query: () => "products",
     }),
-    addProduct: builder.mutation<
-      Product,
-      { url: string; brand: string; categoryId: number; image: Blob }
-    >({
-      query: ({ url, brand, categoryId, image }) => ({
-        url: "products",
+    addProduct: builder.mutation<Product, FormData>({
+      query: (formData) => ({
+        url: "product",
         method: "POST",
-        body: { url, brand, categoryId, image },
+        body: formData,
       }),
     }),
   }),
