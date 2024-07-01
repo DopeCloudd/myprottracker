@@ -16,8 +16,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function InputFileUpload() {
-  const { selectedFile, preview, handleFileChange, handleRemoveFile } =
-    useFile();
+  const { file, preview, handleFileChange, handleRemoveFile } = useFile();
 
   return (
     <Box>
@@ -52,7 +51,7 @@ export default function InputFileUpload() {
             onChange={handleFileChange}
           />
         </Button>
-        {selectedFile && (
+        {file && (
           <Button
             fullWidth
             variant="outlined"
