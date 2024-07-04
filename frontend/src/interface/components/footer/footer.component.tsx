@@ -128,10 +128,10 @@ export default function Footer() {
             <Typography variant="body2" fontWeight={600}>
               Legal
             </Typography>
-            <Link color="text.secondary" href="#">
+            <Link component={NavLink} color="text.secondary" to="/conditions">
               Conditions d'utilisation
             </Link>
-            <Link color="text.secondary" href="#">
+            <Link component={NavLink} color="text.secondary" to="/privacy">
               Confidentialité
             </Link>
             <Link color="text.secondary" href="#">
