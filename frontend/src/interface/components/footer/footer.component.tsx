@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const location = useLocation();
@@ -150,13 +150,13 @@ export default function Footer() {
           }}
         >
           <div>
-            <Link color="text.secondary" href="/privacy">
+            <Link component={NavLink} color="text.secondary" to="/privacy">
               Politique de Confidentialité
             </Link>
             <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
               &nbsp;•&nbsp;
             </Typography>
-            <Link color="text.secondary" href="/conditions">
+            <Link component={NavLink} color="text.secondary" to="/conditions">
               Conditions d'utilisation
             </Link>
             <TextCopyright />
