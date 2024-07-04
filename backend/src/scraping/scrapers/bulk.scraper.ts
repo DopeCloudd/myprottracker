@@ -1,7 +1,6 @@
 import { Browser } from "puppeteer";
 import { Config } from "scraping/types";
 import {
-  extractImageUrl_src,
   extractPrice_text,
   extractQuantity,
   extractText_html,
@@ -24,7 +23,6 @@ export async function Bulk(
       extractText_html,
       extractPrice_text,
       extractQuantity,
-      extractImageUrl_src,
     );
     await page.close();
     return data;
