@@ -1,10 +1,10 @@
 import { useAuth } from "@/application/hooks/useAuth";
 import FlexBetween from "@/interface/components/box/flex-between.component";
 import FlexCenter from "@/interface/components/box/flex-center.component";
-import { AuthButton } from "@/interface/components/navbar/AuthButton";
-import AvatarDropdown from "@/interface/components/navbar/AvatarDropdown";
-import Logo from "@/interface/components/navbar/Logo";
-import SwitchLangage from "@/interface/components/navbar/SwitchLangage";
+import { ButtonAuth } from "@/interface/components/button/button-auth.component";
+import AvatarDropdown from "@/interface/components/navbar/avatar-dropdown.component";
+import Logo from "@/interface/components/navbar/logo.component";
+import SwitchLangage from "@/interface/components/navbar/switch-langage.component";
 import TextTitleOblique from "@/interface/components/text/text-title-oblique.component";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -76,7 +76,7 @@ function Navbar() {
       <FlexCenter>
         <SwitchLangage />
         <AvatarDropdown textAvatar={user?.firstName} items={LinkItem} />
-        <AuthButton />
+        <ButtonAuth />
       </FlexCenter>
     </FlexBetween>
   );
