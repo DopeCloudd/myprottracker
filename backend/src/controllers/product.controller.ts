@@ -16,6 +16,7 @@ export const getProductById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const product = await productClient.findUnique({
     where: { id: id },
+    include: { category: true, brand: true },
   });
   if (!product) {
     throw new Error("Product not found.");
@@ -27,7 +28,8 @@ export const getProductById = async (req: Request, res: Response) => {
 export const getProductByCategoryId = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const products = await productClient.findMany({
-    where: { categoryId: id },
+    where: { categoryId: id, title: { not: null } },
+    include: { category: true, brand: true },
   });
   res.status(200).json(products);
 };
