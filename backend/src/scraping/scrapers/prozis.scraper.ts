@@ -2,7 +2,6 @@ import { Browser } from "puppeteer";
 import { Config } from "scraping/types";
 import {
   extractDescription,
-  extractImageUrl_content,
   extractPrice_content,
   extractQuantity_match,
   extractText_content,
@@ -25,7 +24,6 @@ export async function Prozis(
       extractText_content,
       extractPrice_content,
       extractQuantity_match,
-      extractImageUrl_content,
       extractDescription,
     );
     await page.close();
