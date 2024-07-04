@@ -36,25 +36,6 @@ export const extractPrice_firstText = (selector: string, $: CheerioAPI) => {
   return isNaN(price) ? false : price;
 };
 
-export const extractImageUrl_src = (selector: string, $: CheerioAPI) => {
-  const element = $(selector).attr("src");
-  if (element) {
-    return element;
-  }
-  return "";
-};
-
-export const extractImageUrl_content = (
-  selector: string,
-  $: CheerioAPI,
-): string => {
-  const element = $(selector).attr("content");
-  if (element) {
-    return element;
-  }
-  return "";
-};
-
 export const extractQuantity = (
   selectors: string | string[],
   $: CheerioAPI,
