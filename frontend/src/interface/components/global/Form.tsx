@@ -5,9 +5,9 @@ import {
   useLoginMutation,
   useRegisterMutation,
 } from "@/infrastructure/api/auth.api";
-import Loading from "@/interface/components/global/Loading";
 import PasswordInput from "@/interface/components/input/password-input.component";
 import { TextCopyright } from "@/interface/components/text/text-copyright.component";
+import Loading from "@/interface/layout/loading.layout";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
@@ -203,7 +203,9 @@ export const Form: React.FC<FormProps> = ({ type }) => {
                   />
                 </Grid>
               </Grid>
-              <Loading loading={isLogin ? isLoadingLogin : isLoadingRegister}>
+              <Loading
+                loading={isLogin ? [isLoadingLogin] : [isLoadingRegister]}
+              >
                 <Button
                   fullWidth
                   type="submit"
