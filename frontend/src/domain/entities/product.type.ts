@@ -1,3 +1,4 @@
+import { Brand } from "@/domain/entities/brand.type";
 import { Category } from "@/domain/entities/category.types";
 
 export type Product = {
@@ -9,7 +10,7 @@ export type Product = {
   lowestPrice: number;
   highestPrice: number;
   quantity: string;
-  brand: string;
+  brand: Brand;
   image: ProductImage;
   url: string;
   category: Category;
