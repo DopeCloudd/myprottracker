@@ -13,7 +13,6 @@ export async function fetchAndExtract(
     selector: string | string[],
     $: cheerio.CheerioAPI,
   ) => string,
-  extractImageUrl: (selector: string, $: cheerio.CheerioAPI) => string,
   extractDescription?: (
     selector: string | string[],
     $: cheerio.CheerioAPI,
@@ -63,16 +62,6 @@ export async function fetchAndExtract(
   // Extract the description
   if (config.description && extractDescription) {
     result.description = extractDescription(selectors.description, $);
-  }
-
-  // Extract the image URL
-  if (config.imageUrl) {
-    result.imageUrl = extractImageUrl(selectors.imageUrl, $);
-  }
-
-  // Set the brand
-  if (config.brand) {
-    result.brand = "Bulk";
   }
 
   // Set the URL
