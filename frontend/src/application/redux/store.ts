@@ -5,6 +5,7 @@ import favoritesReducer from "@/application/redux/slices/favorites.slice";
 import fileReducer from "@/application/redux/slices/file.slice";
 import { alertApi } from "@/infrastructure/api/alert.api";
 import { authApi } from "@/infrastructure/api/auth.api";
+import { brandApi } from "@/infrastructure/api/brand.api";
 import { categoryApi } from "@/infrastructure/api/category.api";
 import { favoriteApi } from "@/infrastructure/api/favorite.api";
 import { productApi } from "@/infrastructure/api/product.api";
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   [productApi.reducerPath]: productApi.reducer,
   [favoriteApi.reducerPath]: favoriteApi.reducer,
   [alertApi.reducerPath]: alertApi.reducer,
+  [brandApi.reducerPath]: brandApi.reducer,
 });
 
 export const store = configureStore({
@@ -35,7 +37,8 @@ export const store = configureStore({
       categoryApi.middleware,
       productApi.middleware,
       favoriteApi.middleware,
-      alertApi.middleware
+      alertApi.middleware,
+      brandApi.middleware
     ),
 });
 
