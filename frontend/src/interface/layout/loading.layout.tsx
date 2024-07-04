@@ -2,11 +2,11 @@ import { Box, CircularProgress } from "@mui/material";
 import { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren<{
-  loading: boolean;
+  loading: boolean[];
 }>;
 
 export default function Loading({ loading, children }: Props) {
-  if (loading) {
+  if (loading.some((item) => item)) {
     return (
       <Box
         sx={{
