@@ -53,6 +53,12 @@ model Category {
   products Product[]
 }
 
+model Brand {
+  id      Int      @id @default(autoincrement())
+  name String
+  products Product[]
+}
+
 model Product {
   id      Int      @id @default(autoincrement())
   title String?
@@ -63,7 +69,8 @@ model Product {
   lowestPrice Float?
   highestPrice Float?
   quantity String?
-  brand String
+  brand Brand? @relation(fields: [brandId], references: [id])
+  brandId Int
   category Category? @relation(fields: [categoryId], references: [id])
   categoryId Int
   url String
