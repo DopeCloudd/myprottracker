@@ -11,8 +11,5 @@ export type Config = {
   price?: boolean;
   quantity?: boolean;
   description?: boolean;
-  imageUrl?: true;
-  brand?: boolean;
   url?: boolean;
-  category?: boolean;
 };
