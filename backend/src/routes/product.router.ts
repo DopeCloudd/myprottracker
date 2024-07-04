@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createProduct,
+  deleteProduct,
   getProductByCategoryId,
   getProductById,
   getProducts,
@@ -18,5 +19,6 @@ productRouter.post(
   tryCatch(uploadMiddleware),
   tryCatch(createProduct),
 );
+productRouter.delete("/product/:id", tryCatch(deleteProduct));
 
 export default productRouter;
