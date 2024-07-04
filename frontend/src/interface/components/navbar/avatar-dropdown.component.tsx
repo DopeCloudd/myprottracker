@@ -1,3 +1,4 @@
+import { useAuth } from "@/application/hooks/useAuth";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
   Avatar,
@@ -28,6 +29,7 @@ export default function AvatarDropdown({
   textAvatar,
   items,
 }: AvatarDropdownProps) {
+  const { user } = useAuth();
   const [avatarEl, setAvatarEl] = useState<HTMLElement | null>(null);
 
   const handleAvatarClick = (e: React.MouseEvent<HTMLElement>): void => {
@@ -40,6 +42,8 @@ export default function AvatarDropdown({
 
   const open = Boolean(avatarEl);
   const id = open ? "simple-popover" : undefined;
+
+  if (!user) return null;
 
   return (
     <Box sx={{ mr: { xs: 1, md: 3 } }}>
