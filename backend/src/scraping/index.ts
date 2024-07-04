@@ -11,10 +11,7 @@ const config: Config = {
   price: true,
   quantity: true,
   description: true,
-  imageUrl: true,
-  brand: true,
   url: true,
-  category: true,
 };
 
 (async () => {
@@ -30,5 +27,6 @@ const config: Config = {
     Prozis(browser, config, prozis_urls),
   ]);
   await browser.close();
-  console.log(results);
+  const flatResults = results.flat();
+  console.log(results.flat());
 })();
