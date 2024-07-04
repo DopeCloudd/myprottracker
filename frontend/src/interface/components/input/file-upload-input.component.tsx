@@ -23,6 +23,7 @@ export default function InputFileUpload() {
       {preview && (
         <Box
           sx={{
+            height: "200px",
             display: "flex",
             justifyContent: "center",
             mb: 2,
