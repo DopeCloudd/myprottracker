@@ -7,7 +7,7 @@ import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-export const AuthButton: React.FC = () => {
+export const ButtonAuth: React.FC = () => {
   const { user } = useAuth();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
