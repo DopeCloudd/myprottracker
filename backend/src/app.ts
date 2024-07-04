@@ -7,6 +7,7 @@ import helmet from "helmet";
 import { errorHandler } from "./middlewares/error.middleware";
 import alertRouter from "./routes/alert.router";
 import authRouter from "./routes/auth.router";
+import brandRouter from "./routes/brand.router";
 import categoryRouter from "./routes/category.router";
 import favoriteRouter from "./routes/favorite.router";
 import productRouter from "./routes/product.router";
@@ -29,6 +30,7 @@ app.use(categoryRouter);
 app.use(productRouter);
 app.use(favoriteRouter);
 app.use(alertRouter);
+app.use(brandRouter);
 // Error handler
 app.use(errorHandler);
 
