@@ -7,6 +7,6 @@ export const selectors: Selector = {
     ".dropin-text-swatch--selected",
     ".dropin-picker__select option:selected",
   ],
-  description: ".attribute-content p",
+  description: ".attribute-container",
   imageUrl: ".pdp-carousel__slide--active img",
 };
