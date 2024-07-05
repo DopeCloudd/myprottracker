@@ -4,7 +4,8 @@ import { bufferToImageSrc } from "@/infrastructure/helpers/buffer-to-image-src.h
 import CardSkeleton from "@/interface/components/card/card-skeleton.component";
 import Card from "@/interface/components/card/card.component";
 import TextTitle from "@/interface/components/text/text-title.component";
-import { Box } from "@mui/material";
+import { truncateString } from "@/interface/utils/index";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -47,7 +48,17 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
             <CardSkeleton key={index} image={true} />
           ))
         ) : !products.data || products.data.length === 0 ? (
-          <div>No products found.</div>
+          <Box
+            sx={{
+              gridColumn: "span 2",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Typography fontSize={"1.5rem"}>
+              Aucun produit pour l'instant, reviens après ta séance. 🏋️
+            </Typography>
+          </Box>
         ) : (
           products.data.map((product) => (
             <Card
@@ -57,7 +68,8 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
               quantity={product.quantity}
               rating={product.rating}
               image={bufferToImageSrc(product.image.data)}
-              description={product.description}
+              description={truncateString(product.description, 160)}
+              brand={product.brand.name}
               onClick={() => {
                 navigate(`/product/${product.id}`);
               }}
