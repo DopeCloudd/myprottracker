@@ -16,6 +16,7 @@ type CardProps = {
   quantity?: string;
   rating?: number;
   image?: string;
+  brand?: string;
   onClick?: () => void;
 };
 
@@ -26,6 +27,7 @@ const Card: React.FC<CardProps> = ({
   quantity,
   rating,
   image,
+  brand,
   onClick,
 }) => {
   return (
@@ -79,6 +81,17 @@ const Card: React.FC<CardProps> = ({
             </Typography>
           )}
         </Flex>
+        {brand && (
+          <Typography
+            component="p"
+            sx={{
+              fontSize: "1rem",
+              opacity: "0.5",
+            }}
+          >
+            Vendu par {brand}
+          </Typography>
+        )}
         {rating && (
           <Rating
             name="rating"
