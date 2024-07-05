@@ -1,5 +1,6 @@
 import { getUrls } from "./helpers/get-urls.helper";
 import { initBrowser } from "./puppeteer/index";
+import { Reader } from "./reader";
 import { Bulk } from "./scrapers/bulk.scraper";
 import { Eafit } from "./scrapers/eafit.scraper";
 import { Myprotein } from "./scrapers/myprotein.scraper";
@@ -29,4 +30,5 @@ const config: Config = {
   await browser.close();
   const flatResults = results.flat();
   console.log(results.flat());
+  await Reader(flatResults, config);
 })();
