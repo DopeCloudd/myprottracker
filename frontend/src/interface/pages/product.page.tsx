@@ -8,6 +8,7 @@ import { ButtonLike } from "@/interface/components/button/button-like.component"
 import { SkeletonProduct } from "@/interface/components/skeleton/skeleton-product.component";
 import TextPrice from "@/interface/components/text/text-price.component";
 import TextProductSection from "@/interface/components/text/text-product-section.component";
+import { truncateString } from "@/interface/utils/index";
 import { Box, Button, Rating, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
@@ -30,6 +31,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
       sx={{
         pt: 4,
         px: 6,
+        pb: 4,
       }}
     >
       {isLoading ? (
@@ -72,6 +74,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
         <>
           <Box
             sx={{
+              px: 4,
               "& img": {
                 aspectRatio: "4/4",
                 width: "100%",
@@ -109,6 +112,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
               value={product.rating}
               precision={0.1}
               readOnly
+              sx={{ mt: 2 }}
             />
             <Box
               sx={{
@@ -134,7 +138,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                 fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
               }}
             >
-              Vendu par {product.brand}
+              Vendu par {product.brand.name}
             </Typography>
             <Typography
               component="p"
@@ -144,6 +148,15 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
               }}
             >
               Prix le plus bas : {product.lowestPrice} €
+            </Typography>
+            <Typography
+              component="p"
+              sx={{
+                opacity: "0.5",
+                fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
+              }}
+            >
+              Prix le plus haut : {product.highestPrice} €
             </Typography>
             <ButtonBuy
               content="Acheter"
@@ -164,7 +177,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
               component="p"
               sx={{ fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)" }}
             >
-              {product.description}
+              {truncateString(product.description, 400)}
             </Typography>
           </Box>
         </>
