@@ -3,6 +3,8 @@ import i18n from "@/application/translate/i18n";
 import { AdminOutlet } from "@/interface/components/route/admin-outlet.component";
 import { PrivateOutlet } from "@/interface/components/route/private-outlet.component";
 import Layout from "@/interface/layout/index.tsx";
+import AdminProducts from "@/interface/pages/admin-products.page";
+import AdminScraping from "@/interface/pages/admin-scraping.page";
 import Admin from "@/interface/pages/admin.page";
 import Alerts from "@/interface/pages/alerts.page";
 import Categories from "@/interface/pages/categories.page";
@@ -53,6 +55,9 @@ export default function App() {
                   </Route>
                   <Route element={<AdminOutlet />}>
                     <Route path="admin" element={<Admin />} />
+                    <Route path="admin/products" element={<AdminProducts />} />
+                    <Route path="admin/scraping" element={<AdminScraping />} />
+                    <Route path="admin/configuration" element={<Admin />} />
                   </Route>
                 </Route>
               </Routes>
