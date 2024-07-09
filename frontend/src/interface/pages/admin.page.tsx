@@ -16,7 +16,7 @@ const Admin: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         gap: 2,
-        px: 6,
+        px: { xs: 3, sm: 6 },
       }}
     >
       <Button
