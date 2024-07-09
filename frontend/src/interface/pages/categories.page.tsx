@@ -17,7 +17,8 @@ const Categories: React.FC = () => {
   return (
     <Box
       sx={{
-        px: 6,
+        px: { xs: 3, sm: 6 },
+        pb: 3,
       }}
     >
       <TextTitle content="CHOISISSEZ UNE <span>CATEGORIES</span>" />
