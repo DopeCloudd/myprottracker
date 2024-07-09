@@ -4,6 +4,7 @@ export type User = {
   firstName: string;
   lastName: string;
   role: "USER" | "ADMIN";
+  subscription: "FREE" | "PREMIUM";
   createdAt: Date;
 };
 
