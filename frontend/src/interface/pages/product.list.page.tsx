@@ -41,6 +41,7 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
             sm: "repeat(2, 1fr)",
           },
           gap: "20px",
+          pb: 6,
         }}
       >
         {products.isLoading ? (
