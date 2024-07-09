@@ -52,7 +52,7 @@ const Card: React.FC<CardProps> = ({
           src={image}
           alt={title}
           sx={{
-            width: "40%",
+            maxWidth: "40%",
             aspectRatio: "4/4",
           }}
         />
@@ -100,7 +100,14 @@ const Card: React.FC<CardProps> = ({
             readOnly
           />
         )}
-        <Typography variant="body1" color="text.secondary">
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
           {description}
         </Typography>
       </CardContent>
