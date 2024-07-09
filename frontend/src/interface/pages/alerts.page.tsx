@@ -34,7 +34,7 @@ const Alerts: React.FC = () => {
   return (
     <Box
       sx={{
-        px: 6,
+        px: { xs: 3, sm: 6 },
       }}
     >
       <TextTitle content="Alertes" />
