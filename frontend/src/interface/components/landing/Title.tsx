@@ -9,6 +9,7 @@ export default function Title() {
     <Box
       id="title"
       sx={{
+        px: 3,
         pt: { xs: 4, sm: 8 },
         pb: { xs: 4, sm: 8 },
         position: "relative",
