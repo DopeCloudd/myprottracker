@@ -59,7 +59,7 @@ function Navbar() {
       component="nav"
       sx={{
         height: "100px",
-        px: 6,
+        px: { xs: 3, sm: 6 },
       }}
     >
       <FlexCenter
