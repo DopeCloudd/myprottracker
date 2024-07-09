@@ -15,6 +15,7 @@ import Login from "@/interface/pages/login.page";
 import { Privacy } from "@/interface/pages/privacy.page";
 import ProductList from "@/interface/pages/product.list.page";
 import Product from "@/interface/pages/product.page";
+import Profile from "@/interface/pages/profile.page";
 import Register from "@/interface/pages/register.page";
 import { themeSettings } from "@/interface/theme/theme";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
@@ -49,7 +50,7 @@ export default function App() {
                   <Route path="privacy" element={<Privacy />} />
                   <Route path="conditions" element={<Conditions />} />
                   <Route element={<PrivateOutlet />}>
-                    <Route path="profile" element={<div>Porfile</div>} />
+                    <Route path="profile" element={<Profile />} />
                     <Route path="favorites" element={<Favorites />} />
                     <Route path="alerts" element={<Alerts />} />
                   </Route>
