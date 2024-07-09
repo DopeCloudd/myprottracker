@@ -23,12 +23,12 @@ const CardSkeleton: React.FC<CardSkeletonProps> = ({ image }) => {
         sx={{
           height: "100%",
           display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
+          alignItems: "center",
+          px: 2,
         }}
       >
         {image && <Skeleton variant="rectangular" width={140} height={140} />}
-        <CardContent sx={{ width: "100%" }}>
+        <CardContent sx={{ width: "100%", pr: 0 }}>
           <Skeleton variant="text" width={200} height={40} />
           <Skeleton variant="text" width={"100%"} height={100} />
         </CardContent>
