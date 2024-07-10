@@ -142,6 +142,7 @@ export default function Footer() {
         <Box
           sx={{
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             pt: { xs: 4, sm: 8 },
             width: "100%",
@@ -149,18 +150,32 @@ export default function Footer() {
             borderColor: "divider",
           }}
         >
-          <div>
-            <Link component={NavLink} color="text.secondary" to="/privacy">
+          <Box
+            sx={{
+              textAlign: "center",
+            }}
+          >
+            <Link
+              component={NavLink}
+              variant="body2"
+              color="text.secondary"
+              to="/privacy"
+            >
               Politique de Confidentialité
             </Link>
             <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
               &nbsp;•&nbsp;
             </Typography>
-            <Link component={NavLink} color="text.secondary" to="/conditions">
+            <Link
+              component={NavLink}
+              variant="body2"
+              color="text.secondary"
+              to="/conditions"
+            >
               Conditions d'utilisation
             </Link>
-            <TextCopyright />
-          </div>
+          </Box>
+          <TextCopyright />
         </Box>
       </Container>
     </Box>
