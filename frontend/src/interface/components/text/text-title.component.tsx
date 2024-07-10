@@ -23,6 +23,7 @@ const TextTitle: React.FC<TextTitleProps> = ({ content }) => {
         sx={{
           fontFamily: "Integral Oblique, sans-serif",
           fontSize: "clamp(1.625rem, -0.4063rem + 6.5vw, 3.25rem)",
+          textAlign: "center",
           "& span": {
             color: "#00A656",
           },
