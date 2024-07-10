@@ -17,7 +17,10 @@ export type LoginResponse = {
   token: string;
 };
 
-export type RegisterRequest = Omit<User, "id" | "role" | "createdAt"> & {
+export type RegisterRequest = Omit<
+  User,
+  "id" | "role" | "subscription" | "createdAt"
+> & {
   password: string;
 };
 
