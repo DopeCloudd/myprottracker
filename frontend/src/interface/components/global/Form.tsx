@@ -77,171 +77,154 @@ export const Form: React.FC<FormProps> = ({ type }) => {
   };
 
   return (
-    <Grid
-      item
-      xs={12}
-      sm={8}
-      md={5}
+    <Box
       sx={{
+        mx: 4,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#171717",
       }}
     >
-      <Box
+      <Button
+        variant="outlined"
         sx={{
-          mx: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          position: "absolute",
+          mt: 4,
+          mr: 4,
+          top: 0,
+          right: 0,
+        }}
+        onClick={() => navigate("/")}
+      >
+        Home
+      </Button>
+      <Avatar
+        sx={{
+          m: 1,
+          bgcolor: "transparent",
+          border: "1px solid",
+          borderColor: "#00A656",
         }}
       >
-        <Button
-          variant="outlined"
-          sx={{
-            position: "absolute",
-            top: 40,
-            right: 50,
-          }}
-          onClick={() => navigate("/")}
-        >
-          Home
-        </Button>
-        <Avatar
-          sx={{
-            m: 1,
-            bgcolor: "transparent",
-            border: "1px solid",
-            borderColor: "#00A656",
-          }}
-        >
-          <LockOutlinedIcon sx={{ fill: "#00A656" }} />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {isLogin ? "Sign in" : "Sign up"}
-        </Typography>
-        <Formik
-          onSubmit={onSubmit}
-          initialValues={initialValues}
-          validationSchema={isLogin ? loginSchema : registerSchema}
-        >
-          {({
-            handleSubmit,
-            handleChange,
-            handleBlur,
-            values,
-            errors,
-            touched,
-          }) => (
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 3 }}
-            >
-              <Grid container spacing={2}>
-                {isRegister && (
-                  <>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="First Name"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        type="text"
-                        name="firstName"
-                        value={values.firstName}
-                        error={
-                          Boolean(touched.firstName) &&
-                          Boolean(errors.firstName)
-                        }
-                        helperText={touched.firstName && errors.firstName}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Last Name"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        type="text"
-                        name="lastName"
-                        value={values.lastName}
-                        error={
-                          Boolean(touched.lastName) && Boolean(errors.lastName)
-                        }
-                        helperText={touched.lastName && errors.lastName}
-                      />
-                    </Grid>
-                  </>
-                )}
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type="email"
-                    name="email"
-                    value={values.email}
-                    error={Boolean(touched.email) && Boolean(errors.email)}
-                    helperText={touched.email && errors.email}
-                  />
+        <LockOutlinedIcon sx={{ fill: "#00A656" }} />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        {isLogin ? "Sign in" : "Sign up"}
+      </Typography>
+      <Formik
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        validationSchema={isLogin ? loginSchema : registerSchema}
+      >
+        {({
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          values,
+          errors,
+          touched,
+        }) => (
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              {isRegister && (
+                <>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="First Name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="text"
+                      name="firstName"
+                      value={values.firstName}
+                      error={
+                        Boolean(touched.firstName) && Boolean(errors.firstName)
+                      }
+                      helperText={touched.firstName && errors.firstName}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Last Name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="text"
+                      name="lastName"
+                      value={values.lastName}
+                      error={
+                        Boolean(touched.lastName) && Boolean(errors.lastName)
+                      }
+                      helperText={touched.lastName && errors.lastName}
+                    />
+                  </Grid>
+                </>
+              )}
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="email"
+                  name="email"
+                  value={values.email}
+                  error={Boolean(touched.email) && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <PasswordInput
+                  name="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={Boolean(touched.password) && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                />
+              </Grid>
+            </Grid>
+            <Loading loading={isLogin ? [isLoadingLogin] : [isLoadingRegister]}>
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                {isLogin ? "Login" : "Register"}
+              </Button>
+            </Loading>
+            {isLogin ? (
+              <Grid container>
+                <Grid item xs>
+                  <Link component={NavLink} to="/" variant="body2">
+                    Forgot password?
+                  </Link>
                 </Grid>
-                <Grid item xs={12}>
-                  <PasswordInput
-                    name="Password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      Boolean(touched.password) && Boolean(errors.password)
-                    }
-                    helperText={touched.password && errors.password}
-                  />
+                <Grid item>
+                  <Link component={NavLink} to="/register" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
                 </Grid>
               </Grid>
-              <Loading
-                loading={isLogin ? [isLoadingLogin] : [isLoadingRegister]}
-              >
-                <Button
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  {isLogin ? "Login" : "Register"}
-                </Button>
-              </Loading>
-              {isLogin ? (
-                <Grid container>
-                  <Grid item xs>
-                    <Link component={NavLink} to="/" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link component={NavLink} to="/register" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
+            ) : (
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link component={NavLink} to="/login" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
                 </Grid>
-              ) : (
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link component={NavLink} to="/login" variant="body2">
-                      Already have an account? Sign in
-                    </Link>
-                  </Grid>
-                </Grid>
-              )}
-              <TextCopyright sx={{ mt: 5 }} />
-            </Box>
-          )}
-        </Formik>
-      </Box>
-    </Grid>
+              </Grid>
+            )}
+            <TextCopyright sx={{ mt: 5 }} />
+          </Box>
+        )}
+      </Formik>
+    </Box>
   );
 };
