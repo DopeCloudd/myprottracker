@@ -11,6 +11,7 @@ export default function Register() {
         sm={4}
         md={7}
         sx={{
+          display: { xs: "none", sm: "block" },
           backgroundColor: "#121212",
         }}
       >
@@ -32,7 +33,21 @@ export default function Register() {
           </Typography>
         </Box>
       </Grid>
-      <Form type="register" />
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#171717",
+        }}
+      >
+        <Form type="register" />
+      </Grid>
     </Grid>
   );
 }
