@@ -1,7 +1,7 @@
 import Flex from "@/interface/components/box/flex.component";
 import TextPrice from "@/interface/components/text/text-price.component";
 import {
-  CardContent,
+  Box,
   CardMedia,
   Card as MuiCard,
   Rating,
@@ -34,7 +34,7 @@ const Card: React.FC<CardProps> = ({
     <MuiCard
       sx={{
         display: "flex",
-        justifyContent: "space-between",
+        flexDirection: "column",
         backgroundColor: "#171717",
         boxShadow: "0px 0px 15px 2px #0c0c0c",
         borderRadius: "10px",
@@ -46,30 +46,57 @@ const Card: React.FC<CardProps> = ({
       }}
       onClick={onClick}
     >
-      {image && (
-        <CardMedia
-          component="img"
-          src={image}
-          alt={title}
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        {image && (
+          <CardMedia
+            component="img"
+            src={image}
+            alt={title}
+            sx={{
+              position: "relative",
+              maxWidth: "180px",
+              maxHeight: "180px",
+              aspectRatio: "4/4",
+            }}
+          />
+        )}
+        <Box
           sx={{
-            maxWidth: "40%",
-            aspectRatio: "4/4",
+            pt: 2,
+            pl: 2,
+            pr: 2,
           }}
-        />
-      )}
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h3"
-          component="div"
-          sx={{ textTransform: "uppercase" }}
         >
-          {title}
-        </Typography>
-        <Flex>
-          {price && <TextPrice price={price} type="card" />}
-          {price && quantity && <div style={{ width: "1rem" }}></div>}
-          {quantity && (
+          <Typography
+            gutterBottom
+            variant="h3"
+            component="div"
+            sx={{ textTransform: "uppercase" }}
+          >
+            {title}
+          </Typography>
+          <Flex>
+            {price && <TextPrice price={price} type="card" />}
+            {price && quantity && (
+              <Box sx={{ pl: 1, pr: 1, opacity: 0.5 }}>·</Box>
+            )}
+            {quantity && (
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: "1rem",
+                  opacity: "0.5",
+                }}
+              >
+                {quantity}
+              </Typography>
+            )}
+          </Flex>
+          {brand && (
             <Typography
               component="p"
               sx={{
@@ -77,40 +104,40 @@ const Card: React.FC<CardProps> = ({
                 opacity: "0.5",
               }}
             >
-              {quantity}
+              Vendu par {brand}
             </Typography>
           )}
-        </Flex>
-        {brand && (
-          <Typography
-            component="p"
-            sx={{
-              fontSize: "1rem",
-              opacity: "0.5",
-            }}
-          >
-            Vendu par {brand}
-          </Typography>
-        )}
-        {rating && (
-          <Rating
-            name="rating"
-            defaultValue={rating}
-            precision={0.1}
-            readOnly
-          />
-        )}
+          {rating && (
+            <Rating
+              name="rating"
+              defaultValue={rating}
+              precision={0.1}
+              sx={{ pt: 1 }}
+              readOnly
+            />
+          )}
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          pr: 2,
+          pl: 2,
+          pb: 2,
+        }}
+      >
         <Typography
           variant="body1"
           color="text.secondary"
           sx={{
             overflow: "hidden",
             textOverflow: "ellipsis",
+            display: "-webkit-box",
+            lineClamp: 3,
           }}
         >
-          {description}
+          {description.substring(0, 100)}...
         </Typography>
-      </CardContent>
+      </Box>
     </MuiCard>
   );
 };
