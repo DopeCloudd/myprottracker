@@ -48,7 +48,7 @@ export default function AvatarDropdown({
   return (
     <Box sx={{ mr: { xs: 1, md: 3 } }}>
       <Stack direction="row" spacing={1}>
-        <Button aria-describedby={id} onClick={handleAvatarClick}>
+        <Button aria-describedby={id} sx={{ p: 0 }} onClick={handleAvatarClick}>
           <Avatar
             sx={{ width: { xs: 30, md: 40 }, height: { xs: 30, md: 40 } }}
           >
