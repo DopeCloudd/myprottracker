@@ -1,4 +1,5 @@
 import { useAuth } from "@/application/hooks/useAuth";
+import { PlanType } from "@/domain/entities/plan.types";
 import {
   Box,
   Button,
@@ -13,6 +14,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import TextTitle from "../components/text/text-title.component";
+
+const plans = [PlanType.FREE, PlanType.POWER, PlanType.MUSCLE, PlanType.PRO];
 
 const Profile: React.FC = () => {
   const { user } = useAuth();
@@ -62,12 +65,13 @@ const Profile: React.FC = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={user?.subscription || "FREE"}
+              value={user?.subscription || "Starter"}
               label="Abonnement"
               readOnly
             >
-              <MenuItem value={"FREE"}>FREE</MenuItem>
-              <MenuItem value={"PREMIUM"}>PREMIUM</MenuItem>
+              {plans.map((plan) => (
+                <MenuItem value={plan}>{plan}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
