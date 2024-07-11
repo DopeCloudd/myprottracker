@@ -26,7 +26,6 @@ export const ButtonAlert: React.FC<{ productId: number }> = ({ productId }) => {
           : () => handleAddAlert(user?.id, productId)
       }
       sx={{
-        marginRight: "8px",
         padding: "10px",
         backgroundColor: "#171717",
         border: "1px solid",
