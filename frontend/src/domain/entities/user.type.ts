@@ -1,10 +1,12 @@
+import { Plan } from "@/domain/entities/plan.types";
+
 export type User = {
   id: string;
   email: string;
   firstName: string;
   lastName: string;
   role: "USER" | "ADMIN";
-  subscription: "FREE" | "PREMIUM";
+  subscription: Plan;
   createdAt: Date;
 };
 
