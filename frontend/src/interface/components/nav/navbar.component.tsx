@@ -63,7 +63,7 @@ function Navbar() {
       }}
     >
       <FlexCenter
-        gap={2}
+        gap={{ xs: 1, md: 2 }}
         sx={{ cursor: "pointer" }}
         onClick={handleButtonClick}
       >
