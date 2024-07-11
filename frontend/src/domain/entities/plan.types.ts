@@ -1,7 +1,7 @@
 import { ButtonProps } from "@mui/material/Button";
 
 export enum PlanType {
-  FREE = "FREE",
+  FREE = "Starter",
   POWER = "Power Lift",
   MUSCLE = "Muscle Builder",
   PRO = "Pro Gains",
