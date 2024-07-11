@@ -30,7 +30,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
     <GridProduct
       sx={{
         pt: 4,
-        px: 6,
+        px: { xs: 3, sm: 6 },
         pb: 4,
       }}
     >
@@ -89,8 +89,13 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
           <Box>
             <Box
               sx={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                px: { xs: 3, sm: 6 },
                 width: "100%",
                 display: "flex",
+                gap: 2,
                 justifyContent: "flex-end",
               }}
             >
@@ -103,6 +108,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
               sx={{
                 fontFamily: "Integral Oblique, sans-serif",
                 fontSize: "2rem",
+                mt: { xs: 0, sm: 2 },
               }}
             >
               {removeAccents(product.title)}
@@ -167,7 +173,10 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
             <TextProductSection content={"Analyse"} />
             <Typography
               component="p"
-              sx={{ fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)" }}
+              sx={{
+                fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)",
+                pb: 3,
+              }}
             >
               Notre analyse de la composition de ce produit a pu mettre en avant
               que ...
