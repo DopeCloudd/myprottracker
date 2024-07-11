@@ -26,7 +26,6 @@ export const ButtonLike: React.FC<{ productId: number }> = ({ productId }) => {
           : () => handleAddFavorite(user?.id, productId)
       }
       sx={{
-        marginRight: "8px",
         padding: "10px",
         backgroundColor: "#171717",
         border: "1px solid",
