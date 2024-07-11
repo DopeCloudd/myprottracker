@@ -3,17 +3,19 @@ import { Form } from "@/interface/components/global/Form";
 import TextTitleOblique from "@/interface/components/text/text-title-oblique.component";
 import { Box, Grid, Typography } from "@mui/material";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, location]);
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
