@@ -59,7 +59,7 @@ const Profile: React.FC = () => {
         Abonnement
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Abonnement</InputLabel>
             <Select
@@ -70,12 +70,14 @@ const Profile: React.FC = () => {
               readOnly
             >
               {plans.map((plan) => (
-                <MenuItem value={plan}>{plan}</MenuItem>
+                <MenuItem key={plan} value={plan}>
+                  {plan}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6} sx={{ display: "flex", gap: 2 }}>
+        <Grid item xs={12} sm={6} sx={{ display: "none", gap: 2 }}>
           <Button variant="outlined" color="warning" fullWidth>
             Modifier
           </Button>
