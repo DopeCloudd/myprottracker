@@ -1,7 +1,7 @@
+import { useAuth } from "@/application/hooks/useAuth";
 import { Plan, PlanType } from "@/domain/entities/plan.types";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import DiscountIcon from "@mui/icons-material/Discount";
 import {
   Box,
   Button,
@@ -14,13 +14,11 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const tiers: Plan[] = [
   {
-    title: PlanType.POWER,
-    price: 4.99,
-    time: "* engagement d'un mois",
+    title: PlanType.PREMIUM,
+    price: 2.99,
     description: [
       "Nos analyses détaillées",
       "Comparaison des produits",
@@ -30,35 +28,16 @@ const tiers: Plan[] = [
     ],
     buttonText: "S'abonner",
     buttonVariant: "outlined",
-    stripeIdProduct: "prod_QCDD4bPwHRCG18",
-  },
-  {
-    title: PlanType.MUSCLE,
-    subheader: "Recommendé",
-    price: 2.99,
-    time: "* engagement pendant 3 mois",
-    description: ["Tout Power Lift", "Réduction sur l'abonnement de 40%"],
-    buttonText: "S'abonner",
-    buttonVariant: "contained",
-    stripeIdProduct: "prod_QCrjhRU1NNoBHr",
-  },
-  {
-    title: PlanType.PRO,
-    subheader: "- 80%",
-    price: 0.99,
-    time: "* engagement pendant 1 an",
-    description: ["Tout Power Lift", "Réduction sur l'abonnement de 80%"],
-    buttonText: "S'abonner",
-    buttonVariant: "outlined",
-    stripeIdProduct: "prod_QCrj2lSpSG7ywY",
+    stripePriceId: "price_1PbhjjLgRo1w7m00AcJ5MOfI",
+    stripePriceLink: "https://buy.stripe.com/test_8wMg240jd8Mxamk9AA",
   },
 ];
 
 export default function Pricing() {
-  const navigate = useNavigate();
+  const { user } = useAuth();
 
-  const handleSubscription = (stripeIdProduct: string) => {
-    navigate("/subscription/" + stripeIdProduct);
+  const handleSubscription = (stripePriceLink: string) => {
+    window.open(stripePriceLink + "?prefilled_email=" + user?.email, "_self");
   };
 
   return (
@@ -100,14 +79,10 @@ export default function Pricing() {
                 justifyContent: "space-between",
                 height: "100%",
                 gap: 4,
-                border:
-                  tier.title === PlanType.MUSCLE ? "1px solid" : undefined,
-                borderColor:
-                  tier.title === PlanType.MUSCLE ? "primary.main" : undefined,
+                border: "1px solid",
+                borderColor: "primary.main",
                 background:
-                  tier.title === PlanType.MUSCLE
-                    ? "linear-gradient(180deg, rgba(0,110,57,1) 0%, rgba(0,55,29,1) 100%)"
-                    : undefined,
+                  "linear-gradient(180deg, rgba(0,110,57,1) 0%, rgba(0,55,29,1) 100%)",
               }}
             >
               <CardContent>
@@ -117,55 +92,32 @@ export default function Pricing() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    color: tier.title === "Muscle Builder" ? "grey.100" : "",
+                    color: "grey.100",
                   }}
                 >
                   <Typography component="h3" variant="h6">
                     {tier.title}
                   </Typography>
-                  {tier.title === PlanType.MUSCLE && (
-                    <Chip
-                      icon={<AutoAwesomeIcon />}
-                      label={tier.subheader}
-                      size="small"
-                      sx={{
-                        background: (theme) =>
-                          theme.palette.mode === "light" ? "" : "none",
-                        backgroundColor: "primary.contrastText",
-                        "& .MuiChip-label": {
-                          color: "primary.dark",
-                        },
-                        "& .MuiChip-icon": {
-                          color: "primary.dark",
-                        },
-                      }}
-                    />
-                  )}
-                  {tier.title === PlanType.PRO && (
-                    <Chip
-                      icon={<DiscountIcon />}
-                      label={tier.subheader}
-                      size="small"
-                      sx={{
-                        background: (theme) =>
-                          theme.palette.mode === "light" ? "" : "none",
-                        backgroundColor: "primary.contrastText",
-                        "& .MuiChip-label": {
-                          color: "primary.dark",
-                        },
-                        "& .MuiChip-icon": {
-                          color: "primary.dark",
-                        },
-                      }}
-                    />
-                  )}
+                  <Chip
+                    icon={<AutoAwesomeIcon />}
+                    label={"Recommandé"}
+                    size="small"
+                    sx={{
+                      backgroundColor: "primary.contrastText",
+                      "& .MuiChip-label": {
+                        color: "primary.dark",
+                      },
+                      "& .MuiChip-icon": {
+                        color: "primary.dark",
+                      },
+                    }}
+                  />
                 </Box>
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "baseline",
-                    color:
-                      tier.title === PlanType.POWER ? "grey.50" : undefined,
+                    color: "grey.50",
                   }}
                 >
                   <Typography component="h3" variant="h2">
@@ -175,11 +127,6 @@ export default function Pricing() {
                     &nbsp; par mois
                   </Typography>
                 </Box>
-                {tier.time && (
-                  <Typography variant="body1" color="text.secondary">
-                    {tier.time}
-                  </Typography>
-                )}
                 <Divider
                   sx={{
                     my: 2,
@@ -200,20 +147,14 @@ export default function Pricing() {
                     <CheckCircleRoundedIcon
                       sx={{
                         width: 20,
-                        color:
-                          tier.title === PlanType.POWER
-                            ? "primary.light"
-                            : "primary.main",
+                        color: "primary.light",
                       }}
                     />
                     <Typography
                       component="p"
                       variant="subtitle2"
                       sx={{
-                        color:
-                          tier.title === PlanType.POWER
-                            ? "grey.200"
-                            : undefined,
+                        color: "grey.200",
                       }}
                     >
                       {line}
@@ -225,7 +166,7 @@ export default function Pricing() {
                 <Button
                   fullWidth
                   variant={tier.buttonVariant}
-                  onClick={() => handleSubscription(tier.stripeIdProduct)}
+                  onClick={() => handleSubscription(tier.stripePriceLink)}
                 >
                   {tier.buttonText}
                 </Button>
