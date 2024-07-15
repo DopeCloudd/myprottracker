@@ -9,7 +9,7 @@ import { SkeletonProduct } from "@/interface/components/skeleton/skeleton-produc
 import TextPrice from "@/interface/components/text/text-price.component";
 import TextProductSection from "@/interface/components/text/text-product-section.component";
 import { truncateString } from "@/interface/utils/index";
-import { Box, Button, Rating, Typography } from "@mui/material";
+import { Box, Button, Divider, Rating, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -27,106 +27,117 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
   const { data: product, isLoading } = useGetProductByIdQuery(productId);
 
   return (
-    <GridProduct
+    <Box
       sx={{
         pt: 4,
         px: { xs: 3, sm: 6 },
         pb: 4,
       }}
     >
-      {isLoading ? (
-        <SkeletonProduct />
-      ) : !product ? (
-        <Box
-          sx={{
-            gridColumn: "span 2",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            mt: 4,
-          }}
-        >
-          <Typography
-            variant="h1"
-            component="h1"
-            sx={{
-              fontSize: "2rem",
-            }}
-          >
-            Oops, il semblerait que ce produit n'existe pas.
-          </Typography>
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{
-              mt: 2,
-            }}
-            onClick={() => {
-              window.history.back();
-            }}
-          >
-            Retour
-          </Button>
-        </Box>
-      ) : (
-        <>
+      <GridProduct>
+        {isLoading ? (
+          <SkeletonProduct />
+        ) : !product ? (
           <Box
             sx={{
-              px: 4,
-              "& img": {
-                aspectRatio: "4/4",
-                width: "100%",
-              },
+              gridColumn: "span 2",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              mt: 4,
             }}
           >
-            <img
-              src={bufferToImageSrc(product.image.data)}
-              alt={product.title}
-            />
-          </Box>
-          <Box>
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                px: { xs: 3, sm: 6 },
-                width: "100%",
-                display: "flex",
-                gap: 2,
-                justifyContent: "flex-end",
-              }}
-            >
-              <ButtonAlert productId={product.id} />
-              <ButtonLike productId={product.id} />
-            </Box>
             <Typography
               variant="h1"
               component="h1"
               sx={{
-                fontFamily: "Integral Oblique, sans-serif",
                 fontSize: "2rem",
-                mt: { xs: 0, sm: 2 },
               }}
             >
-              {removeAccents(product.title)}
+              Oops, il semblerait que ce produit n'existe pas.
             </Typography>
-            <Rating
-              name="read-only"
-              value={product.rating}
-              precision={0.1}
-              readOnly
-              sx={{ mt: 2 }}
-            />
+            <Button
+              variant="outlined"
+              color="primary"
+              sx={{
+                mt: 2,
+              }}
+              onClick={() => {
+                window.history.back();
+              }}
+            >
+              Retour
+            </Button>
+          </Box>
+        ) : (
+          <>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "baseline",
+                px: 4,
+                "& img": {
+                  aspectRatio: "4/4",
+                  width: "100%",
+                },
               }}
             >
-              <TextPrice price={product.price} type="product" />
+              <img
+                src={bufferToImageSrc(product.image.data)}
+                alt={product.title}
+              />
+            </Box>
+            <Box>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  px: { xs: 3, sm: 6 },
+                  width: "100%",
+                  display: "flex",
+                  gap: 2,
+                  justifyContent: "flex-end",
+                }}
+              >
+                <ButtonAlert productId={product.id} />
+                <ButtonLike productId={product.id} />
+              </Box>
+              <Typography
+                variant="h1"
+                component="h1"
+                sx={{
+                  fontFamily: "Integral Oblique, sans-serif",
+                  fontSize: "2rem",
+                  mt: { xs: 0, sm: 2 },
+                }}
+              >
+                {removeAccents(product.title)}
+              </Typography>
+              <Rating
+                name="read-only"
+                value={product.rating}
+                precision={0.1}
+                readOnly
+                sx={{ mt: 2 }}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "baseline",
+                }}
+              >
+                <TextPrice price={product.price} type="product" />
+                <Typography
+                  component="p"
+                  sx={{
+                    opacity: "0.5",
+                    fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
+                  }}
+                >
+                  {product.quantity}
+                </Typography>
+              </Box>
               <Typography
                 component="p"
                 sx={{
@@ -134,64 +145,63 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                   fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
                 }}
               >
-                {product.quantity}
+                Vendu par {product.brand.name}
+              </Typography>
+              <Typography
+                component="p"
+                sx={{
+                  opacity: "0.5",
+                  fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
+                }}
+              >
+                Prix le plus bas : {product.lowestPrice} €
+              </Typography>
+              <Typography
+                component="p"
+                sx={{
+                  opacity: "0.5",
+                  fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
+                }}
+              >
+                Prix le plus haut : {product.highestPrice} €
+              </Typography>
+              <ButtonBuy
+                content="Acheter"
+                onClick={() => {
+                  window.open(product.url, "_blank");
+                }}
+              />
+              <TextProductSection content={"Analyse"} />
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)",
+                  pb: 3,
+                }}
+              >
+                Notre analyse de la composition de ce produit a pu mettre en
+                avant que ...
+              </Typography>
+              <TextProductSection content={"Description"} />
+              <Typography
+                component="p"
+                sx={{ fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)" }}
+              >
+                {truncateString(product.description, 400)}
               </Typography>
             </Box>
-            <Typography
-              component="p"
-              sx={{
-                opacity: "0.5",
-                fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
-              }}
-            >
-              Vendu par {product.brand.name}
-            </Typography>
-            <Typography
-              component="p"
-              sx={{
-                opacity: "0.5",
-                fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
-              }}
-            >
-              Prix le plus bas : {product.lowestPrice} €
-            </Typography>
-            <Typography
-              component="p"
-              sx={{
-                opacity: "0.5",
-                fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
-              }}
-            >
-              Prix le plus haut : {product.highestPrice} €
-            </Typography>
-            <ButtonBuy
-              content="Acheter"
-              onClick={() => {
-                window.open(product.url, "_blank");
-              }}
-            />
-            <TextProductSection content={"Analyse"} />
-            <Typography
-              component="p"
-              sx={{
-                fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)",
-                pb: 3,
-              }}
-            >
-              Notre analyse de la composition de ce produit a pu mettre en avant
-              que ...
-            </Typography>
-            <TextProductSection content={"Description"} />
-            <Typography
-              component="p"
-              sx={{ fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)" }}
-            >
-              {truncateString(product.description, 400)}
-            </Typography>
-          </Box>
-        </>
-      )}
-    </GridProduct>
+          </>
+        )}
+      </GridProduct>
+      <Divider
+        variant="middle"
+        sx={{
+          mt: 4,
+          mb: 2,
+        }}
+      />
+      <Typography>Nos suggestions pour vous</Typography>
+    </Box>
   );
 };
 
