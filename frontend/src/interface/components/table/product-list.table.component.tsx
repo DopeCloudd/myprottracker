@@ -12,6 +12,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Column {
   id: "url" | "title" | "brand" | "category";
@@ -47,6 +48,7 @@ const columns: readonly Column[] = [
 ];
 
 export default function TableProductList() {
+  const navigate = useNavigate();
   const { rows, productsLoading, handleProductDelete } = useProducts();
 
   if (productsLoading) {
@@ -96,7 +98,7 @@ export default function TableProductList() {
                       color="warning"
                       aria-label="Editer le produit"
                       onClick={() => {
-                        alert(row.id);
+                        navigate("/admin/products/" + row.id);
                       }}
                     >
                       <EditIcon />
