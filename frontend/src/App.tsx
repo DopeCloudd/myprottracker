@@ -24,6 +24,7 @@ import { SnackbarProvider } from "notistack";
 import { useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AdminEditProduct } from "./interface/pages/admin-products.edit.page";
 
 export default function App() {
   useToken();
@@ -57,6 +58,10 @@ export default function App() {
                   <Route element={<AdminOutlet />}>
                     <Route path="admin" element={<Admin />} />
                     <Route path="admin/products" element={<AdminProducts />} />
+                    <Route
+                      path="admin/products/:id"
+                      element={<AdminEditProduct />}
+                    />
                     <Route path="admin/scraping" element={<AdminScraping />} />
                     <Route path="admin/configuration" element={<Admin />} />
                   </Route>
