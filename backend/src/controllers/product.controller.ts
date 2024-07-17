@@ -2,6 +2,7 @@ import { PrismaClient, Product } from "@prisma/client";
 import { Request, Response } from "express";
 
 const productClient = new PrismaClient().product;
+const nutritionClient = new PrismaClient().nutrition;
 
 // Get all products
 export const getProducts = async (req: Request, res: Response) => {
@@ -16,7 +17,7 @@ export const getProductById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const product = await productClient.findUnique({
     where: { id: id },
-    include: { category: true, brand: true },
+    include: { category: true, brand: true, nutrition: true },
   });
   if (!product) {
     throw new Error("Product not found.");
@@ -29,7 +30,7 @@ export const getProductByCategoryId = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const products = await productClient.findMany({
     where: { categoryId: id, title: { not: null } },
-    include: { category: true, brand: true },
+    include: { category: true, brand: true, nutrition: true },
   });
   res.status(200).json(products);
 };
@@ -41,6 +42,7 @@ export const createProduct = async (req: Request, res: Response) => {
   const categoryId = parseInt(values.categoryId);
   const brandId = parseInt(values.brandId);
   const image = req.file;
+  const nutrition_values = values.nutrition_values;
 
   if (!url || !categoryId || !brandId || !image) {
     throw new Error("Missing required fields.");
@@ -65,6 +67,24 @@ export const createProduct = async (req: Request, res: Response) => {
 
   if (!newProduct) {
     throw new Error("Failed to create product.");
+  }
+
+  const newProductNutrition = await nutritionClient.create({
+    data: {
+      productId: newProduct.id,
+      calories: nutrition_values.calories ?? null,
+      protein: nutrition_values.protein ?? null,
+      fat: nutrition_values.fat ?? null,
+      saturatedFat: nutrition_values.saturatedFat ?? null,
+      carbohydrates: nutrition_values.carbohydrates ?? null,
+      sugar: nutrition_values.sugar ?? null,
+      fiber: nutrition_values.fiber ?? null,
+      salt: nutrition_values.salt ?? null,
+    },
+  });
+
+  if (!newProductNutrition) {
+    throw new Error("Failed to create product nutrition values.");
   }
 
   res.status(201).json(newProduct);
