@@ -80,6 +80,7 @@ model Product {
 
   favorites Favorite[]
   alertes Alert[]
+  nutrition Nutrition[]
 }
 
 model Favorite {
@@ -107,6 +108,23 @@ model Alert {
 model Newsletter {
   id      Int      @id @default(autoincrement())
   email String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Nutrition {
+  id      Int      @id @default(autoincrement())
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  calories Float?
+  fat Float?
+  saturatedFat Float?
+  fiber Float?
+  sugar Float?
+  protein Float?
+  salt Float?
+  carbohydrates Float?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
