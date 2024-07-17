@@ -1,4 +1,4 @@
-import FormNewsletter from "@/interface/components/form/form-newsletter.component";
+import FormNewsletter from "@/interface/components/form/newsletter.form";
 import { TextCopyright } from "@/interface/components/text/text-copyright.component";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
