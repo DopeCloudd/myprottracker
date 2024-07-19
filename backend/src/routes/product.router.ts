@@ -5,6 +5,7 @@ import {
   getProductByCategoryId,
   getProductById,
   getProducts,
+  updateProduct,
 } from "../controllers/product.controller";
 import { uploadMiddleware } from "../middlewares/upload.middleware";
 import { tryCatch } from "../utils/tryCatch";
@@ -18,6 +19,11 @@ productRouter.post(
   "/product",
   tryCatch(uploadMiddleware),
   tryCatch(createProduct),
+);
+productRouter.post(
+  "/product/:id",
+  tryCatch(uploadMiddleware),
+  tryCatch(updateProduct),
 );
 productRouter.delete("/product/:id", tryCatch(deleteProduct));
 
