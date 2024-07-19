@@ -11,6 +11,7 @@ import brandRouter from "./routes/brand.router";
 import categoryRouter from "./routes/category.router";
 import favoriteRouter from "./routes/favorite.router";
 import productRouter from "./routes/product.router";
+import scrapingRouter from "./routes/scraping.router";
 
 const app: Application = express();
 
@@ -31,6 +32,7 @@ app.use(productRouter);
 app.use(favoriteRouter);
 app.use(alertRouter);
 app.use(brandRouter);
+app.use(scrapingRouter);
 // Error handler
 app.use(errorHandler);
 
