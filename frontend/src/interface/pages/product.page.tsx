@@ -200,7 +200,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
           mb: 2,
         }}
       />
-      <Typography>Nos suggestions pour vous</Typography>
+      <Typography variant="h3">Vous pourriez aussi aimé</Typography>
     </Box>
   );
 };
