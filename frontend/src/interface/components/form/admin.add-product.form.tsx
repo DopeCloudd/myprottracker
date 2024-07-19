@@ -11,7 +11,6 @@ import {
   InputAdornment,
   MenuItem,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
@@ -94,9 +93,6 @@ const AdminAddProductForm: React.FC = () => {
 
   return (
     <Box>
-      <Typography component="h1" variant="h2" mb={2}>
-        Ajouter un produit
-      </Typography>
       <Loading loading={[categoriesLoad, brandsLoad]}>
         <Box component="form" noValidate onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
