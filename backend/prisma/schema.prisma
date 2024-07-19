@@ -115,7 +115,7 @@ model Newsletter {
 model Nutrition {
   id      Int      @id @default(autoincrement())
   product Product @relation(fields: [productId], references: [id])
-  productId Int
+  productId Int @unique
   calories Float?
   fat Float?
   saturatedFat Float?
