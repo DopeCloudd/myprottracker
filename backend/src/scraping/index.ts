@@ -29,6 +29,6 @@ export async function scrapeData() {
   ]);
   await browser.close();
   const flatResults = results.flat();
-  console.log(results.flat());
+  /* console.log(results.flat()); */
   await Reader(flatResults, config);
 }
