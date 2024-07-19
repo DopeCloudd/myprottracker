@@ -1,8 +1,10 @@
 import useProducts from "@/application/hooks/useProducts";
+import { useStartScrapingMutation } from "@/infrastructure/api/scraping.api";
+import FlexBetween from "@/interface/components/box/flex-between.component";
 import FlexCenter from "@/interface/components/box/flex-center.component";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Grid, IconButton, Link, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, Link, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -50,6 +52,8 @@ const columns: readonly Column[] = [
 export default function TableProductList() {
   const navigate = useNavigate();
   const { rows, productsLoading, handleProductDelete } = useProducts();
+  const [startScraping, { isLoading: loadingScraping }] =
+    useStartScrapingMutation();
 
   if (productsLoading) {
     return (
@@ -61,14 +65,19 @@ export default function TableProductList() {
 
   return (
     <Box>
-      <Typography component="h1" variant="h2" mb={2}>
-        Liste des produits
-      </Typography>
+      <FlexBetween>
+        <Typography component="h1" variant="h2" mb={2}>
+          Liste des produits
+        </Typography>
+        <Button variant="outlined" onClick={() => startScraping()}>
+          Actualiser
+        </Button>
+      </FlexBetween>
       <Box>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Paper sx={{ width: "100%", overflow: "hidden", mb: 6 }}>
-              <TableContainer sx={{ maxHeight: 440 }}>
+              <TableContainer sx={{ maxHeight: 600 }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow>
