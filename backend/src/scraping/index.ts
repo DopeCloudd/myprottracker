@@ -15,7 +15,7 @@ const config: Config = {
   url: true,
 };
 
-(async () => {
+export async function scrapeData() {
   const bulk_urls = await getUrls("Bulk");
   const eafit_urls = await getUrls("Eafit");
   const myprotein_urls = await getUrls("Myprotein");
@@ -31,4 +31,4 @@ const config: Config = {
   const flatResults = results.flat();
   console.log(results.flat());
   await Reader(flatResults, config);
-})();
+}
