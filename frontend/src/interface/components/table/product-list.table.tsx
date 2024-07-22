@@ -2,6 +2,7 @@ import useProducts from "@/application/hooks/useProducts";
 import { useStartScrapingMutation } from "@/infrastructure/api/scraping.api";
 import FlexBetween from "@/interface/components/box/flex-between.component";
 import FlexCenter from "@/interface/components/box/flex-center.component";
+import Loading from "@/interface/layout/loading.layout";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Grid, IconButton, Link, Typography } from "@mui/material";
@@ -69,9 +70,11 @@ export default function TableProductList() {
         <Typography component="h1" variant="h2" mb={2}>
           Liste des produits
         </Typography>
-        <Button variant="outlined" onClick={() => startScraping()}>
-          Actualiser
-        </Button>
+        <Loading loading={[loadingScraping]}>
+          <Button variant="outlined" onClick={() => startScraping()}>
+            Actualiser
+          </Button>
+        </Loading>
       </FlexBetween>
       <Box>
         <Grid container spacing={2}>
