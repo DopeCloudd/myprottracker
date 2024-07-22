@@ -29,6 +29,14 @@ const initialValues = {
   url: "",
   category: "",
   brand: "",
+  calories: "",
+  fat: "",
+  saturedFat: "",
+  fiber: "",
+  sugar: "",
+  carbohydrates: "",
+  protein: "",
+  salt: "",
 };
 
 const AdminAddProductForm: React.FC = () => {
@@ -48,29 +56,40 @@ const AdminAddProductForm: React.FC = () => {
         url: string;
         category: string;
         brand: string;
+        calories: string;
+        fat: string;
+        saturedFat: string;
+        fiber: string;
+        sugar: string;
+        carbohydrates: string;
+        protein: string;
+        salt: string;
       },
       { resetForm }
     ) => {
       if (file) {
         const formData = new FormData();
-        const { url, category, brand } = values;
-        formData.append("url", url);
-        formData.append("brandId", brand);
-        formData.append("categoryId", parseInt(category).toString());
+        formData.append("url", values.url);
+        formData.append("brandId", values.brand);
+        formData.append("categoryId", parseInt(values.category).toString());
         formData.append("image", file);
         formData.append(
           "nutrition_values",
           JSON.stringify({
-            calories: 0,
-            fat: 0,
-            carbohydrates: 0,
-            fiber: 0,
-            protein: 0,
-            salt: 0,
+            calories: parseFloat(values.calories.replace(/,/g, ".")),
+            fat: parseFloat(values.fat.replace(/,/g, ".")),
+            saturedFat: parseFloat(values.saturedFat.replace(/,/g, ".")),
+            carbohydrates: parseFloat(values.carbohydrates.replace(/,/g, ".")),
+            fiber: parseFloat(values.fiber.replace(/,/g, ".")),
+            protein: parseFloat(values.protein.replace(/,/g, ".")),
+            salt: parseFloat(values.salt.replace(/,/g, ".")),
+            sugar: parseFloat(values.sugar.replace(/,/g, ".")),
           })
         );
+        console.log(formData);
         try {
           const product = await addProduct(formData).unwrap();
+          console.log(product);
           if (product) {
             resetForm();
             handleRemoveFile();
@@ -154,7 +173,7 @@ const AdminAddProductForm: React.FC = () => {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -164,9 +183,18 @@ const AdminAddProductForm: React.FC = () => {
                 }}
                 label="Calories"
                 type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="calories"
+                value={formik.values.calories}
+                error={
+                  Boolean(formik.touched.calories) &&
+                  Boolean(formik.errors.calories)
+                }
+                helperText={formik.touched.calories && formik.errors.calories}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -176,9 +204,17 @@ const AdminAddProductForm: React.FC = () => {
                 }}
                 label="Matieres grasses"
                 type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="fat"
+                value={formik.values.fat}
+                error={
+                  Boolean(formik.touched.fat) && Boolean(formik.errors.fat)
+                }
+                helperText={formik.touched.fat && formik.errors.fat}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -186,11 +222,22 @@ const AdminAddProductForm: React.FC = () => {
                     <InputAdornment position="start">g</InputAdornment>
                   ),
                 }}
-                label="Glucides"
+                label="Acides gras saturés"
                 type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="saturedFat"
+                value={formik.values.saturedFat}
+                error={
+                  Boolean(formik.touched.saturedFat) &&
+                  Boolean(formik.errors.saturedFat)
+                }
+                helperText={
+                  formik.touched.saturedFat && formik.errors.saturedFat
+                }
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -200,9 +247,60 @@ const AdminAddProductForm: React.FC = () => {
                 }}
                 label="Fibres alimentaires"
                 type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="fiber"
+                value={formik.values.fiber}
+                error={
+                  Boolean(formik.touched.fiber) && Boolean(formik.errors.fiber)
+                }
+                helperText={formik.touched.fiber && formik.errors.fiber}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">g</InputAdornment>
+                  ),
+                }}
+                label="Sucres"
+                type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="sugar"
+                value={formik.values.sugar}
+                error={
+                  Boolean(formik.touched.sugar) && Boolean(formik.errors.sugar)
+                }
+                helperText={formik.touched.sugar && formik.errors.sugar}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">g</InputAdornment>
+                  ),
+                }}
+                label="Glucides"
+                type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="carbohydrates"
+                value={formik.values.carbohydrates}
+                error={
+                  Boolean(formik.touched.carbohydrates) &&
+                  Boolean(formik.errors.carbohydrates)
+                }
+                helperText={
+                  formik.touched.carbohydrates && formik.errors.carbohydrates
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -212,9 +310,18 @@ const AdminAddProductForm: React.FC = () => {
                 }}
                 label="Protéines"
                 type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="protein"
+                value={formik.values.protein}
+                error={
+                  Boolean(formik.touched.protein) &&
+                  Boolean(formik.errors.protein)
+                }
+                helperText={formik.touched.protein && formik.errors.protein}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -224,6 +331,14 @@ const AdminAddProductForm: React.FC = () => {
                 }}
                 label="Sel"
                 type="string"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                name="salt"
+                value={formik.values.salt}
+                error={
+                  Boolean(formik.touched.salt) && Boolean(formik.errors.salt)
+                }
+                helperText={formik.touched.salt && formik.errors.salt}
               />
             </Grid>
             <Grid item xs={12}>
