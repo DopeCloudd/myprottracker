@@ -32,6 +32,14 @@ const AdminEditProductForm: React.FC<{
     url: string;
     category: string;
     brand: string;
+    calories: string;
+    fat: string;
+    saturedFat: string;
+    fiber: string;
+    sugar: string;
+    carbohydrates: string;
+    protein: string;
+    salt: string;
   }) => {
     console.log(values);
   };
@@ -48,6 +56,14 @@ const AdminEditProductForm: React.FC<{
           category: product?.category.id.toString() || "",
           brand: product?.brand.id.toString() || "",
           image: product?.image || "",
+          calories: product?.nutrition.calories?.toString() || "",
+          fat: product?.nutrition.fat?.toString() || "",
+          saturedFat: product?.nutrition.saturedFat?.toString() || "",
+          fiber: product?.nutrition.fiber?.toString() || "",
+          sugar: product?.nutrition.sugar?.toString() || "",
+          carbohydrates: product?.nutrition.carbohydrates?.toString() || "",
+          protein: product?.nutrition.protein?.toString() || "",
+          salt: product?.nutrition.salt?.toString() || "",
         }}
         validationSchema={schema}
       >
@@ -112,7 +128,7 @@ const AdminEditProductForm: React.FC<{
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -122,9 +138,15 @@ const AdminEditProductForm: React.FC<{
                   }}
                   label="Calories"
                   type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="calories"
+                  value={values.calories}
+                  error={Boolean(touched.calories) && Boolean(errors.calories)}
+                  helperText={touched.calories && errors.calories}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -134,9 +156,15 @@ const AdminEditProductForm: React.FC<{
                   }}
                   label="Matieres grasses"
                   type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="fat"
+                  value={values.fat}
+                  error={Boolean(touched.fat) && Boolean(errors.fat)}
+                  helperText={touched.fat && errors.fat}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -144,11 +172,19 @@ const AdminEditProductForm: React.FC<{
                       <InputAdornment position="start">g</InputAdornment>
                     ),
                   }}
-                  label="Glucides"
+                  label="Acides gras saturés"
                   type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="saturedFat"
+                  value={values.saturedFat}
+                  error={
+                    Boolean(touched.saturedFat) && Boolean(errors.saturedFat)
+                  }
+                  helperText={touched.saturedFat && errors.saturedFat}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -158,9 +194,54 @@ const AdminEditProductForm: React.FC<{
                   }}
                   label="Fibres alimentaires"
                   type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="fiber"
+                  value={values.fiber}
+                  error={Boolean(touched.fiber) && Boolean(errors.fiber)}
+                  helperText={touched.fiber && errors.fiber}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">g</InputAdornment>
+                    ),
+                  }}
+                  label="Sucres"
+                  type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="sugar"
+                  value={values.sugar}
+                  error={Boolean(touched.sugar) && Boolean(errors.sugar)}
+                  helperText={touched.sugar && errors.sugar}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">g</InputAdornment>
+                    ),
+                  }}
+                  label="Glucides"
+                  type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="carbohydrates"
+                  value={values.carbohydrates}
+                  error={
+                    Boolean(touched.carbohydrates) &&
+                    Boolean(errors.carbohydrates)
+                  }
+                  helperText={touched.carbohydrates && errors.carbohydrates}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -170,9 +251,15 @@ const AdminEditProductForm: React.FC<{
                   }}
                   label="Protéines"
                   type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="protein"
+                  value={values.protein}
+                  error={Boolean(touched.protein) && Boolean(errors.protein)}
+                  helperText={touched.protein && errors.protein}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -182,6 +269,12 @@ const AdminEditProductForm: React.FC<{
                   }}
                   label="Sel"
                   type="string"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  name="salt"
+                  value={values.salt}
+                  error={Boolean(touched.salt) && Boolean(errors.salt)}
+                  helperText={touched.salt && errors.salt}
                 />
               </Grid>
               <Grid item xs={12}>
