@@ -87,7 +87,7 @@ export const createProduct = async (req: Request, res: Response) => {
     throw new Error("Failed to create product nutrition values.");
   }
 
-  res.status(201).json(newProduct);
+  res.status(201).json(nutrition_values);
 };
 
 // Update a product
@@ -99,6 +99,7 @@ export const updateProduct = async (req: Request, res: Response) => {
   const brandId = parseInt(values.brandId);
   const image = req.file;
   const nutrition_values = values.nutrition_values;
+  console.log(nutrition_values);
 
   if (!url || !categoryId || !brandId) {
     throw new Error("Missing required fields.");
