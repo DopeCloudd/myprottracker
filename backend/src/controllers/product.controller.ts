@@ -75,7 +75,7 @@ export const createProduct = async (req: Request, res: Response) => {
       calories: nutrition_values.calories ?? null,
       protein: nutrition_values.protein ?? null,
       fat: nutrition_values.fat ?? null,
-      saturatedFat: nutrition_values.saturatedFat ?? null,
+      saturedFat: nutrition_values.saturedFat ?? null,
       carbohydrates: nutrition_values.carbohydrates ?? null,
       sugar: nutrition_values.sugar ?? null,
       fiber: nutrition_values.fiber ?? null,
@@ -92,21 +92,19 @@ export const createProduct = async (req: Request, res: Response) => {
 
 // Update a product
 export const updateProduct = async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
-  const values = req.body;
-  const url = String(values.url);
-  const categoryId = parseInt(values.categoryId);
-  const brandId = parseInt(values.brandId);
+  const { id } = req.params;
+  const url = String(req.body.url);
+  const categoryId = parseInt(req.body.categoryId);
+  const brandId = parseInt(req.body.brandId);
+  const parsedNutritionValues = JSON.parse(req.body.nutrition_values);
   const image = req.file;
-  const nutrition_values = values.nutrition_values;
-  console.log(nutrition_values);
 
   if (!url || !categoryId || !brandId) {
     throw new Error("Missing required fields.");
   }
 
   const product = await productClient.findUnique({
-    where: { id: id },
+    where: { id: parseInt(id) },
   });
 
   if (!product) {
@@ -135,14 +133,14 @@ export const updateProduct = async (req: Request, res: Response) => {
     const createdProductNutrition = await nutritionClient.create({
       data: {
         productId: product.id,
-        calories: nutrition_values.calories ?? null,
-        protein: nutrition_values.protein ?? null,
-        fat: nutrition_values.fat ?? null,
-        saturatedFat: nutrition_values.saturatedFat ?? null,
-        carbohydrates: nutrition_values.carbohydrates ?? null,
-        sugar: nutrition_values.sugar ?? null,
-        fiber: nutrition_values.fiber ?? null,
-        salt: nutrition_values.salt ?? null,
+        calories: parseFloat(parsedNutritionValues.calories) ?? null,
+        protein: parseFloat(parsedNutritionValues.protein) ?? null,
+        fat: parseFloat(parsedNutritionValues.fat) ?? null,
+        saturedFat: parseFloat(parsedNutritionValues.saturedFat) ?? null,
+        carbohydrates: parseFloat(parsedNutritionValues.carbohydrates) ?? null,
+        sugar: parseFloat(parsedNutritionValues.sugar) ?? null,
+        fiber: parseFloat(parsedNutritionValues.fiber) ?? null,
+        salt: parseFloat(parsedNutritionValues.salt) ?? null,
       },
     });
     if (!createdProductNutrition) {
@@ -152,16 +150,23 @@ export const updateProduct = async (req: Request, res: Response) => {
     const updatedProductNutrition = await nutritionClient.update({
       where: { id: productNutrition.id },
       data: {
-        calories: nutrition_values.calories ?? productNutrition.calories,
-        protein: nutrition_values.protein ?? productNutrition.protein,
-        fat: nutrition_values.fat ?? productNutrition.fat,
-        saturatedFat:
-          nutrition_values.saturatedFat ?? productNutrition.saturatedFat,
+        calories:
+          parseFloat(parsedNutritionValues.calories) ??
+          productNutrition.calories,
+        protein:
+          parseFloat(parsedNutritionValues.protein) ?? productNutrition.protein,
+        fat: parseFloat(parsedNutritionValues.fat) ?? productNutrition.fat,
+        saturedFat:
+          parseFloat(parsedNutritionValues.saturedFat) ??
+          productNutrition.saturedFat,
         carbohydrates:
-          nutrition_values.carbohydrates ?? productNutrition.carbohydrates,
-        sugar: nutrition_values.sugar ?? productNutrition.sugar,
-        fiber: nutrition_values.fiber ?? productNutrition.fiber,
-        salt: nutrition_values.salt ?? productNutrition.salt,
+          parseFloat(parsedNutritionValues.carbohydrates) ??
+          productNutrition.carbohydrates,
+        sugar:
+          parseFloat(parsedNutritionValues.sugar) ?? productNutrition.sugar,
+        fiber:
+          parseFloat(parsedNutritionValues.fiber) ?? productNutrition.fiber,
+        salt: parseFloat(parsedNutritionValues.salt) ?? productNutrition.salt,
       },
     });
 
