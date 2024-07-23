@@ -1,4 +1,5 @@
 export type Nutrition = {
+  id: number;
   productId: number;
   calories: number | null;
   protein: number | null;
