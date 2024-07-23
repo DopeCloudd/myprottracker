@@ -86,10 +86,8 @@ const AdminAddProductForm: React.FC = () => {
             sugar: parseFloat(values.sugar.replace(/,/g, ".")),
           })
         );
-        console.log(formData);
         try {
           const product = await addProduct(formData).unwrap();
-          console.log(product);
           if (product) {
             resetForm();
             handleRemoveFile();
