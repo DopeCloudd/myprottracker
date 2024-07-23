@@ -12,6 +12,17 @@ const useFile = () => {
   const file = useSelector(selectedFile);
   const preview = useSelector(previewFile);
 
+  const addFile = (blobData: number[], mimeType: string, fileName: string) => {
+    const uint8Array = new Uint8Array(blobData);
+    const blob = new Blob([uint8Array], { type: mimeType });
+    const fileObject = new File([blob], fileName, { type: mimeType });
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      dispatch(setFile({ file: fileObject, preview: reader.result as string }));
+    };
+    reader.readAsDataURL(fileObject);
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileUpload = event.target.files?.[0];
     if (fileUpload) {
@@ -33,6 +44,7 @@ const useFile = () => {
     file,
     preview,
     handleFileChange,
+    addFile,
     handleRemoveFile,
   };
 };
