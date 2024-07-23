@@ -118,7 +118,7 @@ model Nutrition {
   productId Int @unique
   calories Float?
   fat Float?
-  saturatedFat Float?
+  saturedFat Float?
   fiber Float?
   sugar Float?
   protein Float?
