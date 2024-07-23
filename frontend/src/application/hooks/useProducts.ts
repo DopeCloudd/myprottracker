@@ -1,6 +1,6 @@
 import {
   useDeleteProductMutation,
-  useGetProdcutsQuery,
+  useGetProductsQuery,
 } from "@/infrastructure/api/product.api";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
@@ -25,7 +25,7 @@ function createData(
 
 const useProducts = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const { data: products, isLoading: productsLoading } = useGetProdcutsQuery();
+  const { data: products, isLoading: productsLoading } = useGetProductsQuery();
   const [deleteProduct] = useDeleteProductMutation();
 
   const [rows, setRows] = useState(
