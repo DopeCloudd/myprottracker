@@ -30,6 +30,10 @@ const AdminEditProductQuery: React.FC<{ productId: number }> = ({
     return;
   }
 
+  if (!product || !categories || !brands) {
+    return <div>Erreur</div>;
+  }
+
   return (
     <Box
       sx={{
