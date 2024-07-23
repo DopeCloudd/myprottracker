@@ -13,7 +13,7 @@ export const productApi = createApi({
     getProductsByCategoryId: builder.query<Product[], number>({
       query: (categoryId) => `products/category/${categoryId}`,
     }),
-    getProdcuts: builder.query<Product[], void>({
+    getProducts: builder.query<Product[], void>({
       query: () => "products",
       providesTags: [{ type: "Product", id: "LIST" }],
     }),
@@ -31,13 +31,25 @@ export const productApi = createApi({
         method: "DELETE",
       }),
     }),
+    updateProduct: builder.mutation<
+      Product,
+      { id: number; formData: FormData }
+    >({
+      query: ({ id, formData }) => ({
+        url: `product/${id}`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: [{ type: "Product", id: "LIST" }],
+    }),
   }),
 });
 
 export const {
   useGetProductByIdQuery,
   useGetProductsByCategoryIdQuery,
-  useGetProdcutsQuery,
+  useGetProductsQuery,
   useAddProductMutation,
   useDeleteProductMutation,
+  useUpdateProductMutation,
 } = productApi;
