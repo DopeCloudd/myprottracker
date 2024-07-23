@@ -1,7 +1,10 @@
+import useFile from "@/application/hooks/useFile";
 import { Brand } from "@/domain/entities/brand.type";
 import { Category } from "@/domain/entities/category.types";
 import { Product } from "@/domain/entities/product.type";
+import { useUpdateProductMutation } from "@/infrastructure/api/product.api";
 import InputFileUpload from "@/interface/components/input/file-upload-input.component";
+import Loading from "@/interface/layout/loading.layout";
 import {
   Box,
   Button,
@@ -24,24 +27,55 @@ const schema = yup.object().shape({
 });
 
 const AdminEditProductForm: React.FC<{
-  product: Product | undefined;
-  categories: Category[] | undefined;
-  brands: Brand[] | undefined;
+  product: Product;
+  categories: Category[];
+  brands: Brand[];
 }> = ({ product, categories, brands }) => {
+  const [updateProduct, { isLoading }] = useUpdateProductMutation();
+  const { file, addFile } = useFile();
+  addFile(product.image.data, product.image.type, product.title);
+
   const onSubmit = async (values: {
     url: string;
     category: string;
     brand: string;
-    calories: string;
-    fat: string;
-    saturedFat: string;
-    fiber: string;
-    sugar: string;
-    carbohydrates: string;
-    protein: string;
-    salt: string;
+    calories: number | null;
+    fat: number | null;
+    saturedFat: number | null;
+    fiber: number | null;
+    sugar: number | null;
+    carbohydrates: number | null;
+    protein: number | null;
+    salt: number | null;
   }) => {
     console.log(values);
+    if (product) {
+      const formData = new FormData();
+      formData.append("url", values.url);
+      formData.append("categoryId", values.category);
+      formData.append("brandId", values.brand);
+      if (file) {
+        formData.append("image", file);
+      }
+      formData.append(
+        "nutrition_values",
+        JSON.stringify({
+          calories: values.calories,
+          fat: values.fat,
+          saturedFat: values.saturedFat,
+          fiber: values.fiber,
+          sugar: values.sugar,
+          carbohydrates: values.carbohydrates,
+          protein: values.protein,
+          salt: values.salt,
+        })
+      );
+      const updatedProduct = await updateProduct({
+        id: product.id,
+        formData,
+      }).unwrap();
+      console.log(updatedProduct);
+    }
   };
 
   return (
@@ -56,14 +90,14 @@ const AdminEditProductForm: React.FC<{
           category: product?.category.id.toString() || "",
           brand: product?.brand.id.toString() || "",
           image: product?.image || "",
-          calories: product?.nutrition.calories?.toString() || "",
-          fat: product?.nutrition.fat?.toString() || "",
-          saturedFat: product?.nutrition.saturedFat?.toString() || "",
-          fiber: product?.nutrition.fiber?.toString() || "",
-          sugar: product?.nutrition.sugar?.toString() || "",
-          carbohydrates: product?.nutrition.carbohydrates?.toString() || "",
-          protein: product?.nutrition.protein?.toString() || "",
-          salt: product?.nutrition.salt?.toString() || "",
+          calories: product?.nutrition[0].calories || null,
+          fat: product?.nutrition[0].fat || null,
+          saturedFat: product?.nutrition[0].saturedFat || null,
+          fiber: product?.nutrition[0].fiber || null,
+          sugar: product?.nutrition[0].sugar || null,
+          carbohydrates: product?.nutrition[0].carbohydrates || null,
+          protein: product?.nutrition[0].protein || null,
+          salt: product?.nutrition[0].salt || null,
         }}
         validationSchema={schema}
       >
@@ -281,9 +315,11 @@ const AdminEditProductForm: React.FC<{
                 <InputFileUpload />
               </Grid>
               <Grid item xs={12}>
-                <Button fullWidth variant="contained" type="submit">
-                  Valider
-                </Button>
+                <Loading loading={[isLoading]}>
+                  <Button fullWidth variant="contained" type="submit">
+                    Valider
+                  </Button>
+                </Loading>
               </Grid>
             </Grid>
           </Box>
