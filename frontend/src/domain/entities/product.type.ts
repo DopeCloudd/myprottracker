@@ -15,7 +15,7 @@ export type Product = {
   image: ProductImage;
   url: string;
   category: Category;
-  nutrition: Nutrition;
+  nutrition: Nutrition[];
 };
 
 type ProductImage = {
