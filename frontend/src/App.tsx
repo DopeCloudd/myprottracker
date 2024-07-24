@@ -15,6 +15,7 @@ import Login from "@/interface/pages/login.page";
 import { Privacy } from "@/interface/pages/privacy.page";
 import ProductList from "@/interface/pages/product.list.page";
 import Product from "@/interface/pages/product.page";
+import Product2 from "@/interface/pages/product2.page";
 import Profile from "@/interface/pages/profile.page";
 import Register from "@/interface/pages/register.page";
 import { themeSettings } from "@/interface/theme/theme";
@@ -48,6 +49,7 @@ export default function App() {
                     element={<ProductList />}
                   />
                   <Route path="product/:id" element={<Product />} />
+                  <Route path="product2/:id" element={<Product2 />} />
                   <Route path="privacy" element={<Privacy />} />
                   <Route path="conditions" element={<Conditions />} />
                   <Route element={<PrivateOutlet />}>
