@@ -1,9 +1,11 @@
 import { useGetProductByIdQuery } from "@/infrastructure/api/product.api";
 import { bufferToImageSrc } from "@/infrastructure/helpers/buffer-to-image-src.helper";
 import { removeAccents } from "@/infrastructure/helpers/remove-accents.helper";
+import SectionAccordion from "@/interface/components/accordion/section.accordion";
 import { ButtonAlert } from "@/interface/components/button/button-alert.component";
 import ButtonBuy from "@/interface/components/button/button-buy.component";
 import { ButtonLike } from "@/interface/components/button/button-like.component";
+import NutritionTable from "@/interface/components/table/nutrition.table";
 import TextPrice from "@/interface/components/text/text-price.component";
 import TextProductSection from "@/interface/components/text/text-product-section.component";
 import { truncateString } from "@/interface/utils/index";
@@ -64,7 +66,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
           sx={{
             "& img": {
               aspectRatio: "4/4",
-              maxWidth: "600px",
+              width: "700px",
             },
           }}
         >
@@ -150,15 +152,14 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
           </Box>
         </Box>
       </Row>
-      <Box>
-        <TextProductSection content={"Description"} />
-        <Typography
-          component="p"
-          sx={{ fontSize: "clamp(1rem, 0.7188rem + 0.75vw, 1.375rem)" }}
-        >
-          {truncateString(product.description, 400)}
-        </Typography>
-      </Box>
+      <SectionAccordion
+        header="Description"
+        content={truncateString(product.description, 400)}
+      />
+      <SectionAccordion
+        header="Valeurs nutrionnelles"
+        content={<NutritionTable />}
+      />
     </Box>
   );
 };
