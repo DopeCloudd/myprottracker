@@ -19,7 +19,13 @@ const rows = [
 
 export default function NutritionTable() {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        background: "transparent",
+        boxShadow: "none",
+      }}
+    >
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
