@@ -35,7 +35,6 @@ const Card: React.FC<CardProps> = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#171717",
         boxShadow: "0px 0px 15px 2px #0c0c0c",
         borderRadius: "10px",
         cursor: "pointer",
