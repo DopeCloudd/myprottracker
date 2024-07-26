@@ -5,11 +5,12 @@ import SectionAccordion from "@/interface/components/accordion/section.accordion
 import { ButtonAlert } from "@/interface/components/button/button-alert.component";
 import ButtonBuy from "@/interface/components/button/button-buy.component";
 import { ButtonLike } from "@/interface/components/button/button-like.component";
+import Card from "@/interface/components/card/card.component";
 import NutritionTable from "@/interface/components/table/nutrition.table";
 import TextPrice from "@/interface/components/text/text-price.component";
 import TextProductSection from "@/interface/components/text/text-product-section.component";
 import { truncateString } from "@/interface/utils/index";
-import { Box, Rating, Typography, styled } from "@mui/material";
+import { Box, Grid, Rating, Typography, styled } from "@mui/material";
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -64,6 +65,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
       >
         <Box
           sx={{
+            width: "50%",
             "& img": {
               aspectRatio: "4/4",
               width: "700px",
@@ -74,7 +76,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
         </Box>
         <Box
           sx={{
-            width: "100%",
+            width: "50%",
           }}
         >
           <Typography
@@ -152,14 +154,62 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
           </Box>
         </Box>
       </Row>
-      <SectionAccordion
-        header="Description"
-        content={truncateString(product.description, 400)}
-      />
-      <SectionAccordion
-        header="Valeurs nutrionnelles"
-        content={<NutritionTable />}
-      />
+      <Row
+        sx={{
+          gap: 4,
+        }}
+      >
+        <Box
+          sx={{
+            width: "50%",
+          }}
+        >
+          <SectionAccordion
+            header="Description"
+            content={truncateString(product.description, 400)}
+          />
+          <SectionAccordion
+            header="Valeurs nutrionnelles"
+            content={<NutritionTable />}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "50%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "Integral Oblique, sans-serif",
+              fontSize: "1.5rem",
+              pb: 2,
+            }}
+          >
+            Vous pourriez aussi aimer
+          </Typography>
+          <Grid container spacing={2}>
+            {Array.from(Array(6).keys()).map((index) => (
+              <Grid item xs={6} key={index}>
+                <Card
+                  key={index}
+                  title={"Product " + index}
+                  price={Math.floor(Math.random() * 100)}
+                  quantity={"100g"}
+                  rating={Math.floor(Math.random() * 5)}
+                  image={bufferToImageSrc(product.image.data)}
+                  description={"Description " + index}
+                  brand={"Brand " + index}
+                  onClick={() => {
+                    alert("clicked");
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Row>
     </Box>
   );
 };
