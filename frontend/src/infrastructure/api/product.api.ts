@@ -42,6 +42,16 @@ export const productApi = createApi({
       }),
       invalidatesTags: [{ type: "Product", id: "LIST" }],
     }),
+    randomProductsByCategoryId: builder.mutation<
+      Product[],
+      { categoryId: number; limit: number }
+    >({
+      query: ({ categoryId, limit }) => ({
+        url: `products/random`,
+        method: "POST",
+        body: { categoryId, limit },
+      }),
+    }),
   }),
 });
 
@@ -52,4 +62,5 @@ export const {
   useAddProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useRandomProductsByCategoryIdMutation,
 } = productApi;
