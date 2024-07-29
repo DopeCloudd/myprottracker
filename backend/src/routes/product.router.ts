@@ -5,6 +5,7 @@ import {
   getProductByCategoryId,
   getProductById,
   getProducts,
+  getRandomProductsByCategoryId,
   updateProduct,
 } from "../controllers/product.controller";
 import { uploadMiddleware } from "../middlewares/upload.middleware";
@@ -26,5 +27,6 @@ productRouter.post(
   tryCatch(updateProduct),
 );
 productRouter.delete("/product/:id", tryCatch(deleteProduct));
+productRouter.post("/products/random", tryCatch(getRandomProductsByCategoryId));
 
 export default productRouter;
