@@ -196,3 +196,27 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
   res.status(204).send();
 };
+
+// Get random products by category id
+export const getRandomProductsByCategoryId = async (
+  req: Request,
+  res: Response,
+) => {
+  const id = parseInt(req.body.id);
+  const limit = parseInt(req.body.limit);
+  // Sélectionner tous les IDs des produits de cette catégorie
+  const productsId = await productClient.findMany({
+    where: { categoryId: id, title: { not: null } },
+    select: { id: true },
+  });
+  // Sélectionner aléatoirement 6 IDs parmi ceux-ci
+  const shuffledIds = productsId
+    .map((p) => p.id)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, limit);
+  // Sélectionner les produits correspondants
+  const products = await productClient.findMany({
+    where: { id: { in: shuffledIds } },
+  });
+  res.status(200).json(products);
+};
