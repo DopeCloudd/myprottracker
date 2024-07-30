@@ -11,7 +11,7 @@ import React from "react";
 
 type CardProps = {
   title: string;
-  description: string;
+  description?: string;
   price?: number;
   quantity?: string;
   rating?: number;
@@ -78,6 +78,14 @@ const Card: React.FC<CardProps> = ({
           >
             {title}
           </Typography>
+          {rating && (
+            <Rating
+              name="rating"
+              defaultValue={rating}
+              precision={0.1}
+              readOnly
+            />
+          )}
           <Flex>
             {price && <TextPrice price={price} type="card" />}
             {price && quantity && (
@@ -106,37 +114,30 @@ const Card: React.FC<CardProps> = ({
               Vendu par {brand}
             </Typography>
           )}
-          {rating && (
-            <Rating
-              name="rating"
-              defaultValue={rating}
-              precision={0.1}
-              sx={{ pt: 1 }}
-              readOnly
-            />
-          )}
         </Box>
       </Box>
-      <Box
-        sx={{
-          pr: 2,
-          pl: 2,
-          pb: 2,
-        }}
-      >
-        <Typography
-          variant="body1"
-          color="text.secondary"
+      {description && (
+        <Box
           sx={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            display: "-webkit-box",
-            lineClamp: 3,
+            pr: 2,
+            pl: 2,
+            pb: 2,
           }}
         >
-          {description.substring(0, 100)}...
-        </Typography>
-      </Box>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              lineClamp: 3,
+            }}
+          >
+            {description.substring(0, 100)}...
+          </Typography>
+        </Box>
+      )}
     </MuiCard>
   );
 };
