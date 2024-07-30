@@ -12,15 +12,15 @@ const useProductPage = (productId: productId) => {
     productId.id
   );
   const [
-    getRandomPorducts,
+    getRandomProducts,
     { data: randomProducts, isLoading: randomProductsLoading },
   ] = useRandomProductsByCategoryIdMutation();
 
   useEffect(() => {
     if (product) {
-      getRandomPorducts({ categoryId: product.category.id, limit: 4 });
+      getRandomProducts({ categoryId: product.category.id, limit: 4 });
     }
-  }, [product, getRandomPorducts]);
+  }, [product, getRandomProducts]);
 
   return { product, productLoading, randomProducts, randomProductsLoading };
 };
