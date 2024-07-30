@@ -21,7 +21,6 @@ const AdminEditProductQuery: React.FC<{ productId: number }> = ({
 }) => {
   const { data: product, isLoading: productLoad } =
     useGetProductByIdQuery(productId);
-  console.log(product);
   const { data: categories, isLoading: categoriesLoad } =
     useGetCategoriesQuery();
   const { data: brands, isLoading: brandsLoad } = useGetBrandsQuery();
