@@ -8,9 +8,11 @@ import Loading from "@/interface/layout/loading.layout";
 import {
   Box,
   Button,
+  Divider,
   Grid,
   InputAdornment,
   MenuItem,
+  Rating,
   TextField,
   Typography,
 } from "@mui/material";
@@ -39,6 +41,7 @@ const AdminEditProductForm: React.FC<{
     url: string;
     category: string;
     brand: string;
+    rating: number | null;
     calories: number | null;
     fat: number | null;
     saturedFat: number | null;
@@ -48,12 +51,12 @@ const AdminEditProductForm: React.FC<{
     protein: number | null;
     salt: number | null;
   }) => {
-    console.log(values);
     if (product) {
       const formData = new FormData();
       formData.append("url", values.url);
       formData.append("categoryId", values.category);
       formData.append("brandId", values.brand);
+      formData.append("rating", values.rating?.toString() || "");
       if (file) {
         formData.append("image", file);
       }
@@ -89,15 +92,16 @@ const AdminEditProductForm: React.FC<{
           url: product?.url || "",
           category: product?.category.id.toString() || "",
           brand: product?.brand.id.toString() || "",
+          rating: product?.rating || null,
           image: product?.image || "",
-          calories: product?.nutrition[0].calories || null,
-          fat: product?.nutrition[0].fat || null,
-          saturedFat: product?.nutrition[0].saturedFat || null,
-          fiber: product?.nutrition[0].fiber || null,
-          sugar: product?.nutrition[0].sugar || null,
-          carbohydrates: product?.nutrition[0].carbohydrates || null,
-          protein: product?.nutrition[0].protein || null,
-          salt: product?.nutrition[0].salt || null,
+          calories: product?.nutrition[0]?.calories || null,
+          fat: product?.nutrition[0]?.fat || null,
+          saturedFat: product?.nutrition[0]?.saturedFat || null,
+          fiber: product?.nutrition[0]?.fiber || null,
+          sugar: product?.nutrition[0]?.sugar || null,
+          carbohydrates: product?.nutrition[0]?.carbohydrates || null,
+          protein: product?.nutrition[0]?.protein || null,
+          salt: product?.nutrition[0]?.salt || null,
         }}
         validationSchema={schema}
       >
@@ -111,7 +115,12 @@ const AdminEditProductForm: React.FC<{
         }) => (
           <Box component="form" noValidate onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12}>
+                <Typography component="h2" variant="h4">
+                  Informations générales
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   onBlur={handleBlur}
@@ -124,7 +133,7 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.url && errors.url}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   select
@@ -143,7 +152,7 @@ const AdminEditProductForm: React.FC<{
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   fullWidth
                   select
@@ -161,6 +170,24 @@ const AdminEditProductForm: React.FC<{
                     </MenuItem>
                   ))}
                 </TextField>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Typography component="legend">Rating</Typography>
+                <Rating
+                  name="rating"
+                  precision={0.5}
+                  value={values.rating}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography component="h2" variant="h4">
+                  Informations nutritionnelles
+                </Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
