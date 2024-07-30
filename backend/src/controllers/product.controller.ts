@@ -96,10 +96,11 @@ export const updateProduct = async (req: Request, res: Response) => {
   const url = String(req.body.url);
   const categoryId = parseInt(req.body.categoryId);
   const brandId = parseInt(req.body.brandId);
+  const rating = parseFloat(req.body.rating);
   const parsedNutritionValues = JSON.parse(req.body.nutrition_values);
   const image = req.file;
 
-  if (!url || !categoryId || !brandId) {
+  if (!url || !categoryId || !brandId || !rating) {
     throw new Error("Missing required fields.");
   }
 
@@ -117,6 +118,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       url: url,
       categoryId: categoryId,
       brandId: brandId,
+      rating: rating,
       image: image ? image.buffer : product.image,
     },
   });
@@ -202,7 +204,7 @@ export const getRandomProductsByCategoryId = async (
   req: Request,
   res: Response,
 ) => {
-  const id = parseInt(req.body.id);
+  const id = parseInt(req.body.categoryId);
   const limit = parseInt(req.body.limit);
   // Sélectionner tous les IDs des produits de cette catégorie
   const productsId = await productClient.findMany({
@@ -217,6 +219,7 @@ export const getRandomProductsByCategoryId = async (
   // Sélectionner les produits correspondants
   const products = await productClient.findMany({
     where: { id: { in: shuffledIds } },
+    include: { category: true, brand: true },
   });
   res.status(200).json(products);
 };
