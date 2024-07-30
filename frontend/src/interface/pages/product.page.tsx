@@ -13,7 +13,7 @@ import Loading from "@/interface/layout/loading.layout";
 import { truncateString } from "@/interface/utils/index";
 import { Box, Grid, Rating, Typography, styled } from "@mui/material";
 import React from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 const Product: React.FC = () => {
   const { id } = useParams();
@@ -31,6 +31,7 @@ const Row = styled(Box)({
 }) as typeof Box;
 
 const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
+  const navigate = useNavigate();
   const { product, productLoading, randomProducts, randomProductsLoading } =
     useProductPage({ id: productId });
 
@@ -200,19 +201,17 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
               Vous pourriez aussi aimer
             </Typography>
             <Grid container spacing={2}>
-              {Array.from(Array(6).keys()).map((index) => (
+              {randomProducts?.map((product, index) => (
                 <Grid item xs={6} key={index}>
                   <Card
                     key={index}
-                    title={"Product " + index}
-                    price={Math.floor(Math.random() * 100)}
-                    quantity={"100g"}
-                    rating={Math.floor(Math.random() * 5)}
+                    title={product.title}
+                    price={product.price}
+                    quantity={product.quantity}
+                    rating={product.rating}
                     image={bufferToImageSrc(product.image.data)}
-                    description={"Description " + index}
-                    brand={"Brand " + index}
                     onClick={() => {
-                      alert("clicked");
+                      navigate("/product/" + product.id);
                     }}
                   />
                 </Grid>
