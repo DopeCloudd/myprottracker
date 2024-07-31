@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application } from "express";
 import helmet from "helmet";
+import { renderWelcomeEmail } from "./mail/renderEmail";
 import { errorHandler } from "./middlewares/error.middleware";
 import alertRouter from "./routes/alert.router";
 import authRouter from "./routes/auth.router";
@@ -35,5 +36,13 @@ app.use(brandRouter);
 app.use(scrapingRouter);
 // Error handler
 app.use(errorHandler);
+
+// Route pour prévisualiser l'email de bienvenue
+app.get("/preview/welcome-email", (req, res) => {
+  const htmlContent = renderWelcomeEmail({
+    email: "test@gmail.com",
+  });
+  res.send(htmlContent);
+});
 
 export default app;
