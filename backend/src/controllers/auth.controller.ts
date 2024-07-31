@@ -2,6 +2,7 @@ import { PrismaClient, User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { Stripe } from "stripe";
+import { sendWelcomeEmail } from "../mail/sendEmail";
 import { userSchema } from "../schemas/user.schema";
 import { generateToken } from "../services/token";
 
@@ -57,6 +58,8 @@ export const register = async (req: Request, res: Response) => {
   if (!user) {
     throw new Error("User registration failed");
   }
+
+  await sendWelcomeEmail(email, email);
 
   res.status(200).json({ success: true });
 };
