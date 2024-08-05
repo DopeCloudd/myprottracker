@@ -14,7 +14,10 @@ const TextTitle: React.FC<TextTitleProps> = ({ content }) => {
     <FlexCenter
       component="section"
       sx={{
-        p: 6,
+        pt: 4,
+        pb: 6,
+        pl: 6,
+        pr: 6,
       }}
     >
       <Typography
