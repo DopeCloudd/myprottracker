@@ -1,12 +1,24 @@
 import { Box, CircularProgress } from "@mui/material";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 
 type Props = PropsWithChildren<{
   loading: boolean[];
 }>;
 
 export default function Loading({ loading, children }: Props) {
-  if (loading.some((item) => item)) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const allLoaded = loading.every((l) => !l);
+    if (allLoaded) {
+      const timeoutId = setTimeout(() => setIsLoading(false), 100); // Délai pour éviter le rendu intermédiaire
+      return () => clearTimeout(timeoutId);
+    } else {
+      setIsLoading(true);
+    }
+  }, [loading]);
+
+  if (isLoading) {
     return (
       <Box
         sx={{
@@ -20,6 +32,7 @@ export default function Loading({ loading, children }: Props) {
         <CircularProgress />
       </Box>
     );
+  } else {
+    return <>{children}</>;
   }
-  return <>{children}</>;
 }
