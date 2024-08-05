@@ -5,7 +5,7 @@ import CardSkeleton from "@/interface/components/card/card-skeleton.component";
 import Card from "@/interface/components/card/card.component";
 import TextTitle from "@/interface/components/text/text-title.component";
 import { truncateString } from "@/interface/utils/index";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -29,9 +29,23 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
   return (
     <Box
       sx={{
+        position: "relative",
+        pt: 4,
         px: { xs: 3, sm: 6 },
       }}
     >
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          gap: 2,
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button variant="contained" color="secondary">
+          Ajouter un produit
+        </Button>
+      </Box>
       <TextTitle content={category.data?.name ?? ""} />
       <Box
         sx={{
