@@ -18,15 +18,32 @@ interface WelcomeEmailProps {
 const WelcomeEmail: React.FC<WelcomeEmailProps> = ({ email }) => {
   return (
     <Html>
-      <Head />
+      <Head>
+        <style>
+          {`
+            @font-face {
+              font-family: 'Integral';
+              src: url("fonts/Fontspring-DEMO-integralcf-regular.otf") format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+
+            .integral {
+              font-family: 'Integral', sans-serif;
+            }
+          `}
+        </style>
+      </Head>
       <Preview>Welcome to MyProtTracker</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Text style={paragraph}>Dear {email},</Text>
-          <Text style={paragraph}>
+          <Text style={paragraph} className="integral">
+            Dear {email},
+          </Text>
+          <Text style={paragraph} className="integral">
             Welcome to MyProtTracker, your personal training assistant.
           </Text>
-          <Text>
+          <Text className="integral">
             We are excited to have you in our gym, we hope you will enjoy your
             next training with your new personal trainer.
           </Text>
