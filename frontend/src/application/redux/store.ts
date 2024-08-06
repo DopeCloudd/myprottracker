@@ -1,6 +1,7 @@
 import alertsReducer from "@/application/redux/slices/alerts.slice";
 import authReducer from "@/application/redux/slices/auth.slice";
 import categoryReducer from "@/application/redux/slices/category.slice";
+import dialogReducer from "@/application/redux/slices/dialog.slice";
 import favoritesReducer from "@/application/redux/slices/favorites.slice";
 import fileReducer from "@/application/redux/slices/file.slice";
 import { alertApi } from "@/infrastructure/api/alert.api";
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   alerts: alertsReducer,
   category: categoryReducer,
   file: fileReducer,
+  dialog: dialogReducer,
   [authApi.reducerPath]: authApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
