@@ -1,11 +1,15 @@
+import { useAuth } from "@/application/hooks/useAuth";
+import useDialog from "@/application/hooks/useDialog";
 import { useGetCategoryByIdQuery } from "@/infrastructure/api/category.api";
 import { useGetProductsByCategoryIdQuery } from "@/infrastructure/api/product.api";
 import { bufferToImageSrc } from "@/infrastructure/helpers/buffer-to-image-src.helper";
 import CardSkeleton from "@/interface/components/card/card-skeleton.component";
 import Card from "@/interface/components/card/card.component";
+import FullScreenDialog from "@/interface/components/dialog/add-product.dialog";
 import TextTitle from "@/interface/components/text/text-title.component";
 import { truncateString } from "@/interface/utils/index";
 import { Box, Button, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 import React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -24,7 +28,20 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
 }) => {
   const products = useGetProductsByCategoryIdQuery(categoryId);
   const category = useGetCategoryByIdQuery(categoryId);
+  const { handleClickOpen } = useDialog();
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleRequest = () => {
+    if (user) {
+      handleClickOpen();
+    } else {
+      enqueueSnackbar("Vous devez être connecté pour ajouter un produit", {
+        variant: "error",
+      });
+    }
+  };
 
   return (
     <Box
@@ -42,9 +59,10 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
           justifyContent: "flex-end",
         }}
       >
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary" onClick={handleRequest}>
           Ajouter un produit
         </Button>
+        <FullScreenDialog />
       </Box>
       <TextTitle content={category.data?.name ?? ""} />
       <Box
