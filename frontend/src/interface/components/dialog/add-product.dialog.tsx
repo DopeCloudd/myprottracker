@@ -1,79 +1,88 @@
-import CloseIcon from "@mui/icons-material/Close";
-import AppBar from "@mui/material/AppBar";
+import useDialog from "@/application/hooks/useDialog";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Slide from "@mui/material/Slide";
-import Toolbar from "@mui/material/Toolbar";
-import { TransitionProps } from "@mui/material/transitions";
-import Typography from "@mui/material/Typography";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
+import { useFormik } from "formik";
+import { useSnackbar } from "notistack";
 import * as React from "react";
+import * as yup from "yup";
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
+const schema = yup.object().shape({
+  url: yup.string().required("Merci de renseigner l'URL du produit"),
 });
 
-export default function FullScreenDialog() {
-  const [open, setOpen] = React.useState(false);
+const initialValues = {
+  url: "",
+};
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+export default function FormDialog() {
+  const { enqueueSnackbar } = useSnackbar();
+  const { open, handleClose } = useDialog();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: schema,
+    onSubmit: async (
+      values: {
+        url: string;
+      },
+      { resetForm }
+    ) => {
+      const formData = new FormData();
+      formData.append("url", values.url);
+      console.log(values.url);
+      enqueueSnackbar("Nous avons bien reçu votre demande !", {
+        variant: "success",
+      });
+      resetForm();
+      handleClose();
+    },
+  });
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open full-screen dialog
-      </Button>
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <AppBar sx={{ position: "relative" }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
+      <Dialog open={open} onClose={handleClose}>
+        <form onSubmit={formik.handleSubmit}>
+          <DialogTitle>Demande d'ajout d'un produit</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Merci de renseigner le lien du produit que vous souhaitez ajouter
+              a notre base de donnees.
+            </DialogContentText>
+            <DialogContentText
+              sx={{
+                fontStyle: "italic",
+                fontSize: "0.8rem",
+              }}
             >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
-            </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              save
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <List>
-          <ListItemButton>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
+              *Un délai de traitement de notre équipe est nécessaire pour
+              valider votre demande.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="url"
+              name="url"
+              label="URL du produit"
+              type="text"
+              fullWidth
+              variant="standard"
             />
-          </ListItemButton>
-        </List>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="outlined" color="error" onClick={handleClose}>
+              Annuler
+            </Button>
+            <Button type="submit" variant="outlined">
+              Soumettre
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </React.Fragment>
   );
