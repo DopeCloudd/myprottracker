@@ -1,4 +1,5 @@
 import LanguageIcon from "@mui/icons-material/Language";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Box } from "@mui/material";
@@ -32,6 +33,13 @@ const Admin: React.FC = () => {
         onClick={() => navigate("scraping")}
       >
         Scraping
+      </Button>
+      <Button
+        variant="contained"
+        endIcon={<QuestionMarkIcon />}
+        onClick={() => navigate("requests")}
+      >
+        Demandes
       </Button>
       <Button
         variant="contained"
