@@ -10,6 +10,7 @@ import { brandApi } from "@/infrastructure/api/brand.api";
 import { categoryApi } from "@/infrastructure/api/category.api";
 import { favoriteApi } from "@/infrastructure/api/favorite.api";
 import { productApi } from "@/infrastructure/api/product.api";
+import { requestApi } from "@/infrastructure/api/request.api";
 import { scrapingApi } from "@/infrastructure/api/scraping.api";
 import { combineReducers } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit/react";
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   [alertApi.reducerPath]: alertApi.reducer,
   [brandApi.reducerPath]: brandApi.reducer,
   [scrapingApi.reducerPath]: scrapingApi.reducer,
+  [requestApi.reducerPath]: requestApi.reducer,
 });
 
 export const store = configureStore({
@@ -43,7 +45,8 @@ export const store = configureStore({
       favoriteApi.middleware,
       alertApi.middleware,
       brandApi.middleware,
-      scrapingApi.middleware
+      scrapingApi.middleware,
+      requestApi.middleware
     ),
 });
 
