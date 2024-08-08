@@ -52,13 +52,6 @@ export const productApi = createApi({
         body: { categoryId, limit },
       }),
     }),
-    requestAddProduct: builder.mutation<void, FormData>({
-      query: (formData) => ({
-        url: "product",
-        method: "POST",
-        body: formData,
-      }),
-    }),
   }),
 });
 
@@ -70,5 +63,4 @@ export const {
   useDeleteProductMutation,
   useUpdateProductMutation,
   useRandomProductsByCategoryIdMutation,
-  useRequestAddProductMutation,
 } = productApi;
