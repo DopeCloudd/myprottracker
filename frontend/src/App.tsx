@@ -3,7 +3,9 @@ import i18n from "@/application/translate/i18n";
 import { AdminOutlet } from "@/interface/components/route/admin-outlet.component";
 import { PrivateOutlet } from "@/interface/components/route/private-outlet.component";
 import Layout from "@/interface/layout/index.tsx";
+import { AdminEditProduct } from "@/interface/pages/admin-products.edit.page";
 import AdminProducts from "@/interface/pages/admin-products.page";
+import AdminRequests from "@/interface/pages/admin-requests.page";
 import AdminScraping from "@/interface/pages/admin-scraping.page";
 import Admin from "@/interface/pages/admin.page";
 import Alerts from "@/interface/pages/alerts.page";
@@ -25,7 +27,6 @@ import { SnackbarProvider } from "notistack";
 import { useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AdminEditProduct } from "./interface/pages/admin-products.edit.page";
 
 export default function App() {
   useToken();
@@ -64,6 +65,7 @@ export default function App() {
                       path="admin/products/:id"
                       element={<AdminEditProduct />}
                     />
+                    <Route path="admin/requests" element={<AdminRequests />} />
                     <Route path="admin/scraping" element={<AdminScraping />} />
                     <Route path="admin/configuration" element={<Admin />} />
                   </Route>
