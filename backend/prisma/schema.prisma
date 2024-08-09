@@ -81,6 +81,7 @@ model Product {
   favorites Favorite[]
   alertes Alert[]
   nutrition Nutrition[]
+  updates Update[]
 }
 
 model Favorite {
@@ -144,4 +145,15 @@ enum RequestStatus {
   PENDING
   ACCEPTED
   REFUSED
+}
+
+model Update {
+  id      Int      @id @default(autoincrement())
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  record String
+  oldValue String
+  newValue String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
