@@ -6,7 +6,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const ButtonAuth: React.FC = () => {
   const theme = useTheme();
@@ -15,8 +15,11 @@ export const ButtonAuth: React.FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = () => {
+    // Store the last visited URL
+    localStorage.setItem("lastVisited", location.pathname);
     navigate("/login");
   };
 
