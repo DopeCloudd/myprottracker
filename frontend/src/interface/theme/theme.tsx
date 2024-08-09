@@ -11,6 +11,9 @@ export const themeSettings: ThemeOptions = {
       contrastText: "#EAEDED",
       light: "#EAEDED",
     },
+    secondary: {
+      main: "#EAEDED",
+    },
   },
   components: {
     MuiCssBaseline: {
