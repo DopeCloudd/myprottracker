@@ -1,6 +1,8 @@
 import useRequests from "@/application/hooks/useRequests";
 import Loading from "@/interface/layout/loading.layout";
-import { Box, Grid, Link, Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { Box, Grid, IconButton, Link, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -23,6 +25,7 @@ const columns: readonly Column[] = [
   {
     id: "url",
     label: "URL",
+    minWidth: 200,
     link: (url) => {
       return (
         <Link href={url} target="_blank" color="inherit">
@@ -84,6 +87,20 @@ export default function RequestsTable() {
                                 </TableCell>
                               );
                             })}
+                            <TableCell align="center">
+                              <IconButton
+                                color="warning"
+                                aria-label="Editer le produit"
+                              >
+                                <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                color="error"
+                                aria-label="Supprimer le produit"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </TableCell>
                           </TableRow>
                         );
                       })}
