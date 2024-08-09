@@ -62,7 +62,9 @@ export const Form: React.FC<FormProps> = ({ type }) => {
         const user = await login({ email, password }).unwrap();
         dispatch(setCredentials(user));
         localStorage.setItem("token", user.token);
-        navigate("/");
+        // Get the last visited URL
+        const lastVisited = localStorage.getItem("lastVisited") || "/";
+        navigate(lastVisited, { replace: true });
       } catch (error) {
         console.log(error);
       }
