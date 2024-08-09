@@ -1,5 +1,6 @@
 import { PrismaClient, Product } from "@prisma/client";
-import { Config } from "scraping/types";
+import { addUpdate } from "../loggers/update";
+import { Config } from "../types";
 
 const productClient = new PrismaClient().product;
 
@@ -12,12 +13,26 @@ async function updateProductIfNeeded(
 
   if (config.title && product.title !== record.title) {
     updateData.title = record.title.toString();
+    // Log the update
+    addUpdate({
+      productId: product.id,
+      record: "title",
+      oldValue: product.title || "",
+      newValue: record.title.toString(),
+    });
   }
 
   if (config.price) {
     let price = record.price as number;
     if (product.price !== price) {
       updateData.price = price;
+      // Log the update
+      addUpdate({
+        productId: product.id,
+        record: "price",
+        oldValue: product.price?.toString() || "",
+        newValue: price.toString(),
+      });
     }
     if (!product.lowestPrice || product.lowestPrice > price) {
       updateData.lowestPrice = price;
@@ -29,10 +44,24 @@ async function updateProductIfNeeded(
 
   if (config.quantity && product.quantity !== record.quantity) {
     updateData.quantity = record.quantity.toString();
+    // Log the update
+    addUpdate({
+      productId: product.id,
+      record: "quantity",
+      oldValue: product.quantity?.toString() || "",
+      newValue: record.quantity.toString(),
+    });
   }
 
   if (config.description && product.description !== record.description) {
     updateData.description = record.description.toString().trim();
+    // Log the update
+    addUpdate({
+      productId: product.id,
+      record: "description",
+      oldValue: product.description || "",
+      newValue: record.description.toString().trim(),
+    });
   }
 
   if (Object.keys(updateData).length > 0) {
