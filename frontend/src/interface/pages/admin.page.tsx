@@ -1,3 +1,6 @@
+import FlexCenter from "@/interface/components/box/flex-center.component";
+import ProductList from "@/interface/components/table/product-list.table";
+import RequestsTable from "@/interface/components/table/requests.table";
 import LanguageIcon from "@mui/icons-material/Language";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -12,42 +15,46 @@ const Admin: React.FC = () => {
   return (
     <Box
       sx={{
-        flex: 1,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         gap: 2,
         px: { xs: 3, sm: 6 },
       }}
     >
-      <Button
-        variant="contained"
-        endIcon={<ShoppingCartIcon />}
-        onClick={() => navigate("products")}
+      <FlexCenter
+        sx={{
+          gap: 2,
+        }}
       >
-        Produits
-      </Button>
-      <Button
-        variant="contained"
-        endIcon={<LanguageIcon />}
-        onClick={() => navigate("scraping")}
-      >
-        Scraping
-      </Button>
-      <Button
-        variant="contained"
-        endIcon={<QuestionMarkIcon />}
-        onClick={() => navigate("requests")}
-      >
-        Demandes
-      </Button>
-      <Button
-        variant="contained"
-        endIcon={<SettingsIcon />}
-        onClick={() => navigate("configuration")}
-      >
-        Configuration
-      </Button>
+        <Button
+          variant="contained"
+          endIcon={<ShoppingCartIcon />}
+          onClick={() => navigate("products")}
+        >
+          Produits
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<LanguageIcon />}
+          onClick={() => navigate("scraping")}
+        >
+          Scraping
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<QuestionMarkIcon />}
+          onClick={() => navigate("requests")}
+        >
+          Demandes
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<SettingsIcon />}
+          onClick={() => navigate("configuration")}
+        >
+          Configuration
+        </Button>
+      </FlexCenter>
+      <RequestsTable />
+      <ProductList maxHeight={400} />
     </Box>
   );
 };
