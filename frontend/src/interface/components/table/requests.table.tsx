@@ -37,7 +37,7 @@ const columns: readonly Column[] = [
   { id: "email", label: "Email" },
 ];
 
-export default function RequestsTable() {
+export default function RequestsTable({ maxHeight }: { maxHeight?: number }) {
   const { rows, requestsLoading } = useRequests();
 
   return (
@@ -50,7 +50,11 @@ export default function RequestsTable() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Paper sx={{ width: "100%", overflow: "hidden", mb: 6 }}>
-                <TableContainer sx={{ maxHeight: 600 }}>
+                <TableContainer
+                  sx={{
+                    maxHeight: maxHeight ?? 400,
+                  }}
+                >
                   <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                       <TableRow>
