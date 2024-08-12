@@ -50,7 +50,11 @@ const columns: readonly Column[] = [
   },
 ];
 
-export default function TableProductList() {
+export default function TableProductList({
+  maxHeight,
+}: {
+  maxHeight?: number;
+}) {
   const navigate = useNavigate();
   const { rows, productsLoading, handleProductDelete } = useProducts();
   const [startScraping, { isLoading: loadingScraping }] =
@@ -80,7 +84,11 @@ export default function TableProductList() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Paper sx={{ width: "100%", overflow: "hidden", mb: 6 }}>
-              <TableContainer sx={{ maxHeight: 600 }}>
+              <TableContainer
+                sx={{
+                  maxHeight: maxHeight || 600,
+                }}
+              >
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow>
