@@ -4,7 +4,6 @@ import categoryReducer from "@/application/redux/slices/category.slice";
 import dialogReducer from "@/application/redux/slices/dialog.slice";
 import favoritesReducer from "@/application/redux/slices/favorites.slice";
 import fileReducer from "@/application/redux/slices/file.slice";
-import statisticsReducer from "@/application/redux/slices/statistics.slice";
 import { alertApi } from "@/infrastructure/api/alert.api";
 import { authApi } from "@/infrastructure/api/auth.api";
 import { brandApi } from "@/infrastructure/api/brand.api";
@@ -13,6 +12,7 @@ import { favoriteApi } from "@/infrastructure/api/favorite.api";
 import { productApi } from "@/infrastructure/api/product.api";
 import { requestApi } from "@/infrastructure/api/request.api";
 import { scrapingApi } from "@/infrastructure/api/scraping.api";
+import { statisticsApi } from "@/infrastructure/api/statistics.api";
 import { combineReducers } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit/react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -24,7 +24,6 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   file: fileReducer,
   dialog: dialogReducer,
-  statistics: statisticsReducer,
   [authApi.reducerPath]: authApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
@@ -33,6 +32,7 @@ const rootReducer = combineReducers({
   [brandApi.reducerPath]: brandApi.reducer,
   [scrapingApi.reducerPath]: scrapingApi.reducer,
   [requestApi.reducerPath]: requestApi.reducer,
+  [statisticsApi.reducerPath]: statisticsApi.reducer,
 });
 
 export const store = configureStore({
@@ -48,7 +48,8 @@ export const store = configureStore({
       alertApi.middleware,
       brandApi.middleware,
       scrapingApi.middleware,
-      requestApi.middleware
+      requestApi.middleware,
+      statisticsApi.middleware
     ),
 });
 
