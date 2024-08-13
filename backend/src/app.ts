@@ -15,6 +15,7 @@ import favoriteRouter from "./routes/favorite.router";
 import productRouter from "./routes/product.router";
 import requestRouter from "./routes/request.router";
 import scrapingRouter from "./routes/scraping.router";
+import statRouter from "./routes/statistics.router";
 
 const app: Application = express();
 
@@ -37,6 +38,7 @@ app.use(alertRouter);
 app.use(brandRouter);
 app.use(scrapingRouter);
 app.use(requestRouter);
+app.use(statRouter);
 // Error handler
 app.use(errorHandler);
 
