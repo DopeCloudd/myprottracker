@@ -11,7 +11,7 @@ const HistoryButton: React.FC<Props> = ({ content, onClick }) => {
     <Button
       onClick={onClick}
       variant="outlined"
-      color="warning"
+      color="secondary"
       sx={{
         width: "100%",
         borderRadius: "6px",
