@@ -16,9 +16,11 @@ import productRouter from "./routes/product.router";
 import requestRouter from "./routes/request.router";
 import scrapingRouter from "./routes/scraping.router";
 import statRouter from "./routes/statistics.router";
+import stripeRouter from "./routes/stripe.router";
 
 const app: Application = express();
 
+app.use(stripeRouter);
 app.use(bodyParser.json());
 app.use(
   cors({
