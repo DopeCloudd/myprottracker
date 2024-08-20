@@ -26,3 +26,5 @@ jest.config.js
 *.njsproj
 *.sln
 *.sw?
+backend/.env.prod
+backend/.env.dev
