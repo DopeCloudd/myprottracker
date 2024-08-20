@@ -2,8 +2,8 @@ import FlexColumnCenter from "@/interface/components/box/flex-column-center.comp
 import CallToAction from "@/interface/components/landing/CallToAction";
 import Hero from "@/interface/components/landing/Hero";
 import Highlights from "@/interface/components/landing/Highlights";
-import Pricing from "@/interface/components/landing/Pricing";
 import Title from "@/interface/components/landing/Title";
+import PricingSection from "@/interface/components/sections/pricing.section";
 
 export default function Landing() {
   return (
@@ -12,7 +12,7 @@ export default function Landing() {
       <CallToAction />
       <Hero />
       <Highlights />
-      <Pricing />
+      <PricingSection />
     </FlexColumnCenter>
   );
 }
