@@ -13,6 +13,7 @@ import { productApi } from "@/infrastructure/api/product.api";
 import { requestApi } from "@/infrastructure/api/request.api";
 import { scrapingApi } from "@/infrastructure/api/scraping.api";
 import { statisticsApi } from "@/infrastructure/api/statistics.api";
+import { stripeApi } from "@/infrastructure/api/stripe.api";
 import { combineReducers } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit/react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   [scrapingApi.reducerPath]: scrapingApi.reducer,
   [requestApi.reducerPath]: requestApi.reducer,
   [statisticsApi.reducerPath]: statisticsApi.reducer,
+  [stripeApi.reducerPath]: stripeApi.reducer,
 });
 
 export const store = configureStore({
@@ -49,7 +51,8 @@ export const store = configureStore({
       brandApi.middleware,
       scrapingApi.middleware,
       requestApi.middleware,
-      statisticsApi.middleware
+      statisticsApi.middleware,
+      stripeApi.middleware
     ),
 });
 
