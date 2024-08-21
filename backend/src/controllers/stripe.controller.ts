@@ -11,6 +11,10 @@ let prisma = new PrismaClient();
 export const createCheckoutSession = async (req: Request, res: Response) => {
   const { userId } = req.body;
 
+  if (!userId) {
+    throw new Error("User ID not provided");
+  }
+
   // Get the user's email
   const user = await prisma.user.findUnique({
     where: { id: userId },
