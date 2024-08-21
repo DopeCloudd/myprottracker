@@ -15,7 +15,7 @@ import {
 import React from "react";
 import TextTitle from "../components/text/text-title.component";
 
-const plans = [PlanType.FREE, PlanType.POWER, PlanType.MUSCLE, PlanType.PRO];
+const plans = [PlanType.FREE, PlanType.PREMIUM];
 
 const Profile: React.FC = () => {
   const { user } = useAuth();
