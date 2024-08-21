@@ -1,4 +1,5 @@
 import { useAuth } from "@/application/hooks/useAuth";
+import useStripe from "@/application/hooks/useStripe";
 import { Plan } from "@/domain/entities/plan.types";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
@@ -20,16 +21,19 @@ const CardSubscription: React.FC<Plan> = ({
   description,
   buttonText,
   buttonVariant,
-  stripePriceLink,
 }) => {
   const { user } = useAuth();
+  const { createCheckoutUrl } = useStripe();
 
-  const handleSubscription = (stripePriceLink: string) => {
+  const handleSubscription = async () => {
     if (!user) {
       window.open("/login", "_self");
       return;
     } else {
-      window.open(stripePriceLink + "?prefilled_email=" + user?.email, "_self");
+      const url = await createCheckoutUrl();
+      if (url) {
+        window.open(url, "_self");
+      }
     }
   };
 
@@ -129,7 +133,7 @@ const CardSubscription: React.FC<Plan> = ({
         <Button
           fullWidth
           variant={buttonVariant}
-          onClick={() => handleSubscription(stripePriceLink)}
+          onClick={() => handleSubscription()}
         >
           {buttonText}
         </Button>
