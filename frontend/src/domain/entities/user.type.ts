@@ -1,4 +1,4 @@
-import { Plan } from "@/domain/entities/plan.types";
+import { PlanType } from "@/domain/entities/plan.types";
 
 export type User = {
   id: string;
@@ -6,7 +6,7 @@ export type User = {
   firstName: string;
   lastName: string;
   role: "USER" | "ADMIN";
-  subscription: Plan;
+  subscription: PlanType;
   createdAt: Date;
 };
 
