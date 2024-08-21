@@ -20,14 +20,15 @@ import stripeRouter from "./routes/stripe.router";
 
 const app: Application = express();
 
-app.use(stripeRouter);
-app.use(bodyParser.json());
 app.use(
   cors({
     /* origin: "http://localhost:3000", */
     credentials: true,
   }),
 );
+// Middleware spécifique pour Stripe Webhook
+app.use("/stripe/webhook", express.raw({ type: "application/json" }));
+app.use(bodyParser.json());
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
@@ -41,6 +42,7 @@ app.use(brandRouter);
 app.use(scrapingRouter);
 app.use(requestRouter);
 app.use(statRouter);
+app.use(stripeRouter);
 // Error handler
 app.use(errorHandler);
 
