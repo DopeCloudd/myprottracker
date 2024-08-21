@@ -1,14 +1,16 @@
 import { useAuth } from "@/application/hooks/useAuth";
 import useDialog from "@/application/hooks/useDialog";
+import { PlanType } from "@/domain/entities/plan.types";
 import { useGetCategoryByIdQuery } from "@/infrastructure/api/category.api";
 import { useGetProductsByCategoryIdQuery } from "@/infrastructure/api/product.api";
 import { bufferToImageSrc } from "@/infrastructure/helpers/buffer-to-image-src.helper";
+import RequestButton from "@/interface/components/button/request.button";
 import CardSkeleton from "@/interface/components/card/card-skeleton.component";
 import Card from "@/interface/components/card/card.component";
 import FullScreenDialog from "@/interface/components/dialog/add-product.dialog";
 import TextTitle from "@/interface/components/text/text-title.component";
 import { truncateString } from "@/interface/utils/index";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -59,10 +61,15 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
           justifyContent: "flex-end",
         }}
       >
-        <Button variant="contained" color="secondary" onClick={handleRequest}>
-          Ajouter un produit
-        </Button>
-        <FullScreenDialog />
+        {user?.subscription === PlanType.PREMIUM && (
+          <>
+            <RequestButton
+              content="Ajouter un produit"
+              onClick={handleRequest}
+            />
+            <FullScreenDialog />
+          </>
+        )}
       </Box>
       <TextTitle content={category.data?.name ?? ""} />
       <Box
