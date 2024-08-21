@@ -73,10 +73,11 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
             >
               <Box
                 sx={{
+                  position: "relative",
                   width: "50%",
                   "& img": {
                     aspectRatio: "4/4",
-                    width: "700px",
+                    maxWidth: "700px",
                   },
                 }}
               >
@@ -135,22 +136,27 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                 >
                   Vendu par {product.brand.name}
                 </Typography>
-                <Typography
-                  component="p"
-                  sx={{
-                    opacity: "0.5",
-                    fontSize: "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
-                  }}
-                >
-                  Prix le plus bas : {product.lowestPrice} € · Prix le plus haut
-                  : {product.highestPrice} €
-                </Typography>
-                <HistoryButton
-                  content="Historique des prix"
-                  onClick={() => {
-                    navigate("/history/" + product.id);
-                  }}
-                />
+                {user?.subscription === PlanType.PREMIUM && (
+                  <>
+                    <Typography
+                      component="p"
+                      sx={{
+                        opacity: "0.5",
+                        fontSize:
+                          "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
+                      }}
+                    >
+                      Prix le plus bas : {product.lowestPrice} € · Prix le plus
+                      haut : {product.highestPrice} €
+                    </Typography>
+                    <HistoryButton
+                      content="Historique des prix"
+                      onClick={() => {
+                        navigate("/history/" + product.id);
+                      }}
+                    />
+                  </>
+                )}
                 <ButtonBuy
                   content="Acheter"
                   onClick={() => {
@@ -171,7 +177,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                       veuillez d'abord vous{" "}
                       <Link href="/login">connecter.</Link>
                     </Typography>
-                  ) : user.subscription?.title === PlanType.PREMIUM ? (
+                  ) : user.subscription === PlanType.PREMIUM ? (
                     <Typography
                       component="p"
                       sx={{
@@ -197,60 +203,49 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                 </Box>
               </Box>
             </Row>
-            <Row
+            <Box>
+              <SectionAccordion
+                header="Description"
+                content={truncateString(product.description, 400)}
+              />
+              <SectionAccordion
+                header="Valeurs nutrionnelles"
+                content={<NutritionTable />}
+              />
+            </Box>
+            <Box
               sx={{
-                gap: 4,
+                display: "flex",
+                flexDirection: "column",
               }}
             >
-              <Box
+              <Typography
                 sx={{
-                  width: "50%",
+                  fontFamily: "Integral Oblique, sans-serif",
+                  fontSize: "1.5rem",
+                  pb: 2,
                 }}
               >
-                <SectionAccordion
-                  header="Description"
-                  content={truncateString(product.description, 400)}
-                />
-                <SectionAccordion
-                  header="Valeurs nutrionnelles"
-                  content={<NutritionTable />}
-                />
-              </Box>
-              <Box
-                sx={{
-                  width: "50%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "Integral Oblique, sans-serif",
-                    fontSize: "1.5rem",
-                    pb: 2,
-                  }}
-                >
-                  Vous pourriez aussi aimer
-                </Typography>
-                <Grid container spacing={2}>
-                  {randomProducts?.map((product, index) => (
-                    <Grid item xs={6} key={index}>
-                      <Card
-                        key={index}
-                        title={product.title}
-                        price={product.price}
-                        quantity={product.quantity}
-                        rating={product.rating}
-                        image={bufferToImageSrc(product.image.data)}
-                        onClick={() => {
-                          navigate("/product/" + product.id);
-                        }}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
-            </Row>
+                Vous pourriez aussi aimer
+              </Typography>
+              <Grid container spacing={2}>
+                {randomProducts?.map((product, index) => (
+                  <Grid item xs={6} key={index}>
+                    <Card
+                      key={index}
+                      title={product.title}
+                      price={product.price}
+                      quantity={product.quantity}
+                      rating={product.rating}
+                      image={bufferToImageSrc(product.image.data)}
+                      onClick={() => {
+                        navigate("/product/" + product.id);
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
           </>
         )}
       </Loading>
