@@ -74,21 +74,81 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
               <Box
                 sx={{
                   position: "relative",
-                  width: "50%",
-                  "& img": {
-                    aspectRatio: "4/4",
-                    maxWidth: "700px",
-                  },
+                  width: "65%",
                 }}
               >
-                <img
-                  src={bufferToImageSrc(product.image.data)}
-                  alt={product.title}
-                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    "& img": {
+                      aspectRatio: "4/4",
+                      maxWidth: "700px",
+                    },
+                  }}
+                >
+                  <img
+                    src={bufferToImageSrc(product.image.data)}
+                    alt={product.title}
+                  />
+                </Box>
+                <Box>
+                  <SectionAccordion
+                    header="Description"
+                    content={truncateString(product.description, 400)}
+                  />
+                  <SectionAccordion
+                    header="Valeurs nutrionnelles"
+                    content={<NutritionTable />}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontFamily: "Integral Oblique, sans-serif",
+                      fontSize: "1.5rem",
+                      pb: 2,
+                    }}
+                  >
+                    Vous pourriez aussi aimer
+                  </Typography>
+                  <Grid container spacing={2}>
+                    {randomProducts?.map((product, index) => (
+                      <Grid item xs={12} md={6} key={index}>
+                        <Card
+                          key={index}
+                          title={product.title}
+                          price={product.price}
+                          quantity={product.quantity}
+                          rating={product.rating}
+                          image={bufferToImageSrc(product.image.data)}
+                          onClick={() => {
+                            navigate("/product/" + product.id);
+                          }}
+                          sx={{
+                            minWidth: "200px",
+                          }}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
               </Box>
               <Box
                 sx={{
-                  width: "50%",
+                  py: 2,
+                  px: 4,
+                  width: "35%",
+                  height: "fit-content",
+                  backgroundImage:
+                    "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
+                  borderRadius: "10px",
                 }}
               >
                 <Typography
@@ -203,49 +263,6 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                 </Box>
               </Box>
             </Row>
-            <Box>
-              <SectionAccordion
-                header="Description"
-                content={truncateString(product.description, 400)}
-              />
-              <SectionAccordion
-                header="Valeurs nutrionnelles"
-                content={<NutritionTable />}
-              />
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Typography
-                sx={{
-                  fontFamily: "Integral Oblique, sans-serif",
-                  fontSize: "1.5rem",
-                  pb: 2,
-                }}
-              >
-                Vous pourriez aussi aimer
-              </Typography>
-              <Grid container spacing={2}>
-                {randomProducts?.map((product, index) => (
-                  <Grid item xs={6} key={index}>
-                    <Card
-                      key={index}
-                      title={product.title}
-                      price={product.price}
-                      quantity={product.quantity}
-                      rating={product.rating}
-                      image={bufferToImageSrc(product.image.data)}
-                      onClick={() => {
-                        navigate("/product/" + product.id);
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
           </>
         )}
       </Loading>
