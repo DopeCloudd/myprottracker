@@ -69,12 +69,26 @@ export const webhook = async (req: Request, res: Response) => {
 
   // Handle the event
   switch (eventType) {
+    // Event when the subscription is started
     case "checkout.session.completed":
       console.log("Checkout session completed");
       const subscription = stripe.subscriptions.retrieve(
         session.subscription as string,
       );
       console.log("Subscription : ", subscription);
+      break;
+    // Event when the payment is successful (every subscription interval)
+    case "invoice.paid":
+      console.log("Invoice paid");
+      break;
+    // Event when the payment failed due to card issues (every subscription interval)
+    case "invoice.payment_failed":
+      console.log("Invoice payment failed");
+      break;
+    // Event when the subscription is updated
+    case "customer.subscription.updated":
+      console.log("Customer subscription updated");
+      break;
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
