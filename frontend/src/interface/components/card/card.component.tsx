@@ -5,6 +5,8 @@ import {
   CardMedia,
   Card as MuiCard,
   Rating,
+  SxProps,
+  Theme,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -18,6 +20,7 @@ type CardProps = {
   image?: string;
   brand?: string;
   onClick?: () => void;
+  sx?: SxProps<Theme>;
 };
 
 const Card: React.FC<CardProps> = ({
@@ -29,10 +32,12 @@ const Card: React.FC<CardProps> = ({
   image,
   brand,
   onClick,
+  sx,
 }) => {
   return (
     <MuiCard
       sx={{
+        ...sx,
         display: "flex",
         flexDirection: "column",
         boxShadow: "0px 0px 15px 2px #0c0c0c",
