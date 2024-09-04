@@ -54,17 +54,6 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
           <Typography>Aucun produit trouvé pour cet identifiant.</Typography>
         ) : (
           <>
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                gap: 2,
-                justifyContent: "flex-end",
-              }}
-            >
-              <ButtonAlert productId={product.id} />
-              <ButtonLike productId={product.id} />
-            </Box>
             <Row
               sx={{
                 position: "relative",
@@ -151,6 +140,17 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                   borderRadius: "10px",
                 }}
               >
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    gap: 2,
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <ButtonAlert productId={product.id} />
+                  <ButtonLike productId={product.id} />
+                </Box>
                 <Typography
                   variant="h1"
                   component="h1"
