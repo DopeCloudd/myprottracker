@@ -1,8 +1,8 @@
 import { ButtonProps } from "@mui/material/Button";
 
 export enum PlanType {
-  FREE = "Starter",
-  PREMIUM = "Premium",
+  FREE = "FREE",
+  PREMIUM = "PREMIUM",
 }
 
 export type Plan = {
