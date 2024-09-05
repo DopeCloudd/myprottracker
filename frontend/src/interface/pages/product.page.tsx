@@ -173,8 +173,9 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                           "clamp(0.875rem, 0.6071rem + 0.7143vw, 1.25rem)",
                       }}
                     >
-                      Prix le plus bas : {product.lowestPrice} € · Prix le plus
-                      haut : {product.highestPrice} €
+                      Prix le plus bas : {product.lowestPrice} €
+                      <br />
+                      Prix le plus haut : {product.highestPrice} €
                     </Typography>
                     <HistoryButton
                       content="Historique des prix"
