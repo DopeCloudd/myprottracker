@@ -26,7 +26,7 @@ export default function NutritionTable() {
         boxShadow: "none",
       }}
     >
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: "100%" }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
