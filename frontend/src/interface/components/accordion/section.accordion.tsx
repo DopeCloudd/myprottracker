@@ -8,6 +8,7 @@ import {
 import React, { ReactNode } from "react";
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
+  width: "100%",
   background: "transparent",
   boxShadow: "none",
   borderTop: "1px solid rgba(255,255,255, 0.5)",
@@ -44,6 +45,7 @@ const SectionAccordion: React.FC<{
       <AccordionDetails
         sx={{
           border: "none",
+          maxWidth: "100%",
         }}
       >
         {content}
