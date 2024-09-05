@@ -8,7 +8,14 @@ type Props = {
 
 const RequestButton: React.FC<Props> = ({ content, onClick }) => {
   return (
-    <Button variant="contained" color="secondary" onClick={onClick}>
+    <Button
+      variant="contained"
+      color="secondary"
+      onClick={onClick}
+      sx={{
+        height: "fit-content",
+      }}
+    >
       {content}
     </Button>
   );
