@@ -13,7 +13,7 @@ import TextPrice from "@/interface/components/text/text-price.component";
 import TextProductSection from "@/interface/components/text/text-product-section.component";
 import Loading from "@/interface/layout/loading.layout";
 import { truncateString } from "@/interface/utils/index";
-import { Box, Grid, Link, Rating, Typography, styled } from "@mui/material";
+import { Box, Grid, Link, Rating, Typography } from "@mui/material";
 import React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import HistoryButton from "../components/button/history.button";
@@ -27,11 +27,6 @@ const Product: React.FC = () => {
 
   return <ProductQuery productId={Number(id)} />;
 };
-
-const Row = styled(Box)({
-  width: "100%",
-  display: "flex",
-}) as typeof Box;
 
 const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
   const { user } = useAuth();
@@ -54,16 +49,24 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
           <Typography>Aucun produit trouvé pour cet identifiant.</Typography>
         ) : (
           <>
-            <Row
+            <Box
               sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "1fr", md: "65% 35%" },
+                gridTemplateRows: {
+                  xs: "repeat(3, auto)",
+                  sm: "repeat(3, auto)",
+                  md: "repeat(2, auto)",
+                },
+                gridColumnGap: 0,
+                gridRowGap: 0,
                 position: "relative",
-                gap: 4,
               }}
             >
               <Box
                 sx={{
                   position: "relative",
-                  width: "65%",
+                  gridArea: { xs: "1 / 1 / 2 / 2", md: "1 / 1 / 2 / 2" },
                 }}
               >
                 <Box
@@ -73,7 +76,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                     alignItems: "center",
                     "& img": {
                       aspectRatio: "4/4",
-                      maxWidth: "700px",
+                      maxWidth: "100%",
                     },
                   }}
                 >
@@ -82,58 +85,12 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                     alt={product.title}
                   />
                 </Box>
-                <Box>
-                  <SectionAccordion
-                    header="Description"
-                    content={truncateString(product.description, 400)}
-                  />
-                  <SectionAccordion
-                    header="Valeurs nutrionnelles"
-                    content={<NutritionTable />}
-                  />
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontFamily: "Integral Oblique, sans-serif",
-                      fontSize: "1.5rem",
-                      pb: 2,
-                    }}
-                  >
-                    Vous pourriez aussi aimer
-                  </Typography>
-                  <Grid container spacing={2}>
-                    {randomProducts?.map((product, index) => (
-                      <Grid item xs={12} md={6} key={index}>
-                        <Card
-                          key={index}
-                          title={product.title}
-                          price={product.price}
-                          quantity={product.quantity}
-                          rating={product.rating}
-                          image={bufferToImageSrc(product.image.data)}
-                          onClick={() => {
-                            navigate("/product/" + product.id);
-                          }}
-                          sx={{
-                            minWidth: "200px",
-                          }}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Box>
               </Box>
               <Box
                 sx={{
                   py: 2,
-                  px: 4,
-                  width: "35%",
+                  px: { xs: 2, sm: 4 },
+                  gridArea: { xs: "2 / 1 / 3 / 2", md: "1 / 2 / 2 / 3" },
                   height: "fit-content",
                   backgroundImage:
                     "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
@@ -146,6 +103,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                     display: "flex",
                     gap: 2,
                     justifyContent: "flex-end",
+                    pb: { xs: 2, sm: 0 },
                   }}
                 >
                   <ButtonAlert productId={product.id} />
@@ -262,7 +220,64 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                   )}
                 </Box>
               </Box>
-            </Row>
+              <Box
+                sx={{
+                  gridArea: { xs: "3 / 1 / 4 / 2", md: "2 / 1 / 3 / 2" },
+                  position: "relative",
+                }}
+              >
+                <Box
+                  sx={{
+                    py: 2,
+                  }}
+                >
+                  <SectionAccordion
+                    header="Description"
+                    content={truncateString(product.description, 400)}
+                  />
+                  <SectionAccordion
+                    header="Valeurs nutrionnelles"
+                    content={<NutritionTable />}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontFamily: "Integral Oblique, sans-serif",
+                      fontSize: "1.5rem",
+                      pb: 2,
+                    }}
+                  >
+                    Vous pourriez aussi aimer
+                  </Typography>
+                  <Grid container spacing={2}>
+                    {randomProducts?.map((product, index) => (
+                      <Grid item xs={12} md={6} key={index}>
+                        <Card
+                          key={index}
+                          title={product.title}
+                          price={product.price}
+                          quantity={product.quantity}
+                          rating={product.rating}
+                          image={bufferToImageSrc(product.image.data)}
+                          onClick={() => {
+                            navigate("/product/" + product.id);
+                          }}
+                          sx={{
+                            minWidth: "200px",
+                          }}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+              </Box>
+            </Box>
           </>
         )}
       </Loading>
