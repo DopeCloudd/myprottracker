@@ -4,6 +4,7 @@ import { PlanType } from "@/domain/entities/plan.types";
 import { useGetCategoryByIdQuery } from "@/infrastructure/api/category.api";
 import { useGetProductsByCategoryIdQuery } from "@/infrastructure/api/product.api";
 import { bufferToImageSrc } from "@/infrastructure/helpers/buffer-to-image-src.helper";
+import BackButton from "@/interface/components/button/back.button";
 import RequestButton from "@/interface/components/button/request.button";
 import CardSkeleton from "@/interface/components/card/card-skeleton.component";
 import Card from "@/interface/components/card/card.component";
@@ -70,6 +71,7 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
             <FullScreenDialog />
           </>
         )}
+        <BackButton />
       </Box>
       <TextTitle content={category.data?.name ?? ""} />
       <Box
