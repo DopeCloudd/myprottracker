@@ -36,7 +36,7 @@ export default function Hero() {
               fontSize: "clamp(3.5rem, 10vw, 4rem)",
             }}
           >
-            Compare to&nbsp;
+            Comparer pour&nbsp;
             <Typography
               component="span"
               variant="h1"
@@ -45,7 +45,7 @@ export default function Hero() {
                 color: "#00A656",
               }}
             >
-              compete.
+              Gagner.
             </Typography>
           </Typography>
           <Typography
