@@ -82,6 +82,7 @@ model Product {
   alertes Alert[]
   nutrition Nutrition[]
   updates Update[]
+  queuMails QueuMail[]
 }
 
 model Favorite {
@@ -156,4 +157,19 @@ model Update {
   newValue String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model QueuMail {
+  id      Int      @id @default(autoincrement())
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  status QueuMailStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum QueuMailStatus {
+  PENDING
+  SENT
+  ERROR
 }
