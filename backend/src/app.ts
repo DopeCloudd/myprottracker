@@ -5,7 +5,7 @@ import cors from "cors";
 import express, { Application } from "express";
 import helmet from "helmet";
 import path from "path";
-import { renderWelcomeEmail } from "./mail/renderEmail";
+import { renderLowestPriceEmail, renderWelcomeEmail } from "./mail/renderEmail";
 import { errorHandler } from "./middlewares/error.middleware";
 import alertRouter from "./routes/alert.router";
 import authRouter from "./routes/auth.router";
@@ -56,6 +56,14 @@ app.use(
 app.get("/preview/welcome-email", (req, res) => {
   const htmlContent = renderWelcomeEmail({
     email: "test@gmail.com",
+  });
+  res.send(htmlContent);
+});
+
+// Route pour prévisualiser l'email de lowest price
+app.get("/preview/lowest", (req, res) => {
+  const htmlContent = renderLowestPriceEmail({
+    productId: "1",
   });
   res.send(htmlContent);
 });
