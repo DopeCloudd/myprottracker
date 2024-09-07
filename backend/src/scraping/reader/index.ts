@@ -1,5 +1,6 @@
 import { PrismaClient, Product } from "@prisma/client";
 import { addUpdate } from "../loggers/update";
+import { addProductLowestPriceQueuMail } from "../queu/mail";
 import { Config } from "../types";
 
 const productClient = new PrismaClient().product;
@@ -36,6 +37,8 @@ async function updateProductIfNeeded(
     }
     if (!product.lowestPrice || product.lowestPrice > price) {
       updateData.lowestPrice = price;
+      // Add the product to the mail queu to notify the user who has this product in his alert list
+      addProductLowestPriceQueuMail({ productId: product.id });
     }
     if (!product.highestPrice || product.highestPrice < price) {
       updateData.highestPrice = price;
