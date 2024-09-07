@@ -72,7 +72,7 @@ export const register = async (req: Request, res: Response) => {
     throw new Error("User registration failed");
   }
 
-  await sendWelcomeEmail(email, email);
+  await sendWelcomeEmail(email);
 
   res.status(200).json({ success: true });
 };
