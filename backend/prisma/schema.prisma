@@ -163,13 +163,22 @@ model QueuMail {
   id      Int      @id @default(autoincrement())
   product Product @relation(fields: [productId], references: [id])
   productId Int
-  status QueuMailStatus @default(PENDING)
+  status MailStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-enum QueuMailStatus {
+enum MailStatus {
   PENDING
   SENT
   ERROR
+}
+
+model MailHistory {
+  id      Int      @id @default(autoincrement())
+  email String
+  type String
+  status MailStatus
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
