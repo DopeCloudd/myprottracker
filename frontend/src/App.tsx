@@ -26,6 +26,7 @@ import { SnackbarProvider } from "notistack";
 import { useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Contact from "@/interface/pages/contact.page";
 
 export default function App() {
   useToken();
@@ -51,6 +52,7 @@ export default function App() {
                   <Route path="product/:id" element={<Product />} />
                   <Route path="privacy" element={<Privacy />} />
                   <Route path="conditions" element={<Conditions />} />
+                  <Route path="contact" element={<Contact />} />
                   <Route element={<PrivateOutlet />}>
                     <Route path="profile" element={<Profile />} />
                     <Route path="favorites" element={<Favorites />} />
