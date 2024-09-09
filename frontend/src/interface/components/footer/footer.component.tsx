@@ -134,7 +134,7 @@ export default function Footer() {
             <Link component={NavLink} color="text.secondary" to="/privacy">
               Confidentialité
             </Link>
-            <Link color="text.secondary" href="#">
+            <Link color="text.secondary" href="/contact">
               Contact
             </Link>
           </Box>
