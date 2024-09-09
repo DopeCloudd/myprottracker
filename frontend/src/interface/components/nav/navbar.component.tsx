@@ -10,10 +10,22 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import PersonIcon from "@mui/icons-material/Person";
 import { useNavigate } from "react-router-dom";
+import {
+  Drawer,
+  IconButton,
+  List,
+  ListItemIcon,
+  ListItemText,
+  Box,
+  ListItemButton,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
 
 function Navbar() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const LinkItem = [
     {
@@ -73,7 +85,43 @@ function Navbar() {
           sx={{ fontSize: "clamp(1rem, 0.4375rem + 1.5vw, 1.75rem)" }}
         />
       </FlexCenter>
-      <FlexCenter>
+
+      {/* For mobile menu */}
+      <FlexCenter sx={{ display: { xs: "flex", md: "none" } }}>
+        <IconButton
+          edge="start"
+          sx={{ display: { xs: "block", md: "none" } }} // Show only on mobile (xs)
+          onClick={() => setDrawerOpen(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+      </FlexCenter>
+
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        sx={{ display: { xs: "block", md: "none" } }} // Display only on mobile
+      >
+        <Box
+          sx={{ width: 250 }}
+          role="presentation"
+          onClick={() => setDrawerOpen(false)}
+          onKeyDown={() => setDrawerOpen(false)}
+        >
+          <List>
+            {LinkItem.map((item, index) => (
+              <ListItemButton key={index} onClick={item.onClick}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
+
+      {/* For desktop menu */}
+      <FlexCenter sx={{ display: { xs: "none", md: "flex" } }}>
         <SwitchLangage />
         <AvatarDropdown textAvatar={user?.firstName} items={LinkItem} />
         <ButtonAuth />
