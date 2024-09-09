@@ -1,6 +1,6 @@
-import { Form } from "@/interface/components/global/Form";
 import TextTitleOblique from "@/interface/components/text/text-title-oblique.component";
 import { Box, Grid, Typography } from "@mui/material";
+import { LoginForm } from "@/interface/components/form/login.form";
 
 export default function Login() {
   return (
@@ -46,7 +46,7 @@ export default function Login() {
           backgroundColor: "#171717",
         }}
       >
-        <Form type="login" />
+        <LoginForm />
       </Grid>
     </Grid>
   );
