@@ -1,9 +1,9 @@
 import { useAuth } from "@/application/hooks/useAuth";
-import { Form } from "@/interface/components/global/Form";
 import TextTitleOblique from "@/interface/components/text/text-title-oblique.component";
 import { Box, Grid, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { RegisterForm } from "@/interface/components/form/register.form";
 
 export default function Register() {
   const { user } = useAuth();
@@ -60,7 +60,7 @@ export default function Register() {
           backgroundColor: "#171717",
         }}
       >
-        <Form type="register" />
+        <RegisterForm />
       </Grid>
     </Grid>
   );
