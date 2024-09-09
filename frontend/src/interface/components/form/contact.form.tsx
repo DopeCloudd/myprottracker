@@ -1,5 +1,5 @@
 import { TextCopyright } from "@/interface/components/text/text-copyright.component";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import {
   Avatar,
   Box,
@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { Formik } from "formik";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -34,8 +34,6 @@ const initialValues = {
 };
 
 export const ContactForm: React.FC = () => {
-  const navigate = useNavigate();
-
   const onSubmit = async (values: typeof initialValues) => {
     console.log(values);
   };
@@ -49,19 +47,6 @@ export const ContactForm: React.FC = () => {
         alignItems: "center",
       }}
     >
-      <Button
-        variant="outlined"
-        sx={{
-          position: "absolute",
-          mt: 4,
-          mr: 4,
-          top: 0,
-          right: 0,
-        }}
-        onClick={() => navigate("/")}
-      >
-        Accueil
-      </Button>
       <Avatar
         sx={{
           m: 1,
@@ -70,7 +55,7 @@ export const ContactForm: React.FC = () => {
           borderColor: "#00A656",
         }}
       >
-        <LockOutlinedIcon sx={{ fill: "#00A656" }} />
+        <MailOutlineIcon sx={{ fill: "#00A656" }} />
       </Avatar>
       <Typography component="h1" variant="h5">
         Connexion
@@ -124,6 +109,7 @@ export const ContactForm: React.FC = () => {
               <Grid size={{ xs: 12 }}>
                 <TextField
                   fullWidth
+                  rows={4}
                   label="Message"
                   onBlur={handleBlur}
                   onChange={handleChange}
