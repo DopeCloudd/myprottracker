@@ -46,8 +46,9 @@ export default function PricingSection() {
         </Typography>
         <Typography variant="body1" color="text.secondary">
           Libérez tout le potentiel de notre application en vous abonnant à
-          notre application. Mettez toutes les chances de votre côté pour
-          atteindre vos objectifs.
+          notre application. Nos utilisateurs économisent en moyenne <u>30%</u>{" "}
+          sur leurs dépenses grâce à notre application. Mettez toutes les
+          chances de votre côté pour atteindre vos objectifs sans vous ruiner.
         </Typography>
       </Box>
       <Grid container spacing={3} alignItems="stretch" justifyContent="center">
