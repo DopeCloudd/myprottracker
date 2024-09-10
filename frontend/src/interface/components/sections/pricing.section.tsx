@@ -1,6 +1,7 @@
 import { Plan, PlanType } from "@/domain/entities/plan.types";
 import CardSubscription from "@/interface/components/card/subscription.card";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 // TODO : Add the different plans to the database and create hooks to fetch them
 const tiers: Plan[] = [
@@ -53,7 +54,7 @@ export default function PricingSection() {
       </Box>
       <Grid container spacing={3} alignItems="stretch" justifyContent="center">
         {tiers.map((tier) => (
-          <Grid item key={tier.title} xs={12} sm={6} md={4}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={tier.title}>
             <CardSubscription
               title={tier.title}
               price={tier.price}

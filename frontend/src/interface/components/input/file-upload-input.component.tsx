@@ -1,7 +1,7 @@
 import useFile from "@/application/hooks/useFile";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Box, Button } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/system";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

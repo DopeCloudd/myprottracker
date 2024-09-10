@@ -7,11 +7,11 @@ import {
   Avatar,
   Box,
   Button,
-  Grid,
   Link,
   TextField,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { Formik } from "formik";
 import { NavLink, useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -100,7 +100,7 @@ export const LoginForm: React.FC = () => {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <TextField
                   fullWidth
                   label="Email"
@@ -113,7 +113,7 @@ export const LoginForm: React.FC = () => {
                   helperText={touched.email && errors.email}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <PasswordInput
                   name="Mot de passe"
                   value={values.password}
@@ -135,12 +135,12 @@ export const LoginForm: React.FC = () => {
               </Button>
             </Loading>
             <Grid container>
-              <Grid item xs>
+              <Grid size={{ xs: 12 }}>
                 <Link component={NavLink} to="/" variant="body2">
                   Mot de passe oublié ?
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid size={{ xs: 12 }}>
                 <Link component={NavLink} to="/register" variant="body2">
                   {"Pas de compte ? S'inscrire"}
                 </Link>

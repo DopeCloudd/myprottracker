@@ -1,6 +1,7 @@
 import { useAddProductMutation } from "@/infrastructure/api/product.api";
 import Loading from "@/interface/layout/loading.layout";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 import React from "react";
@@ -50,7 +51,7 @@ const AddProductForm: React.FC = () => {
     <Box>
       <Box component="form" noValidate onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <TextField
               fullWidth
               onBlur={formik.handleBlur}
@@ -63,7 +64,7 @@ const AddProductForm: React.FC = () => {
               helperText={formik.touched.url && formik.errors.url}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Loading loading={[addProductLoading]}>
               <Button fullWidth variant="contained" type="submit">
                 Ajouter

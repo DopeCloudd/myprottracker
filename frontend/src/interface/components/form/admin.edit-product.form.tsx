@@ -9,13 +9,13 @@ import {
   Box,
   Button,
   Divider,
-  Grid,
   InputAdornment,
   MenuItem,
   Rating,
   TextField,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { Formik } from "formik";
 import React from "react";
 import * as yup from "yup";
@@ -115,12 +115,12 @@ const AdminEditProductForm: React.FC<{
         }) => (
           <Box component="form" noValidate onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Typography component="h2" variant="h4">
                   Informations générales
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
                   onBlur={handleBlur}
@@ -133,7 +133,7 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.url && errors.url}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
                   select
@@ -152,7 +152,7 @@ const AdminEditProductForm: React.FC<{
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
                   select
@@ -171,7 +171,7 @@ const AdminEditProductForm: React.FC<{
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <Typography component="legend">Rating</Typography>
                 <Rating
                   name="rating"
@@ -181,19 +181,19 @@ const AdminEditProductForm: React.FC<{
                   onBlur={handleBlur}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Divider />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Typography component="h2" variant="h4">
                   Informations nutritionnelles
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
+                  slotProps={{
+                    input: (
                       <InputAdornment position="start">kcal</InputAdornment>
                     ),
                   }}
@@ -207,13 +207,11 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.calories && errors.calories}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">g</InputAdornment>
-                    ),
+                  slotProps={{
+                    input: <InputAdornment position="start">g</InputAdornment>,
                   }}
                   label="Matieres grasses"
                   type="string"
@@ -225,13 +223,11 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.fat && errors.fat}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">g</InputAdornment>
-                    ),
+                  slotProps={{
+                    input: <InputAdornment position="start">g</InputAdornment>,
                   }}
                   label="Acides gras saturés"
                   type="string"
@@ -245,13 +241,11 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.saturedFat && errors.saturedFat}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">g</InputAdornment>
-                    ),
+                  slotProps={{
+                    input: <InputAdornment position="start">g</InputAdornment>,
                   }}
                   label="Fibres alimentaires"
                   type="string"
@@ -263,13 +257,11 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.fiber && errors.fiber}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">g</InputAdornment>
-                    ),
+                  slotProps={{
+                    input: <InputAdornment position="start">g</InputAdornment>,
                   }}
                   label="Sucres"
                   type="string"
@@ -281,13 +273,11 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.sugar && errors.sugar}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">g</InputAdornment>
-                    ),
+                  slotProps={{
+                    input: <InputAdornment position="start">g</InputAdornment>,
                   }}
                   label="Glucides"
                   type="string"
@@ -302,13 +292,11 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.carbohydrates && errors.carbohydrates}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">g</InputAdornment>
-                    ),
+                  slotProps={{
+                    input: <InputAdornment position="start">g</InputAdornment>,
                   }}
                   label="Protéines"
                   type="string"
@@ -320,13 +308,11 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.protein && errors.protein}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
                   fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">g</InputAdornment>
-                    ),
+                  slotProps={{
+                    input: <InputAdornment position="start">g</InputAdornment>,
                   }}
                   label="Sel"
                   type="string"
@@ -338,10 +324,10 @@ const AdminEditProductForm: React.FC<{
                   helperText={touched.salt && errors.salt}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <InputFileUpload />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Loading loading={[isLoading]}>
                   <Button fullWidth variant="contained" type="submit">
                     Valider

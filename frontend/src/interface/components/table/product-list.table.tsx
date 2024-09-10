@@ -5,7 +5,8 @@ import FlexCenter from "@/interface/components/box/flex-center.component";
 import Loading from "@/interface/layout/loading.layout";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Button, Grid, IconButton, Link, Typography } from "@mui/material";
+import { Box, Button, IconButton, Link, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -82,7 +83,7 @@ export default function TableProductList({
       </FlexBetween>
       <Box>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Paper sx={{ width: "100%", overflow: "hidden", mb: 6 }}>
               <TableContainer
                 sx={{

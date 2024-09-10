@@ -5,13 +5,13 @@ import {
   Button,
   Divider,
   FormControl,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import TextTitle from "../components/text/text-title.component";
 
@@ -26,7 +26,7 @@ const Profile: React.FC = () => {
         Informations personnelles
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <TextField
             fullWidth
             id="email"
@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
             disabled
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <TextField
             fullWidth
             id="firstName"
@@ -44,7 +44,7 @@ const Profile: React.FC = () => {
             disabled
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <TextField
             fullWidth
             id="lastName"
@@ -59,7 +59,7 @@ const Profile: React.FC = () => {
         Abonnement
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Abonnement</InputLabel>
             <Select
@@ -77,7 +77,7 @@ const Profile: React.FC = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6} sx={{ display: "none", gap: 2 }}>
+        <Grid size={{ xs: 12, sm: 6 }} sx={{ display: "none", gap: 2 }}>
           <Button variant="outlined" color="warning" fullWidth>
             Modifier
           </Button>

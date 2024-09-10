@@ -4,7 +4,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SavingsIcon from "@mui/icons-material/Savings";
 import TroubleshootIcon from "@mui/icons-material/Troubleshoot";
-import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 const items = [
   {
@@ -83,7 +84,7 @@ export default function Highlights() {
         </Box>
         <Grid container spacing={2.5}>
           {items.map((item, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
               <Stack
                 direction="column"
                 color="inherit"

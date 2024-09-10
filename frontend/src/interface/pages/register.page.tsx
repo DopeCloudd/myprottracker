@@ -1,6 +1,7 @@
 import { useAuth } from "@/application/hooks/useAuth";
 import TextTitleOblique from "@/interface/components/text/text-title-oblique.component";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RegisterForm } from "@/interface/components/form/register.form";
@@ -20,10 +21,7 @@ export default function Register() {
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
+        size={{ xs: false, sm: 4, md: 7 }}
         sx={{
           display: { xs: "none", sm: "block" },
           backgroundColor: "#121212",
@@ -48,10 +46,7 @@ export default function Register() {
         </Box>
       </Grid>
       <Grid
-        item
-        xs={12}
-        sm={8}
-        md={5}
+        size={{ xs: 12, sm: 8, md: 5 }}
         sx={{
           display: "flex",
           flexDirection: "column",

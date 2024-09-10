@@ -2,7 +2,8 @@ import useRequests from "@/application/hooks/useRequests";
 import Loading from "@/interface/layout/loading.layout";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Grid, IconButton, Link, Typography } from "@mui/material";
+import { Box, IconButton, Link, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -48,7 +49,7 @@ export default function RequestsTable({ maxHeight }: { maxHeight?: number }) {
       <Box>
         <Loading loading={[requestsLoading]}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Paper sx={{ width: "100%", overflow: "hidden", mb: 6 }}>
                 <TableContainer
                   sx={{

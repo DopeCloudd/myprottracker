@@ -7,11 +7,11 @@ import Loading from "@/interface/layout/loading.layout";
 import {
   Box,
   Button,
-  Grid,
   InputAdornment,
   MenuItem,
   TextField,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 import React from "react";
@@ -113,7 +113,7 @@ const AdminAddProductForm: React.FC = () => {
       <Loading loading={[categoriesLoad, brandsLoad]}>
         <Box component="form" noValidate onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
               <TextField
                 fullWidth
                 onBlur={formik.handleBlur}
@@ -128,7 +128,7 @@ const AdminAddProductForm: React.FC = () => {
                 helperText={formik.touched.url && formik.errors.url}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
               <TextField
                 fullWidth
                 select
@@ -150,7 +150,7 @@ const AdminAddProductForm: React.FC = () => {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
               <TextField
                 fullWidth
                 select
@@ -171,13 +171,11 @@ const AdminAddProductForm: React.FC = () => {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">kcal</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">kcal</InputAdornment>,
                 }}
                 label="Calories"
                 type="string"
@@ -192,13 +190,11 @@ const AdminAddProductForm: React.FC = () => {
                 helperText={formik.touched.calories && formik.errors.calories}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">g</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">g</InputAdornment>,
                 }}
                 label="Matieres grasses"
                 type="string"
@@ -212,13 +208,11 @@ const AdminAddProductForm: React.FC = () => {
                 helperText={formik.touched.fat && formik.errors.fat}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">g</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">g</InputAdornment>,
                 }}
                 label="Acides gras saturés"
                 type="string"
@@ -235,13 +229,11 @@ const AdminAddProductForm: React.FC = () => {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">g</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">g</InputAdornment>,
                 }}
                 label="Fibres alimentaires"
                 type="string"
@@ -255,13 +247,11 @@ const AdminAddProductForm: React.FC = () => {
                 helperText={formik.touched.fiber && formik.errors.fiber}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">g</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">g</InputAdornment>,
                 }}
                 label="Sucres"
                 type="string"
@@ -275,13 +265,11 @@ const AdminAddProductForm: React.FC = () => {
                 helperText={formik.touched.sugar && formik.errors.sugar}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">g</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">g</InputAdornment>,
                 }}
                 label="Glucides"
                 type="string"
@@ -298,13 +286,11 @@ const AdminAddProductForm: React.FC = () => {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">g</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">g</InputAdornment>,
                 }}
                 label="Protéines"
                 type="string"
@@ -319,13 +305,11 @@ const AdminAddProductForm: React.FC = () => {
                 helperText={formik.touched.protein && formik.errors.protein}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <TextField
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">g</InputAdornment>
-                  ),
+                slotProps={{
+                  input: <InputAdornment position="start">g</InputAdornment>,
                 }}
                 label="Sel"
                 type="string"
@@ -339,10 +323,10 @@ const AdminAddProductForm: React.FC = () => {
                 helperText={formik.touched.salt && formik.errors.salt}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <InputFileUpload />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Loading loading={[addProductLoading]}>
                 <Button fullWidth variant="contained" type="submit">
                   Ajouter

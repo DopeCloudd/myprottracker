@@ -1,10 +1,6 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  styled,
-} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { styled } from "@mui/system";
 import React, { ReactNode } from "react";
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({

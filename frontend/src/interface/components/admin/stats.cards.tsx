@@ -4,7 +4,8 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import GroupIcon from "@mui/icons-material/Group";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Box, Card, Grid, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 
 const StatsCards: React.FC = () => {
@@ -41,7 +42,7 @@ const StatsCards: React.FC = () => {
       }}
     >
       {items.map((item, index) => (
-        <Grid item xs={12} sm={6} md={4} key={index}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
           <Stack
             direction="column"
             color="inherit"

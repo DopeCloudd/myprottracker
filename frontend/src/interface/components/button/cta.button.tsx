@@ -1,5 +1,5 @@
 import { Box, Button, alpha } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/system";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 

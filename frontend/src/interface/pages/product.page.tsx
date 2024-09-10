@@ -15,7 +15,8 @@ import TextPrice from "@/interface/components/text/text-price.component";
 import TextProductSection from "@/interface/components/text/text-product-section.component";
 import Loading from "@/interface/layout/loading.layout";
 import { truncateString } from "@/interface/utils/index";
-import { Box, Grid, Link, Rating, Typography } from "@mui/material";
+import { Box, Link, Rating, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -267,7 +268,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                   </Typography>
                   <Grid container spacing={2}>
                     {randomProducts?.map((product, index) => (
-                      <Grid item xs={12} md={6} key={index}>
+                      <Grid size={{ xs: 12, md: 6 }} key={index}>
                         <Card
                           key={index}
                           title={product.title}
