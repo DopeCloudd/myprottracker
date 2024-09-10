@@ -1,8 +1,9 @@
 import { useAuth } from "@/application/hooks/useAuth";
 import TextTitle from "@/interface/components/text/text-title.component";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Avatar } from "@mui/material";
 import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import CheckIcon from "@mui/icons-material/Check";
 
 const SuccessStripe: React.FC = () => {
   const { user } = useAuth();
@@ -16,17 +17,27 @@ const SuccessStripe: React.FC = () => {
     <Box
       sx={{
         px: { xs: 3, sm: 6 },
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
-      <TextTitle content="Annulation du paiement" />
-      <Typography fontSize={"1.5rem"}>
+      <Avatar
+        sx={{
+          bgcolor: "transparent",
+          border: "1px solid",
+          borderColor: "#00A656",
+        }}
+      >
+        <CheckIcon sx={{ fill: "#00A656" }} />
+      </Avatar>
+      <TextTitle content="Paiement réussi" />
+      <Typography fontSize={"1.5rem"} textAlign={"center"}>
         Merci pour votre abonnement et bienvenue dans notre salle 🥳
-        <br />
-        Si votre abonnement n'est pas encore actif, n'hésitez pas à actualiser
-        la page.
       </Typography>
       <Button
         variant="outlined"
+        sx={{ mt: 2 }}
         onClick={() => {
           navigate("/profile");
         }}
