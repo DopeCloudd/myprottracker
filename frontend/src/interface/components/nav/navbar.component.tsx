@@ -118,7 +118,13 @@ function Navbar() {
           </Box>
           <Divider sx={{ my: 3 }} />
           {LinkItem.map((item, index) => (
-            <MenuItem key={index} onClick={item.onClick}>
+            <MenuItem
+              key={index}
+              onClick={() => {
+                item.onClick(); // Exécute l'action spécifique de chaque item
+                setDrawerOpen(false); // Ferme le drawer après le clic
+              }}
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </MenuItem>
