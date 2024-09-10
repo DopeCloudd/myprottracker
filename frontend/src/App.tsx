@@ -27,7 +27,7 @@ import { useMemo } from "react";
 import { I18nextProvider } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Contact from "@/interface/pages/contact.page";
-
+import SuccessStripe from "@/interface/pages/success.stripe.page";
 export default function App() {
   useToken();
 
@@ -57,6 +57,7 @@ export default function App() {
                     <Route path="profile" element={<Profile />} />
                     <Route path="favorites" element={<Favorites />} />
                     <Route path="alerts" element={<Alerts />} />
+                    <Route path="success" element={<SuccessStripe />} />
                   </Route>
                   <Route element={<AdminOutlet />}>
                     <Route path="admin" element={<Admin />} />
