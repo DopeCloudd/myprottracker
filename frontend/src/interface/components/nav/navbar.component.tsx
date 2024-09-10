@@ -13,14 +13,15 @@ import { useNavigate } from "react-router-dom";
 import {
   Drawer,
   IconButton,
-  List,
   ListItemIcon,
   ListItemText,
   Box,
-  ListItemButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import Divider from "@mui/material/Divider";
+import MenuItem from "@mui/material/MenuItem";
 
 function Navbar() {
   const { user } = useAuth();
@@ -98,25 +99,33 @@ function Navbar() {
       </FlexCenter>
 
       <Drawer
-        anchor="right"
+        anchor="top"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         sx={{ display: { xs: "block", md: "none" } }} // Display only on mobile
       >
-        <Box
-          sx={{ width: 250 }}
-          role="presentation"
-          onClick={() => setDrawerOpen(false)}
-          onKeyDown={() => setDrawerOpen(false)}
-        >
-          <List>
-            {LinkItem.map((item, index) => (
-              <ListItemButton key={index} onClick={item.onClick}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItemButton>
-            ))}
-          </List>
+        <Box sx={{ p: 2, backgroundColor: "background.default" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <IconButton onClick={() => setDrawerOpen(false)}>
+              <CloseRoundedIcon />
+            </IconButton>
+          </Box>
+          <Divider sx={{ my: 3 }} />
+          {LinkItem.map((item, index) => (
+            <MenuItem key={index} onClick={item.onClick}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </MenuItem>
+          ))}
+          <MenuItem>
+            <ButtonAuth />
+          </MenuItem>
         </Box>
       </Drawer>
 
