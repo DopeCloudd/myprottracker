@@ -4,7 +4,6 @@ import { useAppDispatch } from "@/application/redux/store";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Button, Typography, useMediaQuery, useTheme } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -28,22 +27,15 @@ export const ButtonAuth: React.FC = () => {
   };
 
   return (
-    <>
-      {isXs ? (
-        <IconButton color="primary" onClick={user ? handleLogout : handleLogin}>
-          {user ? <LogoutIcon /> : <LoginIcon />}
-        </IconButton>
-      ) : (
-        <Button
-          variant="outlined"
-          startIcon={user ? <LogoutIcon /> : <LoginIcon />}
-          onClick={user ? handleLogout : handleLogin}
-        >
-          <Typography component="span">
-            {user ? t("nav.logout") : t("nav.login")}
-          </Typography>
-        </Button>
-      )}
-    </>
+    <Button
+      variant="outlined"
+      startIcon={user ? <LogoutIcon /> : <LoginIcon />}
+      onClick={user ? handleLogout : handleLogin}
+      sx={isXs ? { width: "100%" } : {}}
+    >
+      <Typography component="span">
+        {user ? t("nav.logout") : t("nav.login")}
+      </Typography>
+    </Button>
   );
 };
