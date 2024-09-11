@@ -26,13 +26,7 @@ const userIdSchema = userSchema.pick({ id: true });
 
 type UserResponse = Pick<
   User,
-  | "id"
-  | "email"
-  | "firstName"
-  | "lastName"
-  | "role"
-  | "subscription"
-  | "createdAt"
+  "id" | "email" | "firstName" | "lastName" | "role" | "plan" | "createdAt"
 >;
 
 type UserLoginData = Pick<
@@ -43,7 +37,7 @@ type UserLoginData = Pick<
   | "lastName"
   | "password"
   | "role"
-  | "subscription"
+  | "plan"
   | "createdAt"
 >;
 
@@ -89,7 +83,7 @@ export const login = async (req: Request, res: Response) => {
       lastName: true,
       password: true,
       role: true,
-      subscription: true,
+      plan: true,
       createdAt: true,
     },
   });
@@ -111,7 +105,7 @@ export const login = async (req: Request, res: Response) => {
       lastName: user.lastName,
       email: user.email,
       role: user.role,
-      subscription: user.subscription,
+      plan: user.plan,
       createdAt: user.createdAt,
     },
   });
@@ -128,7 +122,7 @@ export const refreshToken = async (req: Request, res: Response) => {
       firstName: true,
       lastName: true,
       role: true,
-      subscription: true,
+      plan: true,
       createdAt: true,
     },
   });
