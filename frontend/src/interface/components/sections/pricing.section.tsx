@@ -52,7 +52,13 @@ export default function PricingSection() {
           chances de votre côté pour atteindre vos objectifs sans vous ruiner.
         </Typography>
       </Box>
-      <Grid container spacing={3} alignItems="stretch" justifyContent="center">
+      <Grid
+        container
+        spacing={3}
+        alignItems="stretch"
+        justifyContent="center"
+        sx={{ width: "100%" }}
+      >
         {tiers.map((tier) => (
           <Grid size={{ xs: 12, sm: 6, md: 4 }} key={tier.title}>
             <CardSubscription
