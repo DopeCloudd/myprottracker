@@ -6,7 +6,7 @@ export type User = {
   firstName: string;
   lastName: string;
   role: "USER" | "ADMIN";
-  subscription: PlanType;
+  plan: PlanType;
   createdAt: Date;
 };
 
@@ -21,7 +21,7 @@ export type LoginResponse = {
 
 export type RegisterRequest = Omit<
   User,
-  "id" | "role" | "subscription" | "createdAt"
+  "id" | "role" | "plan" | "createdAt"
 > & {
   password: string;
 };
