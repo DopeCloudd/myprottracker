@@ -164,7 +164,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                 >
                   Vendu par {product.brand.name}
                 </Typography>
-                {user?.subscription === PlanType.PREMIUM && (
+                {user?.plan === PlanType.PREMIUM && (
                   <>
                     <Typography
                       component="p"
@@ -206,7 +206,7 @@ const ProductQuery: React.FC<{ productId: number }> = ({ productId }) => {
                       veuillez d'abord vous{" "}
                       <Link href="/login">connecter.</Link>
                     </Typography>
-                  ) : user.subscription === PlanType.PREMIUM ? (
+                  ) : user.plan === PlanType.PREMIUM ? (
                     <Typography
                       component="p"
                       sx={{

@@ -65,7 +65,7 @@ const Profile: React.FC = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={user?.subscription || "Starter"}
+              value={user?.plan || "Starter"}
               label="Abonnement"
               readOnly
             >
@@ -77,12 +77,20 @@ const Profile: React.FC = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid size={{ xs: 12, sm: 6 }} sx={{ display: "none", gap: 2 }}>
-          <Button variant="outlined" color="warning" fullWidth>
-            Modifier
-          </Button>
-          <Button variant="outlined" color="error" fullWidth>
-            Annuler
+        <Grid size={{ xs: 12, sm: 6 }}>
+          <Button
+            variant="outlined"
+            color="warning"
+            fullWidth
+            sx={{
+              height: "100%",
+            }}
+            onClick={() => {
+              window.location.href =
+                "https://billing.stripe.com/p/login/test_6oE29ae6t7ji1oIeUU";
+            }}
+          >
+            Gérer mon abonnement
           </Button>
         </Grid>
       </Grid>

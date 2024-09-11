@@ -62,7 +62,7 @@ const ProductListWithQuery: React.FC<{ categoryId: number }> = ({
           justifyContent: "flex-end",
         }}
       >
-        {user?.subscription === PlanType.PREMIUM && (
+        {user?.plan === PlanType.PREMIUM && (
           <>
             <RequestButton
               content="Ajouter un produit"
