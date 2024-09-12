@@ -28,6 +28,8 @@ import { I18nextProvider } from "react-i18next";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Contact from "@/interface/pages/contact.page";
 import SuccessStripe from "@/interface/pages/success.stripe.page";
+import ResetPassword from "@/interface/pages/reset-password.page";
+
 export default function App() {
   useToken();
 
@@ -42,6 +44,7 @@ export default function App() {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route element={<Layout />}>
                   <Route path="/" element={<Landing />} />
                   <Route path="categories" element={<Categories />} />
