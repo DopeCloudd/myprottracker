@@ -2,9 +2,9 @@ import { PrismaClient, User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { Stripe } from "stripe";
-import { sendWelcomeEmail } from "../mail/sendEmail";
+import { sendWelcomeEmail, sendResetPasswordEmail } from "../mail/sendEmail";
 import { userSchema } from "../schemas/user.schema";
-import { generateToken } from "../services/token";
+import { generatePasswordResetToken, generateToken } from "../services/token";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_TEST ?? "");
 
@@ -131,4 +131,23 @@ export const refreshToken = async (req: Request, res: Response) => {
   }
   const newToken = generateToken(user.id);
   res.status(200).json({ token: newToken, user });
+};
+
+// Reset password
+export const resetPassword = async (req: Request, res: Response) => {
+  const { email } = req.body;
+  const user: User | null = await userClient.findUnique({
+    where: { email },
+  });
+  if (!user) {
+    throw new Error("User not found");
+  }
+  // Generate a reset password token
+  const resetPasswordToken = generatePasswordResetToken(user.email);
+  // Send the reset password email
+  const result = await sendResetPasswordEmail(email, resetPasswordToken);
+  if (!result.success) {
+    throw new Error("Error sending reset password email");
+  }
+  res.status(200).json({ message: "Reset password email sent" });
 };
