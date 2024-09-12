@@ -136,7 +136,7 @@ export const LoginForm: React.FC = () => {
             </Loading>
             <Grid container>
               <Grid size={{ xs: 12 }}>
-                <Link component={NavLink} to="/" variant="body2">
+                <Link component={NavLink} to="/reset-password" variant="body2">
                   Mot de passe oublié ?
                 </Link>
               </Grid>
