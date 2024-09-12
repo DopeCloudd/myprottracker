@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import {
   useLoginMutation,
   useRegisterMutation,
+  useResetPasswordMutation,
 } from "@/infrastructure/api/auth.api";
 import { useAppDispatch } from "@/application/redux/store";
 import { setCredentials } from "@/application/redux/slices/auth.slice";
@@ -20,6 +21,8 @@ export const useAuth = () => {
   const [loginCall, { isLoading: isLoadingLogin }] = useLoginMutation();
   const [registerCall, { isLoading: isLoadingRegister }] =
     useRegisterMutation();
+  const [resetPasswordCall, { isLoading: isLoadingResetPassword }] =
+    useResetPasswordMutation();
 
   const login = async (email: string, password: string) => {
     try {
@@ -71,6 +74,21 @@ export const useAuth = () => {
     }
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      const status = await resetPasswordCall({ email }).unwrap();
+      if (status.message) {
+        enqueueSnackbar("Email envoyé", { variant: "success" });
+        return true;
+      }
+    } catch (error) {
+      enqueueSnackbar("Erreur lors de la réinitialisation du mot de passe", {
+        variant: "error",
+      });
+      return false;
+    }
+  };
+
   return useMemo(
     () => ({
       user,
@@ -79,7 +97,18 @@ export const useAuth = () => {
       isLoadingLogin,
       register,
       isLoadingRegister,
+      resetPassword,
+      isLoadingResetPassword,
     }),
-    [user, loading, login, isLoadingLogin, register, isLoadingRegister]
+    [
+      user,
+      loading,
+      login,
+      isLoadingLogin,
+      register,
+      isLoadingRegister,
+      resetPassword,
+      isLoadingResetPassword,
+    ]
   );
 };
