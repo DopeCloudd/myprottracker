@@ -20,12 +20,15 @@ import stripeRouter from "./routes/stripe.router";
 
 const app: Application = express();
 
-app.use(
-  cors({
-    /* origin: "http://localhost:3000", */
-    credentials: true,
-  }),
-);
+// Configuration CORS
+const corsOptions = {
+  origin: ["https://www.myprottracker.com", "https://myprottracker.com"], // Autoriser ces deux origines
+  methods: ["GET", "POST", "PUT", "DELETE"], // Les méthodes autorisées
+  credentials: true, // Autorise l'envoi de cookies ou de tokens d'authentification
+  allowedHeaders: ["Content-Type", "Authorization"], // Autorise ces headers spécifiques
+};
+
+app.use(cors(corsOptions));
 // Middleware spécifique pour Stripe Webhook
 app.use("/stripe/webhook", express.raw({ type: "application/json" }));
 app.use(bodyParser.json());
@@ -33,16 +36,16 @@ app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
 // Routes
-app.use(authRouter);
-app.use(categoryRouter);
-app.use(productRouter);
-app.use(favoriteRouter);
-app.use(alertRouter);
-app.use(brandRouter);
-app.use(scrapingRouter);
-app.use(requestRouter);
-app.use(statRouter);
-app.use(stripeRouter);
+app.use("/api", authRouter);
+app.use("/api", categoryRouter);
+app.use("/api", productRouter);
+app.use("/api", favoriteRouter);
+app.use("/api", alertRouter);
+app.use("/api", brandRouter);
+app.use("/api", scrapingRouter);
+app.use("/api", requestRouter);
+app.use("/api", statRouter);
+app.use("/api", stripeRouter);
 // Error handler
 app.use(errorHandler);
 
