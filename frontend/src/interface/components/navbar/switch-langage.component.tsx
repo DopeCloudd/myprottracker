@@ -1,9 +1,8 @@
 import { Language } from "@/application/translate/Language";
 import France from "@/interface/assets/flags/fr.svg";
 import England from "@/interface/assets/flags/gb.svg";
-import { Box, ListItemIcon } from "@mui/material";
+import { Box, ListItemButton, ListItemIcon } from "@mui/material";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
@@ -63,8 +62,7 @@ const SwitchLangage = () => {
       }}
     >
       <List component="nav" aria-label="Device settings">
-        <ListItem
-          button
+        <ListItemButton
           id="lock-button"
           aria-haspopup="listbox"
           aria-controls="lock-menu"
@@ -79,7 +77,7 @@ const SwitchLangage = () => {
           >
             <img src={flags[selectedFlag]} alt={flags[selectedFlag]} />
           </ListItemIcon>
-        </ListItem>
+        </ListItemButton>
       </List>
       <Menu
         id="lock-menu"
