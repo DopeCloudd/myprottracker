@@ -3,7 +3,7 @@
     "jsx": "react",
     "target": "ES2020",
     "allowSyntheticDefaultImports": true,
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "baseUrl": "./src",
     "outDir": "./dist",
